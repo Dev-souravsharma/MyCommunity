@@ -3,5 +3,6 @@ const AppIcons = {
   logo: require('../../assets/Icons/logo.png'),
   password: require('../../assets/Icons/password.png'),
   mainLogo: require('../../assets/Icons/mainlogo.png'),
+  success: require('../../assets/Icons/check.png'),
 };
 export default AppIcons;

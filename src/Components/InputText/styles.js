@@ -17,12 +17,16 @@ const styles = StyleSheet.create({
   },
   inputText: {
     borderBottomColor: 'black',
-    width: '100%',
+    flex: 3,
     color: '#000',
   },
   icons: {
     width: 32,
     height: 32,
+  },
+  success: {
+    width: 24,
+    height: 24,
   },
 });
 export default styles;
