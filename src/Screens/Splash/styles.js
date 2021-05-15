@@ -1,4 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Dimensions} from 'react-native';
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -7,9 +9,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   coverImage: {
-    resizeMode: 'contain',
+    flex: 1,
+    resizeMode: 'cover',
     width: '100%',
-    height: '100%',
+    height: windowHeight,
   },
 });
 export default styles;

@@ -1,2 +1,3 @@
 import AppImages from './images';
-export {AppImages};
+import AppIcons from './icons';
+export {AppImages, AppIcons};
