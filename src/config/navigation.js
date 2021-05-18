@@ -10,6 +10,7 @@ import {AppIcons} from '../utils/Themes';
 const Stack = createStackNavigator();
 const StackLogin = createStackNavigator();
 const StackFeed = createStackNavigator();
+const StackEvents = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 // #A 20210516 SS - Screens
@@ -26,6 +27,14 @@ function NewsFeed() {
     <StackFeed.Navigator headerMode="none">
       <StackFeed.Screen name="NewsFeed" component={AppScreen.NewsFeed} />
     </StackFeed.Navigator>
+  );
+}
+
+function Events() {
+  return (
+    <StackEvents.Navigator headerMode="none">
+      <StackEvents.Screen name="Events" component={AppScreen.Events} />
+    </StackEvents.Navigator>
   );
 }
 
@@ -58,6 +67,15 @@ function MainDrawerNavigation() {
         options={{
           drawerIcon: ({focused}) => (
             <Image source={AppIcons.home} style={styles.icon} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Events"
+        component={Events}
+        options={{
+          drawerIcon: ({focused}) => (
+            <Image source={AppIcons.events} style={styles.icon} />
           ),
         }}
       />
