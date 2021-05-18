@@ -11,6 +11,7 @@ const Stack = createStackNavigator();
 const StackLogin = createStackNavigator();
 const StackFeed = createStackNavigator();
 const StackEvents = createStackNavigator();
+const StackProfile = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 // #A 20210516 SS - Screens
@@ -35,6 +36,13 @@ function Events() {
     <StackEvents.Navigator headerMode="none">
       <StackEvents.Screen name="Events" component={AppScreen.Events} />
     </StackEvents.Navigator>
+  );
+}
+function Profile() {
+  return (
+    <StackProfile.Navigator headerMode="none">
+      <StackProfile.Screen name="Profile" component={AppScreen.Profile} />
+    </StackProfile.Navigator>
   );
 }
 
@@ -76,6 +84,15 @@ function MainDrawerNavigation() {
         options={{
           drawerIcon: ({focused}) => (
             <Image source={AppIcons.events} style={styles.icon} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Profile"
+        component={Profile}
+        options={{
+          drawerIcon: ({focused}) => (
+            <Image source={AppIcons.profile} style={styles.icon} />
           ),
         }}
       />
