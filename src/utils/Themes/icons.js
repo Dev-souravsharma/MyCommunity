@@ -12,5 +12,10 @@ const AppIcons = {
   survey: require('../../assets/Icons/survey.png'),
   quickLinks: require('../../assets/Icons/quickLinks.png'),
   logout: require('../../assets/Icons/logout.png'),
+  back: require('../../assets/Icons/backicon.png'),
+  call: require('../../assets/Icons/call.png'),
+  community: require('../../assets/Icons/community.png'),
+  email: require('../../assets/Icons/email.png'),
+  location: require('../../assets/Icons/location.png'),
 };
 export default AppIcons;

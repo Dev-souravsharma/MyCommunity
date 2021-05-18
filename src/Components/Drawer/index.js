@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, Image} from 'react-native';
 import {
   DrawerContentScrollView,
+  DrawerItem,
   // DrawerItem,
   DrawerItemList,
 } from '@react-navigation/drawer';
@@ -23,6 +24,11 @@ const CustomDrawerContent = props => {
         </View>
       </View>
       <DrawerItemList {...props} />
+      <DrawerItem
+        label="Version 1.0"
+        inactiveTintColor="#eaeaea"
+        // style={{marginTop: 'auto', bottom: 0}}
+      />
     </DrawerContentScrollView>
   );
 };

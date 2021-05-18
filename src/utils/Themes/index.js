@@ -1,3 +1,4 @@
 import AppImages from './images';
 import AppIcons from './icons';
-export {AppImages, AppIcons};
+import AppColor from './colors';
+export {AppImages, AppIcons, AppColor};
