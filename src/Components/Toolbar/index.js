@@ -4,7 +4,7 @@ import styles from './styles';
 import AppIcons from '../../utils/Themes/icons';
 
 const Toolbar = ({navigation}) => {
-  console.log('Toolbar', navigation);
+  // console.log('Toolbar', navigation);
   return (
     <View style={styles.container}>
       <View style={styles.toolbar}>

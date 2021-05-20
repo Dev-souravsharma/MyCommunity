@@ -18,7 +18,7 @@ const CustomButton = props => {
         android_ripple={{borderless: false, color: '#0F0'}}
         style={styles.button}
         onPress={startActivity}>
-        <Text style={styles.title}>{props.title}</Text>
+        <Text style={styles.title}>{title}</Text>
       </Pressable>
     </View>
   );

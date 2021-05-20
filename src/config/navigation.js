@@ -12,6 +12,7 @@ const StackLogin = createStackNavigator();
 const StackFeed = createStackNavigator();
 const StackEvents = createStackNavigator();
 const StackProfile = createStackNavigator();
+const StackEditProfile = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 // #A 20210516 SS - Screens
@@ -45,12 +46,23 @@ function Profile() {
     </StackProfile.Navigator>
   );
 }
-
+function EditProfile() {
+  return (
+    <StackEditProfile.Navigator headerMode="none">
+      <StackEditProfile.Screen
+        name="EditProfile"
+        component={AppScreen.EditProfile}
+      />
+    </StackEditProfile.Navigator>
+  );
+}
 // #A 20210516 SS - Main Stack Navigation
 function MainStackNavigation() {
   return (
     <Stack.Navigator headerMode="none">
+      <Stack.Screen name="Splash" component={AppScreen.Splash} />
       <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="NewsFeeds" component={MainDrawerNavigation} />
     </Stack.Navigator>
   );

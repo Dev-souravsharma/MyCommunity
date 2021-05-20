@@ -42,12 +42,13 @@ const Profile = props => {
           detail="souravs8616106@gmail.com"
         />
         <ProfileDetail icon={AppIcons.call} detail="9034600670" />
-        <ProfileDetail
-          icon={AppIcons.community}
-          detail="souravs8616106@gmail.com"
-        />
+        <ProfileDetail icon={AppIcons.community} detail="My Community" />
         <View style={styles.button}>
-          <CustomButton title={'Edit Profile'} />
+          <CustomButton
+            title={'Edit Profile'}
+            navigate="EditProfile"
+            screen="EditProfile"
+          />
         </View>
       </View>
     </ScrollView>
