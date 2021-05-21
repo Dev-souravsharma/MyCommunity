@@ -17,5 +17,7 @@ const AppIcons = {
   community: require('../../assets/Icons/community.png'),
   email: require('../../assets/Icons/email.png'),
   location: require('../../assets/Icons/location.png'),
+  search: require('../../assets/Icons/search.png'),
+  calender: require('../../assets/Icons/calender.png'),
 };
 export default AppIcons;

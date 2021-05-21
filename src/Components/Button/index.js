@@ -11,7 +11,13 @@ const CustomButton = props => {
   function startActivity() {
     return navigation.navigate(navigate, {screen: screen});
   }
-
+  function valid() {
+    if (!props.onPress()) {
+      startActivity();
+    } else {
+      alert('Please enter username and password');
+    }
+  }
   return (
     <View style={styles.container}>
       <Pressable
