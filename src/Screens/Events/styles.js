@@ -30,6 +30,9 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 16,
   },
+  textInput: {
+    color: '#626262',
+  },
   eventContainer: {
     marginTop: 12,
     marginLeft: 16,
@@ -75,6 +78,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   flatList: {
+    flex: 1,
     marginBottom: 16,
   },
 });

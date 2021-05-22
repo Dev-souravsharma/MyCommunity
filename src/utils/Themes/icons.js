@@ -19,5 +19,7 @@ const AppIcons = {
   location: require('../../assets/Icons/location.png'),
   search: require('../../assets/Icons/search.png'),
   calender: require('../../assets/Icons/calender.png'),
+  glass: require('../../assets/Icons/glass.png'),
+  document: require('../../assets/Icons/document.png'),
 };
 export default AppIcons;
