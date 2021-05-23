@@ -67,8 +67,10 @@ const Events = props => {
   function foundData(array) {
     return array.event.includes(search);
   }
+
   const array = data.filter(foundData);
   console.log(array);
+
   return (
     <View style={styles.container}>
       <Toolbar navigation={props.navigation} />
@@ -99,10 +101,10 @@ const Events = props => {
             <Pressable
               onPress={() => {
                 props.navigation.navigate('EventDescription', {
-                  event: item.event,
-                  place: item.place,
+                  screen: 'EventDescription',
+                  params: {eventData: item},
                 });
-                // console.log(item.event);
+                console.log(item);
               }}>
               <EventView
                 title={item.event}
