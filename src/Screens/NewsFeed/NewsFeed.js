@@ -5,7 +5,7 @@ const NewsFeed = props => {
   console.log('Props Received', props);
   return (
     <View>
-      <Toolbar navigation={props.navigation} />
+      <Toolbar navigation={props.navigation} title="NewsFeed" />
       <Text>Hello Sourav</Text>
     </View>
   );

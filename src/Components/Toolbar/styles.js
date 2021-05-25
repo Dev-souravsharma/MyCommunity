@@ -21,5 +21,9 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
   },
+  heading: {
+    fontSize: 20,
+    color: '#000',
+  },
 });
 export default styles;

@@ -21,5 +21,6 @@ const AppIcons = {
   calender: require('../../assets/Icons/calender.png'),
   glass: require('../../assets/Icons/glass.png'),
   document: require('../../assets/Icons/document.png'),
+  forward: require('../../assets/Icons/forward.png'),
 };
 export default AppIcons;

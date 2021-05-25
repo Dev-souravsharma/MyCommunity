@@ -73,7 +73,7 @@ const Events = props => {
 
   return (
     <View style={styles.container}>
-      <Toolbar navigation={props.navigation} />
+      <Toolbar navigation={props.navigation} title="Events" />
       {/* #A 20210521 SS - Search View */}
       <View style={styles.searchContainer}>
         <View style={styles.search}>
