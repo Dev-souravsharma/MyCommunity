@@ -6,6 +6,7 @@ import Profile from './Profile';
 import EditProfile from './EditProfile';
 import EventDescription from './EventDescription';
 import Survey from './Survey';
+import SurveyDescription from './SurveyDescription';
 
 export {
   Splash,
@@ -16,4 +17,5 @@ export {
   EditProfile,
   EventDescription,
   Survey,
+  SurveyDescription,
 };

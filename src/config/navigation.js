@@ -15,6 +15,7 @@ const StackProfile = createStackNavigator();
 const StackEditProfile = createStackNavigator();
 const StackEventDescription = createStackNavigator();
 const StackSurvey = createStackNavigator();
+const StackSurveyDescription = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 // #A 20210516 SS - Screens
@@ -75,6 +76,16 @@ function Survey() {
     </StackSurvey.Navigator>
   );
 }
+function SurveyDescription() {
+  return (
+    <StackSurveyDescription.Navigator headerMode="none">
+      <StackSurveyDescription.Screen
+        name="SurveyDescription"
+        component={AppScreen.SurveyDescription}
+      />
+    </StackSurveyDescription.Navigator>
+  );
+}
 // #A 20210516 SS - Main Stack Navigation
 function MainStackNavigation() {
   return (
@@ -84,6 +95,7 @@ function MainStackNavigation() {
       <Stack.Screen name="EditProfile" component={EditProfile} />
       <Stack.Screen name="NewsFeeds" component={MainDrawerNavigation} />
       <Stack.Screen name="EventDescription" component={EventDescription} />
+      <Stack.Screen name="SurveyDescription" component={SurveyDescription} />
     </Stack.Navigator>
   );
 }

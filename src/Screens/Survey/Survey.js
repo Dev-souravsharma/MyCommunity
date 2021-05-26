@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, ScrollView, Pressable, Image, FlatList} from 'react-native';
+import {View, Text, Pressable, Image, FlatList} from 'react-native';
 import Toolbar from '../../Components/Toolbar';
 import {AppIcons} from '../../utils/Themes';
 import styles from './styles';
@@ -10,6 +10,7 @@ const data = [
     subtitle: 'This is Demo Survey 1',
     startDate: '2021-05-25 10:44 PM',
     endDate: '2021-05-26 2:44 PM',
+    status: 'true',
   },
   {
     id: 2,
@@ -17,6 +18,7 @@ const data = [
     subtitle: 'This is Demo Survey 1',
     startDate: '2021-05-25 8:44 PM',
     endDate: '2021-05-26 9:44 PM',
+    status: 'false',
   },
   {
     id: 3,
@@ -24,6 +26,7 @@ const data = [
     subtitle: 'This is Demo Survey 1',
     startDate: '2021-05-25 6:44 PM',
     endDate: '2021-05-26 7:44 PM',
+    status: 'true',
   },
   {
     id: 4,
@@ -31,6 +34,7 @@ const data = [
     subtitle: 'This is Demo Survey 1',
     startDate: '2021-05-25 7:44 PM',
     endDate: '2021-05-26 8:44 PM',
+    status: 'false',
   },
 ];
 const Survey = props => {
@@ -48,9 +52,12 @@ const Survey = props => {
             </View>
             <View style={styles.iconContainer}>
               <Pressable
-                android_ripple={{borderless: false, color: '#0F0'}}
+                android_ripple={{borderless: false, color: '#626262'}}
                 onPress={() => {
-                  props.navigation.navigate('Events');
+                  props.navigation.navigate('SurveyDescription', {
+                    screen: 'SurveyDescription',
+                    params: {data: item},
+                  });
                 }}>
                 <View style={styles.iconArea}>
                   <Image style={styles.icon} source={AppIcons.forward} />
