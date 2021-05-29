@@ -3,6 +3,7 @@ import {useState} from 'react';
 import {Image, ScrollView, Text, View} from 'react-native';
 import CustomButton from '../../Components/Button';
 import InputText from '../../Components/InputText';
+import {english} from '../../utils/Language';
 import {AppIcons} from '../../utils/Themes';
 import styles from './styles';
 import {isPassword, isUserName} from './Validation';
@@ -42,8 +43,8 @@ const Login = () => {
         </View>
 
         <InputText
-          placeholder="UserName"
-          title="Username"
+          placeholder={english.username}
+          title={english.username}
           icon={AppIcons.user}
           // successIcon={AppIcons.success}
           onTextChange={username}
@@ -52,8 +53,8 @@ const Login = () => {
         />
 
         <InputText
-          placeholder="Password"
-          title="Password"
+          placeholder={english.password}
+          title={english.password}
           icon={AppIcons.password}
           onTextChange={pass}
           onBlur={passwordValidate}
@@ -61,7 +62,7 @@ const Login = () => {
 
         <View style={styles.buttonContainer}>
           <CustomButton
-            title="LOG IN"
+            title={english.login}
             navigate="NewsFeeds"
             screen="NewsFeed"
             onPress={onSubmit}

@@ -22,5 +22,7 @@ const AppIcons = {
   glass: require('../../assets/Icons/glass.png'),
   document: require('../../assets/Icons/document.png'),
   forward: require('../../assets/Icons/forward.png'),
+  send: require('../../assets/Icons/send.png'),
+  add: require('../../assets/Icons/add.png'),
 };
 export default AppIcons;

@@ -12,6 +12,7 @@ import {AppImages, AppIcons} from '../../utils/Themes';
 import styles from './styles';
 import ProfileDetail from '../../Components/ProfileDetail';
 import CustomButton from '../../Components/Button';
+import {english} from '../../utils/Language';
 const Profile = props => {
   const navigation = useNavigation();
   // console.log('Navigation', navigation);
@@ -45,7 +46,7 @@ const Profile = props => {
         <ProfileDetail icon={AppIcons.community} detail="My Community" />
         <View style={styles.button}>
           <CustomButton
-            title={'Edit Profile'}
+            title={english.editProfile}
             navigate="EditProfile"
             screen="EditProfile"
           />

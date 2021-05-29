@@ -6,6 +6,7 @@ import {createDrawerNavigator} from '@react-navigation/drawer';
 import CustomDrawerContent from '../Components/Drawer';
 import {StyleSheet, Image} from 'react-native';
 import {AppIcons} from '../utils/Themes';
+import {english} from '../utils/Language';
 
 const Stack = createStackNavigator();
 const StackLogin = createStackNavigator();
@@ -16,6 +17,7 @@ const StackEditProfile = createStackNavigator();
 const StackEventDescription = createStackNavigator();
 const StackSurvey = createStackNavigator();
 const StackSurveyDescription = createStackNavigator();
+const StackJoinSurvey = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 // #A 20210516 SS - Screens
@@ -86,6 +88,16 @@ function SurveyDescription() {
     </StackSurveyDescription.Navigator>
   );
 }
+function JoinSurvey() {
+  return (
+    <StackJoinSurvey.Navigator headerMode="none">
+      <StackJoinSurvey.Screen
+        name="JoinSurvey"
+        component={AppScreen.JoinSurvey}
+      />
+    </StackJoinSurvey.Navigator>
+  );
+}
 // #A 20210516 SS - Main Stack Navigation
 function MainStackNavigation() {
   return (
@@ -96,6 +108,7 @@ function MainStackNavigation() {
       <Stack.Screen name="NewsFeeds" component={MainDrawerNavigation} />
       <Stack.Screen name="EventDescription" component={EventDescription} />
       <Stack.Screen name="SurveyDescription" component={SurveyDescription} />
+      <Stack.Screen name="JoinSurvey" component={JoinSurvey} />
     </Stack.Navigator>
   );
 }
@@ -114,7 +127,7 @@ function MainDrawerNavigation() {
         activeTintColor: 'transparent',
       }}>
       <Drawer.Screen
-        name="Home"
+        name={english.home}
         component={NewsFeed}
         options={{
           drawerIcon: ({focused}) => (
@@ -123,7 +136,7 @@ function MainDrawerNavigation() {
         }}
       />
       <Drawer.Screen
-        name="Events"
+        name={english.events}
         component={Events}
         options={{
           drawerIcon: ({focused}) => (
@@ -132,7 +145,7 @@ function MainDrawerNavigation() {
         }}
       />
       <Drawer.Screen
-        name="Profile"
+        name={english.profile}
         component={Profile}
         options={{
           drawerIcon: ({focused}) => (
@@ -141,7 +154,7 @@ function MainDrawerNavigation() {
         }}
       />
       <Drawer.Screen
-        name="Survey"
+        name={english.survey}
         component={Survey}
         options={{
           drawerIcon: ({focused}) => (
@@ -164,7 +177,7 @@ export default function Navigation() {
 const styles = StyleSheet.create({
   drawerStyle: {
     backgroundColor: '#37474F',
-    opacity: 0.9,
+    opacity: 1,
   },
   icon: {
     width: 30,

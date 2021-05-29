@@ -7,7 +7,7 @@ import EditProfile from './EditProfile';
 import EventDescription from './EventDescription';
 import Survey from './Survey';
 import SurveyDescription from './SurveyDescription';
-
+import JoinSurvey from './JoinSurvey';
 export {
   Splash,
   Login,
@@ -18,4 +18,5 @@ export {
   EventDescription,
   Survey,
   SurveyDescription,
+  JoinSurvey,
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, Pressable, Image, FlatList} from 'react-native';
 import Toolbar from '../../Components/Toolbar';
+import {english} from '../../utils/Language';
 import {AppIcons} from '../../utils/Themes';
 import styles from './styles';
 const data = [
@@ -41,7 +42,7 @@ const Survey = props => {
   //   console.log(props.navigation);
   return (
     <View>
-      <Toolbar navigation={props.navigation} title="Survey" />
+      <Toolbar navigation={props.navigation} title={english.survey} />
       <FlatList
         data={data}
         keyExtractor={item => item.id}

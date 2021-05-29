@@ -1,5 +1,7 @@
 import React from 'react';
 import {View, Text, Pressable, Image} from 'react-native';
+import Menu from '../../Components/Menu';
+import {english} from '../../utils/Language';
 import {AppIcons} from '../../utils/Themes';
 import styles from './styles';
 const SurveyDescription = props => {
@@ -7,7 +9,7 @@ const SurveyDescription = props => {
   return (
     <View style={styles.container}>
       {/* #A 20210526 SS - Menu Container Created */}
-      <View style={styles.menuContainer}>
+      {/* <View style={styles.menuContainer}>
         <View style={styles.iconPosition}>
           <Pressable
             onPress={() => {
@@ -20,9 +22,16 @@ const SurveyDescription = props => {
           <Text style={styles.title}>{title}</Text>
         </View>
         <View style={styles.iconPosition}>
-          <Image style={styles.backIcon} /* PASS ICON IF REQUIRED */ />
+          <Image style={styles.backIcon} />
         </View>
-      </View>
+      </View> */}
+      <Menu
+        background="#FFA000"
+        title={title}
+        goBack={() => {
+          props.navigation.goBack();
+        }}
+      />
 
       {/* #A 20210526 SS - Info Container Created */}
       <View style={styles.infoContainer}>
@@ -43,7 +52,10 @@ const SurveyDescription = props => {
         <SurveyButton
           status={status}
           onPress={() => {
-            alert('Waiting for Screens');
+            props.navigation.navigate('JoinSurvey', {
+              screen: 'JoinSurvey',
+              params: {title: title},
+            });
           }}
         />
       </View>
@@ -52,16 +64,12 @@ const SurveyDescription = props => {
 };
 
 // #A 20210526 SS - Handling Survey Button View
-function AttemptSurvey() {
+function AttemptSurvey(props) {
   return (
     <View style={styles.attemptSurvey}>
-      <Pressable
-        style={styles.attemptSurveyContainer}
-        onPress={() => {
-          alert('Waiting...');
-        }}>
+      <Pressable style={styles.attemptSurveyContainer} onPress={props.onPress}>
         <View>
-          <Text style={styles.surveyText}>Join Survey</Text>
+          <Text style={styles.surveyText}>{english.joinSurvey}</Text>
         </View>
       </Pressable>
     </View>
@@ -70,7 +78,7 @@ function AttemptSurvey() {
 function AttemptedSurvey() {
   return (
     <View style={styles.surveyAttempted}>
-      <Text style={styles.surveyText}>Attempted</Text>
+      <Text style={styles.surveyText}>{english.attemptedSurvey}</Text>
     </View>
   );
 }
@@ -79,7 +87,7 @@ function SurveyButton(props) {
   if (props.status === 'true') {
     return <AttemptedSurvey />;
   } else {
-    return <AttemptSurvey />;
+    return <AttemptSurvey onPress={props.onPress} />;
   }
 }
 export default SurveyDescription;

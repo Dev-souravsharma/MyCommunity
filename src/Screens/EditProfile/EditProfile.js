@@ -6,6 +6,7 @@ import styles from './styles';
 import {AppImages} from '../../utils/Themes';
 import InputText from '../../Components/InputText';
 import CustomButton from '../../Components/Button';
+import {english} from '../../utils/Language';
 const EditProfile = props => {
   const navigation = useNavigation();
   return (
@@ -20,7 +21,7 @@ const EditProfile = props => {
           </Pressable>
         </View>
         <View style={styles.titlePosition}>
-          <Text style={styles.title}>Edit Profile</Text>
+          <Text style={styles.title}>{english.editProfile}</Text>
         </View>
         <View style={styles.iconPosition}>
           <Image style={styles.backIcon} /* PASS ICON IF REQUIRED */ />
@@ -34,29 +35,47 @@ const EditProfile = props => {
               <Pressable
                 style={styles.upload}
                 android_ripple={{borderless: false, color: '#0F0'}}>
-                <Text style={styles.uploadText}>Upload Photo</Text>
+                <Text style={styles.uploadText}>{english.uploadPhoto}</Text>
               </Pressable>
             </View>
           </View>
         </View>
-        <UserDetails title="UserName" subTitle="Sourav Sharma" />
-        <UserDetails title="email" subTitle="Souravs8616106@gmail.com" />
+        <UserDetails title={english.username} subTitle="Sourav Sharma" />
+        <UserDetails
+          title={english.email}
+          subTitle="Souravs8616106@gmail.com"
+        />
         {/* #A 20210519 SS - TextInput */}
         <View style={styles.inputContainer}>
-          <InputText placeholder="First Name" title="First Name" />
-          <InputText placeholder="Last Name" title="Last Name" />
-          <InputText placeholder="Contact Number" title="Contact Number" />
-          <InputText placeholder="My Community" title="Community" />
-          <InputText placeholder="address" title="Street Address and City" />
+          <InputText
+            placeholder={english.firstName}
+            title={english.firstName}
+          />
+          <InputText placeholder={english.lastName} title={english.lastName} />
+          <InputText
+            placeholder={english.contactNumber}
+            title={english.contactNumber}
+          />
+          <InputText
+            placeholder={english.community}
+            title={english.community}
+          />
+          <InputText
+            placeholder={english.address}
+            title={english.streetAddress}
+          />
           <View style={styles.zipContainer}>
             <View style={styles.state}>
-              <InputText placeholder="State" title="State" />
+              <InputText placeholder={english.state} title={english.state} />
             </View>
             <View style={styles.zipCode}>
-              <InputText placeholder="Zip Code" title="Zip Code" />
+              <InputText
+                placeholder={english.zipCode}
+                title={english.zipCode}
+              />
             </View>
           </View>
-          <CustomButton title="Submit" />
+          <CustomButton title={english.submit} />
         </View>
       </ScrollView>
     </View>

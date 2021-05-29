@@ -1,5 +1,8 @@
 import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     paddingTop: 20,
@@ -29,6 +32,14 @@ const styles = StyleSheet.create({
   },
   dashboardTitle: {
     color: '#66BB6A',
+  },
+  versionContainer: {
+    padding: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  versionText: {
+    color: '#eaeaea',
   },
 });
 export default styles;

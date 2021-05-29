@@ -2,7 +2,6 @@ import React from 'react';
 import {View, Text, Image} from 'react-native';
 import {
   DrawerContentScrollView,
-  DrawerItem,
   // DrawerItem,
   DrawerItemList,
 } from '@react-navigation/drawer';
@@ -10,26 +9,26 @@ import {AppImages} from '../../utils/Themes';
 import styles from './styles';
 const CustomDrawerContent = props => {
   return (
-    <DrawerContentScrollView {...props}>
-      <View style={styles.container}>
-        <View style={styles.profileContainer}>
-          <Image source={AppImages.userProfile} style={styles.avtar} />
-          <View style={styles.profileName}>
-            <Text style={styles.title}>Sourav</Text>
-            <Text style={styles.subtitle}>1 Community(s)</Text>
+    <View style={styles.root}>
+      <DrawerContentScrollView {...props}>
+        <View style={styles.container}>
+          <View style={styles.profileContainer}>
+            <Image source={AppImages.userProfile} style={styles.avtar} />
+            <View style={styles.profileName}>
+              <Text style={styles.title}>Sourav</Text>
+              <Text style={styles.subtitle}>1 Community(s)</Text>
+            </View>
+          </View>
+          <View style={styles.dashboard}>
+            {/* <Text style={styles.dashboardTitle}>DASHBOARD</Text> */}
           </View>
         </View>
-        <View style={styles.dashboard}>
-          <Text style={styles.dashboardTitle}>DASHBOARD</Text>
-        </View>
+        <DrawerItemList {...props} />
+      </DrawerContentScrollView>
+      <View style={styles.versionContainer}>
+        <Text style={styles.versionText}>Version 1.0</Text>
       </View>
-      <DrawerItemList {...props} />
-      <DrawerItem
-        label="Version 1.0"
-        inactiveTintColor="#eaeaea"
-        // style={{marginTop: 'auto', bottom: 0}}
-      />
-    </DrawerContentScrollView>
+    </View>
   );
 };
 export default CustomDrawerContent;

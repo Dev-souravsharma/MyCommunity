@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {TextInput, View, Image, Text, FlatList, Pressable} from 'react-native';
 import Toolbar from '../../Components/Toolbar';
+import {english} from '../../utils/Language';
 import {AppIcons} from '../../utils/Themes';
 import styles from './styles';
 const data = [
@@ -73,7 +74,7 @@ const Events = props => {
 
   return (
     <View style={styles.container}>
-      <Toolbar navigation={props.navigation} title="Events" />
+      <Toolbar navigation={props.navigation} title={english.events} />
       {/* #A 20210521 SS - Search View */}
       <View style={styles.searchContainer}>
         <View style={styles.search}>
@@ -82,7 +83,7 @@ const Events = props => {
           </View>
           <View style={styles.searchInput}>
             <TextInput
-              placeholder="Filter Search"
+              placeholder={english.placeHolderFilterSearch}
               placeholderTextColor="#626262"
               style={styles.textInput}
               onChangeText={x => {
