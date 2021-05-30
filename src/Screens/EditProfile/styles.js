@@ -69,8 +69,6 @@ const styles = StyleSheet.create({
   userSubTitle: {
     color: 'black',
     fontWeight: '500',
-    marginLeft: 15,
-    marginRight: 15,
   },
   subTitleContainer: {
     justifyContent: 'space-evenly',
@@ -82,8 +80,6 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginBottom: 16,
-    marginLeft: 16,
-    marginRight: 16,
   },
   zipContainer: {
     flexDirection: 'row',
@@ -95,6 +91,12 @@ const styles = StyleSheet.create({
   zipCode: {
     flex: 1,
     marginLeft: 5,
+  },
+  buttonContainer: {
+    marginTop: 16,
+    marginBottom: 16,
+    marginLeft: 24,
+    marginRight: 24,
   },
 });
 

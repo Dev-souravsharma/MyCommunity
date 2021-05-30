@@ -4,7 +4,9 @@ import styles from './styles';
 const ProfileDetail = props => {
   return (
     <View style={styles.container}>
-      <Image source={props.icon} style={styles.icon} />
+      <View style={styles.iconContainer}>
+        <Image source={props.icon} style={styles.icon} />
+      </View>
       <View style={styles.detail}>
         <Text style={styles.title}>{props.detail}</Text>
         <Pressable>

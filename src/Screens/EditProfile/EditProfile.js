@@ -75,7 +75,9 @@ const EditProfile = props => {
               />
             </View>
           </View>
-          <CustomButton title={english.submit} />
+          <View style={styles.buttonContainer}>
+            <CustomButton title={english.submit} />
+          </View>
         </View>
       </ScrollView>
     </View>

@@ -36,7 +36,10 @@ const EventDescription = props => {
           </Pressable>
         </View>
         <EventDetail title={place} icon={AppIcons.location} />
-        <EventDetail title="Not Available" icon={AppIcons.document} />
+        <EventDetail
+          title="Description Not Available"
+          icon={AppIcons.document}
+        />
       </ScrollView>
     </View>
   );
@@ -46,9 +49,9 @@ const EventDetail = props => {
     <View style={styles.eventDetailContainer}>
       <View style={styles.eventDetailPosition}>
         <Image source={props.icon} style={styles.backIcon} />
-        <View style={styles.venueContainer}>
-          <Text style={styles.venue}>{props.title}</Text>
-        </View>
+      </View>
+      <View style={styles.venueContainer}>
+        <Text style={styles.venue}>{props.title}</Text>
       </View>
     </View>
   );

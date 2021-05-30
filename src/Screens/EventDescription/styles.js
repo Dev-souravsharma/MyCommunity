@@ -18,8 +18,7 @@ const styles = StyleSheet.create({
   eventTitle: {
     color: '#fff',
     margin: 10,
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 20,
   },
   eventSubTitle: {
     color: '#FFA000',
@@ -31,31 +30,35 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: '#626262',
-    padding: 32,
-    margin: 16,
+    padding: 8,
+    margin: 24,
     alignItems: 'center',
   },
   eventLogo: {
     width: 70,
     height: 70,
     borderRadius: 100,
-    marginTop: -67,
+    marginTop: -48,
   },
   backIconContainer: {
     position: 'absolute',
     margin: 16,
   },
   backIcon: {
-    width: 30,
-    height: 30,
+    width: 24,
+    height: 24,
     resizeMode: 'contain',
   },
   eventDetailContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
+    marginLeft: 16,
+    marginRight: 16,
+    marginTop: 16,
   },
   eventDetailPosition: {
-    flexDirection: 'row',
-    marginTop: 10,
+    flex: 1,
+    alignItems: 'flex-end',
   },
   mapText: {
     color: '#FFA000',
@@ -64,12 +67,12 @@ const styles = StyleSheet.create({
   venue: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#626262',
+    color: '#000',
   },
   venueContainer: {
-    justifyContent: 'center',
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: 16,
+    marginRight: 16,
+    flex: 3,
   },
 });
 export default styles;

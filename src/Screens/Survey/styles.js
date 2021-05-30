@@ -2,7 +2,7 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
+    // flexDirection: 'row',
     margin: 10,
     borderBottomWidth: 1,
   },
@@ -18,17 +18,19 @@ const styles = StyleSheet.create({
   iconContainer: {
     flex: 1,
     marginRight: 6,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-end',
   },
   icon: {
-    width: 20,
-    height: 20,
+    width: 12,
+    height: 12,
+    resizeMode: 'contain',
   },
   iconArea: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     padding: 10,
   },
 });

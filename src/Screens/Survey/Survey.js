@@ -48,23 +48,23 @@ const Survey = props => {
         keyExtractor={item => item.id}
         renderItem={({item}) => (
           <View style={styles.container}>
-            <View style={styles.titleContainer}>
-              <Text style={styles.title}>{item.title}</Text>
-            </View>
-            <View style={styles.iconContainer}>
-              <Pressable
-                android_ripple={{borderless: false, color: '#626262'}}
-                onPress={() => {
-                  props.navigation.navigate('SurveyDescription', {
-                    screen: 'SurveyDescription',
-                    params: {data: item},
-                  });
-                }}>
+            <Pressable
+              android_ripple={{borderless: false, color: '#626262'}}
+              onPress={() => {
+                props.navigation.navigate('SurveyDescription', {
+                  screen: 'SurveyDescription',
+                  params: {data: item},
+                });
+              }}>
+              <View style={styles.iconContainer}>
+                <View style={styles.titleContainer}>
+                  <Text style={styles.title}>{item.title}</Text>
+                </View>
                 <View style={styles.iconArea}>
                   <Image style={styles.icon} source={AppIcons.forward} />
                 </View>
-              </Pressable>
-            </View>
+              </View>
+            </Pressable>
           </View>
         )}
       />

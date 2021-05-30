@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Text, Button, FlatList} from 'react-native';
 import Menu from '../../Components/Menu';
 import english from '../../utils/Language/String';
 import CheckBox from '@react-native-community/checkbox';
@@ -18,8 +18,8 @@ const data = [
     question:
       'Should the board implement the parking passes for the community?',
     options: {
-      a: 'Yes',
-      b: 'No',
+      a: 'true',
+      b: 'false',
     },
   },
   {
@@ -32,7 +32,7 @@ const data = [
     },
   },
   {
-    id: 3,
+    id: 4,
     question:
       'should we learn react native , Android ,Flutter or Ios for mobile development',
     options: {
@@ -41,21 +41,26 @@ const data = [
     },
   },
 ];
-function MyCheckbox() {
-  return data.map(function (key, array) {
-    return (
-      <View>
-        <Text>{}</Text>
-      </View>
-    );
-  });
-}
+// function MyCheckbox() {
+//   return data.map(function (key, array) {
+//     return (
+//       <View>
+//         <Text>{}</Text>
+//       </View>
+//     );
+//   });
+// }
 const JoinSurvey = props => {
   const [position, changePosition] = useState(1);
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const {title} = props.route.params;
   const dataSize = (100 / (data.length - position + 1)).toFixed(2).toString();
   console.log(dataSize);
+  // Getting Checkbox Array@
+  const checkBoxArray = data.map(array => {
+    return array.options;
+  });
+  console.log(checkBoxArray[0]);
   return (
     <View style={styles.container}>
       {/* Menu */}
@@ -86,6 +91,12 @@ const JoinSurvey = props => {
         <View style={styles.questionContainer}>
           <Text style={styles.question}>{data[position - 1].question}</Text>
         </View>
+        {/* CheckBox  */}
+        {/* <FlatList
+          data={checkBoxArray}
+          // keyExtracator={item => item.id}
+          renderItem={({item}) => ()}
+        /> */}
         <View style={styles.checkBoxContainer}>
           <CheckBox
             tintColors={'#eaeaea'}
@@ -93,8 +104,7 @@ const JoinSurvey = props => {
             value={toggleCheckBox}
             onValueChange={newValue => setToggleCheckBox(newValue)}
           />
-          {/* <MyCheckbox /> */}
-          <Text>{data[position - 1].options.a}</Text>
+          <Text>{checkBoxArray[0].a}</Text>
         </View>
         <View style={styles.checkBoxContainer}>
           <CheckBox
@@ -103,9 +113,9 @@ const JoinSurvey = props => {
             value={toggleCheckBox}
             onValueChange={newValue => setToggleCheckBox(newValue)}
           />
-          {/* <MyCheckbox /> */}
-          <Text>{data[position - 1].options.b}</Text>
+          <Text>{checkBoxArray[0].b}</Text>
         </View>
+        {/* Button */}
         <View style={styles.nextButton}>
           {position > 1 && (
             <View>

@@ -2,23 +2,20 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginLeft: 16,
+    // backgroundColor: '#eaeaea',
+    padding: 8,
     marginRight: 16,
-    marginTop: 8,
-    marginBottom: 8,
-    backgroundColor: '#eaeaea',
-    padding: 10,
-    elevation: 8,
+    // elevation: 8,
   },
   detail: {
-    flex: 1,
     justifyContent: 'center',
+    flex: 3,
     marginLeft: 10,
   },
   icon: {
     resizeMode: 'contain',
-    width: 30,
-    height: 30,
+    width: 24,
+    height: 24,
   },
   title: {
     fontSize: 16,
@@ -27,6 +24,12 @@ const styles = StyleSheet.create({
   map: {
     color: 'orange',
     fontSize: 16,
+  },
+  iconContainer: {
+    // justifyContent: 'center',
+    marginRight: 8,
+    alignItems: 'flex-end',
+    flex: 1,
   },
 });
 export default styles;

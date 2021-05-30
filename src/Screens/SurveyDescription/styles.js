@@ -42,11 +42,11 @@ const styles = StyleSheet.create({
   },
   dateText: {
     fontWeight: 'bold',
-    flex: 1,
+    // backgroundColor: 'yellow',
   },
   date: {
     flex: 3,
-    marginLeft: 16,
+    // backgroundColor: 'red',
   },
   surveyButtonContainer: {
     backgroundColor: 'red',

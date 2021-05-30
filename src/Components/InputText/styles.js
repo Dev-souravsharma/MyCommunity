@@ -6,11 +6,11 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#616161',
-    paddingLeft: 32,
+    paddingLeft: 35,
     fontWeight: '500',
   },
   inputContainer: {
-    borderBottomWidth: 1,
+    // borderBottomWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomColor: '#616161',
@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
   inputText: {
     borderBottomColor: 'black',
     flex: 3,
+    borderBottomWidth: 1,
     color: '#000',
   },
   icons: {

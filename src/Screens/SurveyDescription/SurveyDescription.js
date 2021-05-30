@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Pressable, Image} from 'react-native';
 import Menu from '../../Components/Menu';
 import {english} from '../../utils/Language';
-import {AppIcons} from '../../utils/Themes';
+// import {AppIcons} from '../../utils/Themes';
 import styles from './styles';
 const SurveyDescription = props => {
   const {title, subtitle, startDate, endDate, status} = props.route.params.data;
@@ -38,11 +38,11 @@ const SurveyDescription = props => {
         <Text style={styles.infoDescription}>Description:</Text>
         <Text style={styles.description}>{subtitle}</Text>
         <View style={styles.dateContainer}>
-          <Text style={styles.dateText}>Start Date:</Text>
+          <Text style={styles.dateText}>Start Date: </Text>
           <Text style={styles.date}>{startDate}</Text>
         </View>
         <View style={styles.dateContainer}>
-          <Text style={styles.dateText}>End Date:</Text>
+          <Text style={styles.dateText}>End Date: z</Text>
           <Text style={styles.date}>{endDate}</Text>
         </View>
       </View>
