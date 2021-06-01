@@ -36,10 +36,17 @@ const styles = StyleSheet.create({
   versionContainer: {
     padding: 16,
     justifyContent: 'center',
-    alignItems: 'center',
+    marginLeft: 16,
   },
   versionText: {
     color: '#eaeaea',
   },
+  logoutIcon: {
+    width: 24,
+    height: 24,
+    marginLeft: 5,
+    resizeMode: 'contain',
+  },
+  logoutText: {color: '#fff'},
 });
 export default styles;

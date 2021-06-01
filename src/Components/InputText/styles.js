@@ -6,19 +6,21 @@ const styles = StyleSheet.create({
   },
   title: {
     color: '#616161',
-    paddingLeft: 35,
+    paddingLeft: 20,
     fontWeight: '500',
   },
   inputContainer: {
-    // borderBottomWidth: 1,
+    borderBottomWidth: 1,
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomColor: '#616161',
+    marginLeft: 16,
+    marginRight: 16,
   },
   inputText: {
     borderBottomColor: 'black',
     flex: 3,
-    borderBottomWidth: 1,
+    // borderBottomWidth: 1,
     color: '#000',
   },
   icons: {

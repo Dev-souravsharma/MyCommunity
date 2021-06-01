@@ -15,7 +15,7 @@ const InputText = props => {
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
       <View style={styles.inputContainer}>
-        <Image source={icon} style={styles.icons} />
+        {icon && <Image source={icon} style={styles.icons} />}
         <TextInput
           style={styles.inputText}
           placeholder={placeholder}

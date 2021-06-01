@@ -65,6 +65,7 @@ const Login = () => {
             title={english.login}
             navigate="NewsFeeds"
             screen="NewsFeed"
+            isLogin={true}
             onPress={onSubmit}
           />
         </View>

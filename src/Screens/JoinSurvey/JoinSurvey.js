@@ -8,37 +8,39 @@ const data = [
   {
     id: 1,
     question: 'Is this a question test for CC mobile application?',
-    options: {
-      a: 'Yes',
-      b: 'No',
-    },
+    options: [
+      {id: 1, ans: 'Yes', selected: false},
+      {id: 2, ans: 'No', selected: false},
+      {id: 3, ans: 'None', selected: false},
+    ],
   },
   {
     id: 2,
     question:
       'Should the board implement the parking passes for the community?',
-    options: {
-      a: 'true',
-      b: 'false',
-    },
+    options: [
+      {id: 1, ans: 'Yes', selected: false},
+      {id: 2, ans: 'No', selected: false},
+    ],
   },
   {
     id: 3,
     question:
       'should we learn react native , Android ,Flutter or Ios for mobile development',
-    options: {
-      a: 'Yes',
-      b: 'No',
-    },
+    options: [
+      {id: 1, ans: 'Yes', selected: false},
+      {id: 2, ans: 'No', selected: false},
+    ],
   },
   {
     id: 4,
     question:
       'should we learn react native , Android ,Flutter or Ios for mobile development',
-    options: {
-      a: 'Yes',
-      b: 'No',
-    },
+    options: [
+      {id: 1, ans: 'Yes', selected: false},
+      {id: 2, ans: 'No', selected: false},
+      {id: 3, ans: 'Nops', selected: false},
+    ],
   },
 ];
 // function MyCheckbox() {
@@ -53,14 +55,11 @@ const data = [
 const JoinSurvey = props => {
   const [position, changePosition] = useState(1);
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const [getIndex, setIndex] = useState(-1);
   const {title} = props.route.params;
   const dataSize = (100 / (data.length - position + 1)).toFixed(2).toString();
-  console.log(dataSize);
-  // Getting Checkbox Array@
-  const checkBoxArray = data.map(array => {
-    return array.options;
-  });
-  console.log(checkBoxArray[0]);
+  // console.log(data[0].options);
+  console.log('bool', toggleCheckBox);
   return (
     <View style={styles.container}>
       {/* Menu */}
@@ -92,21 +91,38 @@ const JoinSurvey = props => {
           <Text style={styles.question}>{data[position - 1].question}</Text>
         </View>
         {/* CheckBox  */}
-        {/* <FlatList
-          data={checkBoxArray}
-          // keyExtracator={item => item.id}
-          renderItem={({item}) => ()}
-        /> */}
-        <View style={styles.checkBoxContainer}>
-          <CheckBox
-            tintColors={'#eaeaea'}
-            disabled={false}
-            value={toggleCheckBox}
-            onValueChange={newValue => setToggleCheckBox(newValue)}
-          />
-          <Text>{checkBoxArray[0].a}</Text>
-        </View>
-        <View style={styles.checkBoxContainer}>
+        <FlatList
+          data={data[position - 1].options}
+          renderItem={({item, index}) => {
+            return (
+              <View style={styles.checkBoxContainer}>
+                <CheckBox
+                  tintColors={'#eaeaea'}
+                  disabled={false}
+                  value={toggleCheckBox}
+                  // onValueChange={newValue => {
+                  //   setIndex(index);
+                  //   setToggleCheckBox((newValue = index === getIndex));
+                  //   if (newValue === true) {
+                  //     setToggleCheckBox(false);
+                  //   }
+                  //   console.log(
+                  //     'Checkbox clicked',
+                  //     index,
+                  //     position - 1,
+                  //     newValue,
+                  //     item.ans,
+                  //   );
+                  // }}
+                />
+                <Text>{item.ans}</Text>
+              </View>
+            );
+          }}
+          // keyExtracator={index => index.toString()}
+        />
+
+        {/* <View style={styles.checkBoxContainer}>
           <CheckBox
             tintColors={'#eaeaea'}
             disabled={false}
@@ -114,7 +130,7 @@ const JoinSurvey = props => {
             onValueChange={newValue => setToggleCheckBox(newValue)}
           />
           <Text>{checkBoxArray[0].b}</Text>
-        </View>
+        </View> */}
         {/* Button */}
         <View style={styles.nextButton}>
           {position > 1 && (

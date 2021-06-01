@@ -30,5 +30,9 @@ const english = {
   home: 'Home',
 
   saveNext: 'Save & Next',
+
+  constantOpenCamera: 'Open Camera',
+  constantOpenGallery: 'Choose from Gallery',
+  constantCloseModal: 'Close',
 };
 export default english;

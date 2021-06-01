@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, View, Image, Pressable, ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import AppIcons from '../../utils/Themes/icons';
@@ -7,8 +7,13 @@ import {AppImages} from '../../utils/Themes';
 import InputText from '../../Components/InputText';
 import CustomButton from '../../Components/Button';
 import {english} from '../../utils/Language';
+import CustomModal from '../../Components/Modal';
 const EditProfile = props => {
+  const [visible, isVisible] = useState(false);
   const navigation = useNavigation();
+  function changeFlag(arr) {
+    return isVisible(arr);
+  }
   return (
     <View style={styles.container}>
       <View style={styles.menuContainer}>
@@ -33,12 +38,20 @@ const EditProfile = props => {
           <View style={styles.btnMargin}>
             <View style={styles.uploadContainer}>
               <Pressable
+                onPress={() => {
+                  isVisible(true);
+                }}
                 style={styles.upload}
                 android_ripple={{borderless: false, color: '#0F0'}}>
                 <Text style={styles.uploadText}>{english.uploadPhoto}</Text>
               </Pressable>
             </View>
           </View>
+          {/* Custom Modal  */}
+          <View>
+            <CustomModal flag={visible} change={changeFlag} />
+          </View>
+          {/*  */}
         </View>
         <UserDetails title={english.username} subTitle="Sourav Sharma" />
         <UserDetails

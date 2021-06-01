@@ -1,11 +1,13 @@
 import React from 'react';
 import {View, Text, Image} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   DrawerContentScrollView,
+  DrawerItem,
   // DrawerItem,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import {AppImages} from '../../utils/Themes';
+import {AppIcons, AppImages} from '../../utils/Themes';
 import styles from './styles';
 const CustomDrawerContent = props => {
   return (
@@ -24,6 +26,24 @@ const CustomDrawerContent = props => {
           </View>
         </View>
         <DrawerItemList {...props} />
+        <DrawerItem
+          style={styles.logout}
+          label="Logout"
+          labelStyle={styles.logoutText}
+          icon={() => {
+            return <Image style={styles.logoutIcon} source={AppIcons.logout} />;
+          }}
+          onPress={() => {
+            (async value => {
+              try {
+                await AsyncStorage.setItem('isAuth', 'false');
+              } catch (e) {
+                // saving error
+              }
+            })();
+            props.navigation.replace('Login');
+          }}
+        />
       </DrawerContentScrollView>
       <View style={styles.versionContainer}>
         <Text style={styles.versionText}>Version 1.0</Text>

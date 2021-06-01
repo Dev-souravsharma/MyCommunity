@@ -42,7 +42,7 @@ const SurveyDescription = props => {
           <Text style={styles.date}>{startDate}</Text>
         </View>
         <View style={styles.dateContainer}>
-          <Text style={styles.dateText}>End Date: z</Text>
+          <Text style={styles.dateText}>End Date: </Text>
           <Text style={styles.date}>{endDate}</Text>
         </View>
       </View>
