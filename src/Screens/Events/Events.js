@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {TextInput, View, Image, Text, FlatList, Pressable} from 'react-native';
+import Carousal from '../../Components/Carousal';
 import Toolbar from '../../Components/Toolbar';
 import {english} from '../../utils/Language';
-import {AppIcons} from '../../utils/Themes';
+import {AppIcons, AppImages} from '../../utils/Themes';
 import styles from './styles';
 const data = [
   {
@@ -60,7 +61,11 @@ const data = [
     date: '18 May 2021 , 8:00 PM',
   },
 ];
-
+const ImageData = [
+  {id: 1, image: AppImages.userProfile},
+  {id: 2, image: AppImages.userProfile},
+  {id: 3, image: AppImages.userProfile},
+];
 const Events = props => {
   // #A 20210521 SS -Search Functionality
   const [search, doSearch] = useState(' ');
@@ -93,7 +98,9 @@ const Events = props => {
           </View>
         </View>
       </View>
-
+      <View style={styles.imageCarousal}>
+        <Carousal data={ImageData} />
+      </View>
       <View style={styles.flatList}>
         <FlatList
           data={array}

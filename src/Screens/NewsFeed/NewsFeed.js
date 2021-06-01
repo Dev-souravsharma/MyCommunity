@@ -5,6 +5,7 @@ import Toolbar from '../../Components/Toolbar';
 import {english} from '../../utils/Language';
 import AppIcons from '../../utils/Themes/icons';
 import AppImages from '../../utils/Themes/images';
+import ImagePicker from 'react-native-image-crop-picker';
 import styles from './styles';
 const data = [
   {
@@ -56,6 +57,35 @@ const NewsFeed = props => {
   function changeFlag(arr) {
     return isVisible(arr);
   }
+
+  const openCamera = () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+    })
+      .then(image => {
+        // setImage(image.path);
+        console.log(image);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+  const openGallery = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+    })
+      .then(image => {
+        // setImage(image.path);
+        console.log(image);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
   return (
     <View style={styles.container}>
       {/* #A 20210526 SS - Header */}
@@ -139,7 +169,12 @@ const NewsFeed = props => {
         </View>
       </View>
       {/* Modal */}
-      <CustomModal flag={visible} change={changeFlag} />
+      <CustomModal
+        flag={visible}
+        change={changeFlag}
+        openCamera={openCamera}
+        openGallery={openGallery}
+      />
       {/*  */}
     </View>
   );

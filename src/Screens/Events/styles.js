@@ -78,8 +78,14 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   flatList: {
-    flex: 1,
+    flex: 3,
     marginBottom: 16,
+  },
+  imageCarousal: {
+    flex: 3,
+  },
+  imageContainer: {
+    // height: '100%',
   },
 });
 export default styles;

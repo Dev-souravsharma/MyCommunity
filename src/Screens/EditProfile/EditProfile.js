@@ -8,12 +8,45 @@ import InputText from '../../Components/InputText';
 import CustomButton from '../../Components/Button';
 import {english} from '../../utils/Language';
 import CustomModal from '../../Components/Modal';
+import ImagePicker from 'react-native-image-crop-picker';
+
 const EditProfile = props => {
   const [visible, isVisible] = useState(false);
+  const [useImage, setImage] = useState(
+    'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
+  );
   const navigation = useNavigation();
   function changeFlag(arr) {
     return isVisible(arr);
   }
+  const openCamera = () => {
+    ImagePicker.openCamera({
+      width: 300,
+      height: 400,
+      cropping: true,
+    })
+      .then(image => {
+        setImage(image.path);
+        // console.log(image);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
+  const openGallery = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+    })
+      .then(image => {
+        setImage(image.path);
+        // console.log(image);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  };
   return (
     <View style={styles.container}>
       <View style={styles.menuContainer}>
@@ -34,7 +67,7 @@ const EditProfile = props => {
       </View>
       <ScrollView>
         <View style={styles.user}>
-          <Image source={AppImages.userProfile} style={styles.userProfile} />
+          <Image source={{uri: useImage}} style={styles.userProfile} />
           <View style={styles.btnMargin}>
             <View style={styles.uploadContainer}>
               <Pressable
@@ -49,7 +82,12 @@ const EditProfile = props => {
           </View>
           {/* Custom Modal  */}
           <View>
-            <CustomModal flag={visible} change={changeFlag} />
+            <CustomModal
+              flag={visible}
+              change={changeFlag}
+              openCamera={openCamera}
+              openGallery={openGallery}
+            />
           </View>
           {/*  */}
         </View>
