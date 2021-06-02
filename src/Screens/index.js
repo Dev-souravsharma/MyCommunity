@@ -8,6 +8,7 @@ import EventDescription from './EventDescription';
 import Survey from './Survey';
 import SurveyDescription from './SurveyDescription';
 import JoinSurvey from './JoinSurvey';
+import Notification from './Notification';
 export {
   Splash,
   Login,
@@ -19,4 +20,5 @@ export {
   Survey,
   SurveyDescription,
   JoinSurvey,
+  Notification,
 };

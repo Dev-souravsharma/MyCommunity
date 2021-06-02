@@ -34,5 +34,7 @@ const english = {
   constantOpenCamera: 'Open Camera',
   constantOpenGallery: 'Choose from Gallery',
   constantCloseModal: 'Close',
+
+  constantNotification: 'Notification',
 };
 export default english;

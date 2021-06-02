@@ -4,7 +4,7 @@ import Menu from '../../Components/Menu';
 import english from '../../utils/Language/String';
 import CheckBox from '@react-native-community/checkbox';
 import styles from './styles';
-const data = [
+let data = [
   {
     id: 1,
     question: 'Is this a question test for CC mobile application?',
@@ -19,8 +19,8 @@ const data = [
     question:
       'Should the board implement the parking passes for the community?',
     options: [
-      {id: 1, ans: 'Yes', selected: false},
-      {id: 2, ans: 'No', selected: false},
+      {id: 4, ans: 'Yes', selected: false},
+      {id: 5, ans: 'No', selected: false},
     ],
   },
   {
@@ -28,8 +28,8 @@ const data = [
     question:
       'should we learn react native , Android ,Flutter or Ios for mobile development',
     options: [
-      {id: 1, ans: 'Yes', selected: false},
-      {id: 2, ans: 'No', selected: false},
+      {id: 6, ans: 'Yes', selected: false},
+      {id: 7, ans: 'No', selected: false},
     ],
   },
   {
@@ -37,32 +37,23 @@ const data = [
     question:
       'should we learn react native , Android ,Flutter or Ios for mobile development',
     options: [
-      {id: 1, ans: 'Yes', selected: false},
-      {id: 2, ans: 'No', selected: false},
-      {id: 3, ans: 'Nops', selected: false},
+      {id: 8, ans: 'Yes', selected: false},
+      {id: 9, ans: 'No', selected: false},
+      {id: 10, ans: 'Nops', selected: false},
     ],
   },
 ];
-// function MyCheckbox() {
-//   return data.map(function (key, array) {
-//     return (
-//       <View>
-//         <Text>{}</Text>
-//       </View>
-//     );
-//   });
-// }
 const JoinSurvey = props => {
   const [position, changePosition] = useState(1);
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
-  const [getIndex, setIndex] = useState(-1);
+  const [optionsData, setOptionsData] = useState(data);
+  const [flag, setFlag] = useState(false);
   const {title} = props.route.params;
   const dataSize = (100 / (data.length - position + 1)).toFixed(2).toString();
-  // console.log(data[0].options);
-  console.log('bool', toggleCheckBox);
   return (
     <View style={styles.container}>
       {/* Menu */}
+
       <Menu
         title={title}
         background="#FFA000"
@@ -90,47 +81,32 @@ const JoinSurvey = props => {
         <View style={styles.questionContainer}>
           <Text style={styles.question}>{data[position - 1].question}</Text>
         </View>
+
         {/* CheckBox  */}
         <FlatList
-          data={data[position - 1].options}
+          data={optionsData[position - 1].options}
+          extraData={toggleCheckBox}
           renderItem={({item, index}) => {
             return (
               <View style={styles.checkBoxContainer}>
                 <CheckBox
                   tintColors={'#eaeaea'}
-                  disabled={false}
-                  value={toggleCheckBox}
-                  // onValueChange={newValue => {
-                  //   setIndex(index);
-                  //   setToggleCheckBox((newValue = index === getIndex));
-                  //   if (newValue === true) {
-                  //     setToggleCheckBox(false);
-                  //   }
-                  //   console.log(
-                  //     'Checkbox clicked',
-                  //     index,
-                  //     position - 1,
-                  //     newValue,
-                  //     item.ans,
-                  //   );
-                  // }}
+                  value={item.selected}
+                  onValueChange={newValue => {
+                    setToggleCheckBox(!toggleCheckBox);
+                    let list = optionsData;
+                    list[position - 1].options[index].selected = newValue;
+                    // console.log(list[position - 1].options[0].selected);
+                    setOptionsData(list);
+                  }}
                 />
                 <Text>{item.ans}</Text>
               </View>
             );
           }}
-          // keyExtracator={index => index.toString()}
+          keyExtractor={item => item.id}
         />
 
-        {/* <View style={styles.checkBoxContainer}>
-          <CheckBox
-            tintColors={'#eaeaea'}
-            disabled={false}
-            value={toggleCheckBox}
-            onValueChange={newValue => setToggleCheckBox(newValue)}
-          />
-          <Text>{checkBoxArray[0].b}</Text>
-        </View> */}
         {/* Button */}
         <View style={styles.nextButton}>
           {position > 1 && (

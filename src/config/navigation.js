@@ -18,6 +18,7 @@ const StackEventDescription = createStackNavigator();
 const StackSurvey = createStackNavigator();
 const StackSurveyDescription = createStackNavigator();
 const StackJoinSurvey = createStackNavigator();
+const StackNotification = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 // #A 20210516 SS - Screens
@@ -98,6 +99,16 @@ function JoinSurvey() {
     </StackJoinSurvey.Navigator>
   );
 }
+function Notification() {
+  return (
+    <StackNotification.Navigator headerMode="none">
+      <StackNotification.Screen
+        name="Notification"
+        component={AppScreen.Notification}
+      />
+    </StackNotification.Navigator>
+  );
+}
 // #A 20210516 SS - Main Stack Navigation
 function MainStackNavigation() {
   return (
@@ -159,6 +170,15 @@ function MainDrawerNavigation() {
         options={{
           drawerIcon: ({focused}) => (
             <Image source={AppIcons.survey} style={styles.icon} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name={english.constantNotification}
+        component={Notification}
+        options={{
+          drawerIcon: ({focused}) => (
+            <Image source={AppIcons.notification} style={styles.icon} />
           ),
         }}
       />

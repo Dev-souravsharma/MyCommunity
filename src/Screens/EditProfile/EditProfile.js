@@ -3,7 +3,7 @@ import {Text, View, Image, Pressable, ScrollView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import AppIcons from '../../utils/Themes/icons';
 import styles from './styles';
-import {AppImages} from '../../utils/Themes';
+// import {AppImages} from '../../utils/Themes';
 import InputText from '../../Components/InputText';
 import CustomButton from '../../Components/Button';
 import {english} from '../../utils/Language';
