@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useState} from 'react';
-import {Image, ScrollView, Text, View} from 'react-native';
+import {Image, ScrollView, View} from 'react-native';
 import {connect} from 'react-redux';
 import CustomButton from '../../Components/Button';
 import {bindActionCreators} from 'redux';
@@ -10,14 +10,13 @@ import {english} from '../../utils/Language';
 import {AppIcons} from '../../utils/Themes';
 import styles from './styles';
 import {isPassword, isUserName} from './Validation';
-import loginReducer from '../../redux/Reducer/loginData';
-const Login = props => {
+const Login = ({loginData}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  // console.log(props);
   useEffect(() => {
-    login();
-  }, []);
+    loginData();
+  }, [loginData]);
   const username = data => {
     setEmail(data);
   };
@@ -33,7 +32,7 @@ const Login = props => {
   function passwordValidate() {
     let isValid = isPassword(password.length);
     if (!isValid) {
-      alert('Password length should be 4');
+      // alert('Password length should be 4');
     }
   }
   function onSubmit() {
@@ -49,7 +48,6 @@ const Login = props => {
         <View style={styles.imageContainer}>
           <Image source={AppIcons.mainLogo} style={styles.mainlogo} />
         </View>
-
         <InputText
           placeholder={english.username}
           title={english.username}
@@ -83,7 +81,7 @@ const Login = props => {
 };
 
 const mapStateToProps = state => {
-  console.log('State is', state.loginData);
+  console.log('----------------------------\nState is\n', state.loginData);
   return {
     userdata: state.loginData,
   };
@@ -91,7 +89,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: bindActionCreators(login, dispatch),
+    loginData: bindActionCreators(login, dispatch),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

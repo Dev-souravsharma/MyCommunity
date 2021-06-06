@@ -22,26 +22,26 @@ export const loginError = error => {
   };
 };
 
-// // Profile
-// export const profileRequest = () => {
-//   return {
-//     type: actionTypes.PROFILE_REQUEST,
-//   };
-// };
+// Profile
+export const profileRequest = () => {
+  return {
+    type: actionTypes.PROFILE_REQUEST,
+  };
+};
 
-// export const profileSuccess = users => {
-//   return {
-//     type: actionTypes.PROFILE_SUCCESS,
-//     payload: users,
-//   };
-// };
+export const profileSuccess = users => {
+  return {
+    type: actionTypes.PROFILE_SUCCESS,
+    payload: users,
+  };
+};
 
-// export const profileError = error => {
-//   return {
-//     type: actionTypes.PROFILE_FAILURE,
-//     payload: error,
-//   };
-// };
+export const profileError = error => {
+  return {
+    type: actionTypes.PROFILE_FAILURE,
+    payload: error,
+  };
+};
 
 // Login actionCreator
 export function login() {
@@ -58,12 +58,34 @@ export function login() {
     dispatch(loginRequest());
     RestClient.postRequest('login', data)
       .then(result => {
-        console.log('Action Creator Result', result);
+        // console.log('Action Creator Result', result);
         dispatch(loginSuccess(result));
       })
       .catch(error => {
-        console.log(error);
+        // console.log(error);
         dispatch(loginError(error));
+      });
+  };
+}
+
+// Profile actionCreator
+export function getProfile() {
+  const profileData = {
+    userId: 269,
+  };
+  return dispatch => {
+    dispatch(profileRequest());
+    RestClient.getProfile('getuserprofile', profileData)
+      .then(result => {
+        console.log(
+          '------------------------------',
+          '\n Profile Data',
+          result,
+        );
+        dispatch(profileSuccess(result));
+      })
+      .catch(error => {
+        dispatch(profileError(error));
       });
   };
 }

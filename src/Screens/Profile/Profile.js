@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   ImageBackground,
   ScrollView,
@@ -13,9 +13,16 @@ import styles from './styles';
 import ProfileDetail from '../../Components/ProfileDetail';
 import CustomButton from '../../Components/Button';
 import {english} from '../../utils/Language';
-const Profile = props => {
+import {getProfile} from '../../redux/actions/action';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+const Profile = ({profileData}) => {
   const navigation = useNavigation();
   // console.log('Navigation', navigation);
+  useEffect(() => {
+    // console.log(props);
+    profileData();
+  }, [profileData]);
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -55,4 +62,17 @@ const Profile = props => {
     </ScrollView>
   );
 };
-export default Profile;
+
+const mapStateToProps = state => {
+  console.log('Profile State  is\n', state.profileData);
+  return {
+    userdata: state.profileData,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    profileData: bindActionCreators(getProfile, dispatch),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
