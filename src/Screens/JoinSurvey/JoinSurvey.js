@@ -48,8 +48,8 @@ const JoinSurvey = props => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [optionsData, setOptionsData] = useState(data);
   const [flag, setFlag] = useState(false);
-  const [getIndex, setIndex] = useState(-1);
-  const [count, setCount] = useState(0);
+  // const [getIndex, setIndex] = useState(-1);
+  // const [count, setCount] = useState(0);
   const {title} = props.route.params;
   const dataSize = (100 / (data.length - position + 1)).toFixed(2).toString();
   console.log(flag);
@@ -63,7 +63,7 @@ const JoinSurvey = props => {
         goBack={() => {
           if (position - 1 === 0) {
             props.navigation.goBack();
-            setFlag(false);
+            setFlag(!flag);
           } else {
             changePosition(position - 1);
             setFlag(true);
@@ -94,7 +94,7 @@ const JoinSurvey = props => {
         {/* CheckBox  */}
         <FlatList
           data={optionsData[position - 1].options}
-          extraData={(toggleCheckBox, getIndex)}
+          extraData={toggleCheckBox}
           renderItem={({item, index}) => {
             return (
               <View style={styles.checkBoxContainer}>
@@ -107,25 +107,26 @@ const JoinSurvey = props => {
                     list[position - 1].options[index].selected = newValue;
                     console.log(list[position - 1].options);
                     setOptionsData(list);
-                    setIndex(index);
+                    // setIndex(index);
                     // Set Logic Here
-                    console.log(index, getIndex);
+                    // console.log(index, getIndex);
                     setFlag(!toggleCheckBox);
-                    list[position - 1].options.forEach(function (val, i, arr) {
-                      if (arr[i].selected === true) {
-                        // console.log('Data Hey');
+                    // list[position - 1].options.forEach(function (val, i, arr) {
+                    //   if (arr[i].selected === true) {
+                    //     // console.log('Data Hey');
+                    //     setFlag(true);
+                    //   }
+
+                    // });
+                    list[position - 1].options.map((val, i, arr) => {
+                      if (i === index) {
+                        console.log(i, index);
+                        val.selected = true;
                         setFlag(true);
+                      } else {
+                        val.selected = false;
                       }
-                      // if (arr[i].selected === false) {
-                      //   setCount(count + 1);
-                      // }
                     });
-                    // console.log(list[position - 1].options.length);
-                    // console.log(count);
-                    // if (list[position - 1].options.length === count) {
-                    //   setFlag(false);
-                    //   alert('Hrllo');
-                    // }
                   }}
                 />
                 <Text>{item.ans}</Text>
@@ -155,7 +156,7 @@ const JoinSurvey = props => {
                 disabled={!flag}
                 onPress={() => {
                   changePosition(position + 1);
-                  setFlag(false);
+                  setFlag(!flag);
                 }}
                 title={english.saveNext}
                 color="green"

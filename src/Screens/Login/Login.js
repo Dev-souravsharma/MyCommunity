@@ -1,15 +1,23 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useState} from 'react';
 import {Image, ScrollView, Text, View} from 'react-native';
+import {connect} from 'react-redux';
 import CustomButton from '../../Components/Button';
+import {bindActionCreators} from 'redux';
 import InputText from '../../Components/InputText';
+import {login} from '../../redux/actions/action';
 import {english} from '../../utils/Language';
 import {AppIcons} from '../../utils/Themes';
 import styles from './styles';
 import {isPassword, isUserName} from './Validation';
-const Login = () => {
+import loginReducer from '../../redux/Reducer/loginData';
+const Login = props => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    login();
+  }, []);
   const username = data => {
     setEmail(data);
   };
@@ -73,4 +81,17 @@ const Login = () => {
     </ScrollView>
   );
 };
-export default Login;
+
+const mapStateToProps = state => {
+  console.log('State is', state.loginData);
+  return {
+    userdata: state.loginData,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    login: bindActionCreators(login, dispatch),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
