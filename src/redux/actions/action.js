@@ -69,9 +69,9 @@ export function login() {
 }
 
 // Profile actionCreator
-export function getProfile() {
+export function getProfile(id) {
   const profileData = {
-    userId: 269,
+    userId: id,
   };
   return dispatch => {
     dispatch(profileRequest());

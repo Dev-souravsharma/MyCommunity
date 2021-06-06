@@ -6,6 +6,7 @@ import {
   View,
   Image,
   Pressable,
+  ActivityIndicator,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {AppImages, AppIcons} from '../../utils/Themes';
@@ -16,12 +17,15 @@ import {english} from '../../utils/Language';
 import {getProfile} from '../../redux/actions/action';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-const Profile = ({profileData}) => {
+const Profile = ({profileData, userdata}) => {
   const navigation = useNavigation();
   // console.log('Navigation', navigation);
+  console.log(userdata.userdata.detail);
+  const profile = userdata.userdata.detail;
+  const id = 269;
   useEffect(() => {
     // console.log(props);
-    profileData();
+    profileData(id);
   }, [profileData]);
   return (
     <ScrollView>
@@ -30,9 +34,8 @@ const Profile = ({profileData}) => {
           style={styles.imageContainer}
           source={AppImages.profileImage}>
           <Image source={AppImages.userProfile} style={styles.user} />
-          <Text style={styles.userName}>Sourav Sharma</Text>
+          <Text style={styles.userName}>{profile.username}</Text>
         </ImageBackground>
-
         <Pressable
           style={styles.iconContainer}
           onPress={() => {
@@ -42,15 +45,15 @@ const Profile = ({profileData}) => {
         </Pressable>
         <ProfileDetail
           icon={AppIcons.location}
-          detail="Street,Georgia,Chandigarh,11223344"
+          detail={profile.address}
           map="View on Map"
         />
+        <ProfileDetail icon={AppIcons.email} detail={profile.email} />
+        <ProfileDetail icon={AppIcons.call} detail={profile.phone} />
         <ProfileDetail
-          icon={AppIcons.email}
-          detail="souravs8616106@gmail.com"
+          icon={AppIcons.community}
+          detail={profile.communityName}
         />
-        <ProfileDetail icon={AppIcons.call} detail="9034600670" />
-        <ProfileDetail icon={AppIcons.community} detail="My Community" />
         <View style={styles.button}>
           <CustomButton
             title={english.editProfile}
