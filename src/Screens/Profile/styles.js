@@ -32,5 +32,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginBottom: 16,
   },
+  progress: {flex: 1, justifyContent: 'center', alignSelf: 'center'},
 });
 export default styles;

@@ -77,11 +77,11 @@ export function getProfile(id) {
     dispatch(profileRequest());
     RestClient.getProfile('getuserprofile', profileData)
       .then(result => {
-        console.log(
-          '------------------------------',
-          '\n Profile Data',
-          result,
-        );
+        // console.log(
+        //   '------------------------------',
+        //   '\n Profile Data',
+        //   result,
+        // );
         dispatch(profileSuccess(result));
       })
       .catch(error => {

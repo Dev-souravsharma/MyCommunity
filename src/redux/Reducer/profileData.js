@@ -1,6 +1,6 @@
 import {actionTypes} from '../actions/actionTypes';
 const PROFILE_INIT_STATE = {
-  data: {
+  userdata: {
     loading: true,
     userdata: {},
     error: '',
