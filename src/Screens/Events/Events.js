@@ -1,7 +1,18 @@
-import React, {useState} from 'react';
-import {TextInput, View, Image, Text, FlatList, Pressable} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  TextInput,
+  View,
+  Image,
+  Text,
+  FlatList,
+  Pressable,
+  ActivityIndicator,
+} from 'react-native';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import Carousal from '../../Components/Carousal';
 import Toolbar from '../../Components/Toolbar';
+import {getEvent} from '../../redux/actions/action';
 import {english} from '../../utils/Language';
 import {AppIcons, AppImages} from '../../utils/Themes';
 import styles from './styles';
@@ -66,63 +77,89 @@ const ImageData = [
   {id: 2, image: AppImages.userProfile},
   {id: 3, image: AppImages.userProfile},
 ];
-const Events = props => {
+const Events = ({eventData, navigation, userdata}) => {
   // #A 20210521 SS -Search Functionality
   const [search, doSearch] = useState(' ');
-  console.log(search);
+  const [loading, setLoading] = useState(true);
+  console.log('Loading data', userdata.loading);
+  const load = userdata.loading;
+  useEffect(() => {
+    // console.log(props);
+    setLoading(load);
+    // setProfileData(userdata);
+  }, [load]);
+  useEffect(() => {
+    eventData();
+  }, [eventData]);
+  // const eventList = userdata.userdata.eventsList;
+  // console.log('Event List is -->', eventList);
   function foundData(array) {
     return array.event.includes(search);
   }
-
   const array = data.filter(foundData);
   console.log(array);
-
+  if (loading === true) {
+    console.log('Loading...');
+  }
+  if (loading === false) {
+    console.log('Hrrray!!!');
+  }
   return (
     <View style={styles.container}>
-      <Toolbar navigation={props.navigation} title={english.events} />
-      {/* #A 20210521 SS - Search View */}
-      <View style={styles.searchContainer}>
-        <View style={styles.search}>
-          <View style={styles.searchIconPosition}>
-            <Image source={AppIcons.search} style={styles.searchIcon} />
+      {loading === true && (
+        <View style={styles.progress}>
+          {loading && <ActivityIndicator size="large" color="#00ff00" />}
+        </View>
+      )}
+      {loading === false && (
+        <View style={styles.container}>
+          <Toolbar navigation={navigation} title={english.events} />
+          {/* #A 20210521 SS - Search View */}
+          <View style={styles.searchContainer}>
+            <View style={styles.search}>
+              <View style={styles.searchIconPosition}>
+                <Image source={AppIcons.search} style={styles.searchIcon} />
+              </View>
+              <View style={styles.searchInput}>
+                <TextInput
+                  placeholder={english.placeHolderFilterSearch}
+                  placeholderTextColor="#626262"
+                  style={styles.textInput}
+                  onChangeText={x => {
+                    doSearch(x);
+                  }}
+                />
+              </View>
+            </View>
           </View>
-          <View style={styles.searchInput}>
-            <TextInput
-              placeholder={english.placeHolderFilterSearch}
-              placeholderTextColor="#626262"
-              style={styles.textInput}
-              onChangeText={x => {
-                doSearch(x);
+          <View style={styles.imageCarousal}>
+            <Carousal data={ImageData} />
+          </View>
+          <View style={styles.flatList}>
+            <FlatList
+              data={userdata.userdata.eventsList}
+              keyExtractor={item => item.eventId}
+              renderItem={({item}) => {
+                return (
+                  <Pressable
+                    onPress={() => {
+                      navigation.navigate('EventDescription', {
+                        screen: 'EventDescription',
+                        params: {eventData: item},
+                      });
+                    }}>
+                    <EventView
+                      title={item.title}
+                      subtitle={item.venue}
+                      date={item.event_date}
+                    />
+                  </Pressable>
+                );
               }}
             />
           </View>
         </View>
-      </View>
-      <View style={styles.imageCarousal}>
-        <Carousal data={ImageData} />
-      </View>
-      <View style={styles.flatList}>
-        <FlatList
-          data={array}
-          keyExtractor={item => item.id}
-          renderItem={({item}) => (
-            <Pressable
-              onPress={() => {
-                props.navigation.navigate('EventDescription', {
-                  screen: 'EventDescription',
-                  params: {eventData: item},
-                });
-                console.log(item);
-              }}>
-              <EventView
-                title={item.event}
-                subtitle={item.place}
-                date={item.date}
-              />
-            </Pressable>
-          )}
-        />
-      </View>
+      )}
     </View>
   );
 };
@@ -144,4 +181,17 @@ const EventView = props => {
     </View>
   );
 };
-export default Events;
+const mapStateToProps = state => {
+  console.log('Event State  is\n', state);
+  // console.log('Event State 2nd is\n', state.eventData.userdata);
+  return {
+    userdata: state.eventData,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    eventData: bindActionCreators(getEvent, dispatch),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Events);

@@ -17,7 +17,7 @@ export const loginSuccess = users => {
 
 export const loginError = error => {
   return {
-    type: actionTypes.LOGIN_SUCCESS,
+    type: actionTypes.LOGIN_FAILURE,
     payload: error,
   };
 };
@@ -43,16 +43,38 @@ export const profileError = error => {
   };
 };
 
+// Login
+export const eventRequest = () => {
+  return {
+    type: actionTypes.EVENT_REQUEST,
+  };
+};
+
+export const eventSuccess = users => {
+  // console.log('User LoginSuccess', users);
+  return {
+    type: actionTypes.EVENT_SUCCESS,
+    payload: users,
+  };
+};
+
+export const eventError = error => {
+  return {
+    type: actionTypes.EVENT_FAILURE,
+    payload: error,
+  };
+};
+
 // Login actionCreator
-export function login() {
+export function login(email, password) {
   const data = {
     deviceType: 'iphone',
-
-    password: 'demo',
+    // Password is demo
+    password: password,
 
     tokenId: '71fbcd5350c87994c0cd847013039c027a26c68584fe6ec6dd2dc4b38f432ff7',
 
-    username: 'demouser',
+    username: email,
   };
   return dispatch => {
     dispatch(loginRequest());
@@ -86,6 +108,25 @@ export function getProfile(id) {
       })
       .catch(error => {
         dispatch(profileError(error));
+      });
+  };
+}
+
+// EVENT action creator
+export function getEvent() {
+  const eventData = {
+    offset: 0,
+    userId: 269,
+  };
+  return dispatch => {
+    dispatch(eventRequest());
+    RestClient.getEvents('geteventslist', eventData)
+      .then(result => {
+        console.log('ACTION GETEVENT', result);
+        dispatch(eventSuccess(result));
+      })
+      .catch(error => {
+        dispatch(eventError(error));
       });
   };
 }

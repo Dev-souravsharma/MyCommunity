@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Image, FlatList} from 'react-native';
 import styles from './styles';
 const Carousal = props => {
-  console.log(props.data);
+  // console.log(props.data);
   return (
     <View>
       <FlatList

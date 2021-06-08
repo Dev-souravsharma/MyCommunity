@@ -17,16 +17,19 @@ const CustomButton = props => {
       console.log(e);
     }
   };
+
   function startActivity() {
     if (props.isLogin) {
       storeData();
       return navigation.navigate(navigate, {screen: screen});
-    } else {
-      return navigation.navigate(navigate, {screen: screen});
     }
   }
+
   function valid() {
-    if (!props.onPress()) {
+    if (props.isProfile) {
+      return navigation.navigate(navigate, {screen: screen});
+    }
+    if (!props.onPress() && props.isLogin) {
       startActivity();
     } else {
       alert('Please enter username and password');
@@ -37,7 +40,7 @@ const CustomButton = props => {
       <Pressable
         android_ripple={{borderless: false, color: '#0F0'}}
         style={styles.button}
-        onPress={startActivity}>
+        onPress={valid}>
         <Text style={styles.title}>{title}</Text>
       </Pressable>
     </View>

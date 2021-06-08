@@ -23,7 +23,7 @@ const Profile = ({profileData, userdata}) => {
   // const [profile_data, setProfileData] = useState({});
   // console.log(userdata.userdata.detail);
   // console.log(userdata.userdata);
-  console.log('Sourav', userdata);
+  // console.log('Sourav', userdata);
   const load = userdata.loading;
   const id = 269;
   useEffect(() => {
@@ -36,12 +36,12 @@ const Profile = ({profileData, userdata}) => {
     profileData(id);
   }, [profileData]);
   // console.log('FFFFFF', profile_data);
-  if (loading === true) {
-    console.log('Loading...');
-  }
-  if (loading === false) {
-    console.log('SOFJDSFH Hurray!!!');
-  }
+  // if (loading === true) {
+  //   console.log('Loading...');
+  // }
+  // if (loading === false) {
+  //   console.log('SOFJDSFH Hurray!!!');
+  // }
   return (
     <View style={styles.container}>
       {loading === true && (
@@ -89,6 +89,7 @@ const Profile = ({profileData, userdata}) => {
                 title={english.editProfile}
                 navigate="EditProfile"
                 screen="EditProfile"
+                isProfile={true}
               />
             </View>
           </View>

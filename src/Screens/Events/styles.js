@@ -87,5 +87,10 @@ const styles = StyleSheet.create({
   imageContainer: {
     // height: '100%',
   },
+  progress: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
 });
 export default styles;

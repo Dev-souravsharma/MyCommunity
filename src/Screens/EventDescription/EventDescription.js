@@ -10,8 +10,8 @@ import {
 import {AppIcons, AppImages} from '../../utils/Themes';
 import styles from './styles';
 const EventDescription = props => {
-  const {date, event, place} = props.route.params.eventData;
-  console.log('Receiving Params', date);
+  const {event_date, title, venue, eventDesc} = props.route.params.eventData;
+  // console.log('Receiving Params', date);
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -23,8 +23,8 @@ const EventDescription = props => {
         <View style={styles.cardContainer}>
           <View style={styles.card}>
             <Image source={AppIcons.glass} style={styles.eventLogo} />
-            <Text style={styles.eventTitle}>{event}</Text>
-            <Text style={styles.eventSubTitle}>{date}</Text>
+            <Text style={styles.eventTitle}>{title}</Text>
+            <Text style={styles.eventSubTitle}>{event_date}</Text>
           </View>
         </View>
         <View style={styles.backIconContainer}>
@@ -35,9 +35,9 @@ const EventDescription = props => {
             <Image style={styles.backIcon} source={AppIcons.back} />
           </Pressable>
         </View>
-        <EventDetail title={place} icon={AppIcons.location} />
+        <EventDetail title={venue} icon={AppIcons.location} />
         <EventDetail
-          title="Description Not Available"
+          title={eventDesc === '' && 'Description not avaliable'}
           icon={AppIcons.document}
         />
       </ScrollView>

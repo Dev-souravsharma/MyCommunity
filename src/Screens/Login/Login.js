@@ -10,13 +10,13 @@ import {english} from '../../utils/Language';
 import {AppIcons} from '../../utils/Themes';
 import styles from './styles';
 import {isPassword, isUserName} from './Validation';
-const Login = ({loginData}) => {
+const Login = ({loginData, userdata}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // console.log(props);
+  console.log('Login userData', userdata);
   useEffect(() => {
-    loginData();
-  }, [loginData]);
+    // loginData(email, password);
+  }, []);
   const username = data => {
     setEmail(data);
   };
@@ -62,6 +62,7 @@ const Login = ({loginData}) => {
           placeholder={english.password}
           title={english.password}
           icon={AppIcons.password}
+          value={password}
           onTextChange={pass}
           onBlur={passwordValidate}
         />
