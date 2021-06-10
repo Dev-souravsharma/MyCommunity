@@ -21,7 +21,12 @@ const CustomButton = props => {
   function startActivity() {
     if (props.isLogin) {
       storeData();
-      return navigation.navigate(navigate, {screen: screen});
+      props.loginApi();
+      console.log('Login Button Clicked');
+      // props.checkClick(true);
+      // if (props.status === 1) {
+      // return navigation.navigate(navigate, {screen: screen});
+      // }
     }
   }
 

@@ -43,7 +43,7 @@ export const profileError = error => {
   };
 };
 
-// Login
+// EVENT
 export const eventRequest = () => {
   return {
     type: actionTypes.EVENT_REQUEST,
@@ -65,6 +65,49 @@ export const eventError = error => {
   };
 };
 
+// NEWSFEED
+export const newsFeedRequest = () => {
+  return {
+    type: actionTypes.NEWSFEED_REQUEST,
+  };
+};
+
+export const newsFeedSuccess = users => {
+  // console.log('User LoginSuccess', users);
+  return {
+    type: actionTypes.NEWSFEED_SUCCESS,
+    payload: users,
+  };
+};
+
+export const newsFeedError = error => {
+  return {
+    type: actionTypes.NEWSFEED_FAILURE,
+    payload: error,
+  };
+};
+
+// Profile
+export const editProfileRequest = () => {
+  return {
+    type: actionTypes.EDIT_PROFILE_REQUEST,
+  };
+};
+
+export const editProfileSuccess = users => {
+  return {
+    type: actionTypes.EDIT_PROFILE_SUCCESS,
+    payload: users,
+  };
+};
+
+export const editProfileError = error => {
+  return {
+    type: actionTypes.EDIT_PROFILE_FAILURE,
+    payload: error,
+  };
+};
+
 // Login actionCreator
 export function login(email, password) {
   const data = {
@@ -73,7 +116,7 @@ export function login(email, password) {
     password: password,
 
     tokenId: '71fbcd5350c87994c0cd847013039c027a26c68584fe6ec6dd2dc4b38f432ff7',
-
+    // demouser
     username: email,
   };
   return dispatch => {
@@ -127,6 +170,71 @@ export function getEvent() {
       })
       .catch(error => {
         dispatch(eventError(error));
+      });
+  };
+}
+
+// EVENT action creator
+export function getNewsFeed() {
+  const newsFeedData = {
+    authToken: 'v1Rtu@lMan@G3r',
+    authUser: 'virtualManager',
+    community_id: 268,
+    limit: '',
+    offset: '',
+    user_id: 269,
+  };
+  return dispatch => {
+    dispatch(newsFeedRequest());
+    RestClient.getNewsFeed('news_feed_listing', newsFeedData)
+      .then(result => {
+        console.log('ACTION NewsFeed DATA', result);
+        dispatch(newsFeedSuccess(result));
+      })
+      .catch(error => {
+        dispatch(newsFeedError(error));
+      });
+  };
+}
+
+// Edit-Profile action creator
+// Login actionCreator
+export function getEditProfile(
+  firstName,
+  lastName,
+  phone,
+  address,
+  city,
+  communityId,
+  state,
+  password,
+  baseImage,
+  email,
+) {
+  const editProfileData = {
+    address: address,
+    city: city,
+    communityId: communityId,
+    email: email,
+    firstName: firstName,
+    '&quot;is_allow_push_notification&quot': 1,
+    lastName: lastName,
+    phone: phone,
+    state: state,
+    userId: 269,
+    userImage: baseImage,
+    zipcode: 112233456,
+  };
+  return dispatch => {
+    dispatch(editProfileRequest());
+    RestClient.getEditProfile('login', editProfileData)
+      .then(result => {
+        // console.log('Action Creator Result', result);
+        dispatch(editProfileSuccess(result));
+      })
+      .catch(error => {
+        // console.log(error);
+        dispatch(editProfileError(error));
       });
   };
 }

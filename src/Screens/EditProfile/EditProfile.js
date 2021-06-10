@@ -24,10 +24,11 @@ const EditProfile = props => {
       width: 300,
       height: 400,
       cropping: true,
+      includeBase64: true,
     })
       .then(image => {
-        setImage(image.path);
-        // console.log(image);
+        // setImage(image.path);
+        console.log('Base64=>', image);
       })
       .catch(e => {
         console.log(e);
@@ -127,7 +128,7 @@ const EditProfile = props => {
             </View>
           </View>
           <View style={styles.buttonContainer}>
-            <CustomButton title={english.submit} />
+            <CustomButton title={english.submit} isEditProfile={true} />
           </View>
         </View>
       </ScrollView>

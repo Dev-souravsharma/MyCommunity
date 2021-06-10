@@ -93,17 +93,19 @@ const Events = ({eventData, navigation, userdata}) => {
   }, [eventData]);
   // const eventList = userdata.userdata.eventsList;
   // console.log('Event List is -->', eventList);
+
+  // FIlter Function
   function foundData(array) {
     return array.event.includes(search);
   }
   const array = data.filter(foundData);
-  console.log(array);
-  if (loading === true) {
-    console.log('Loading...');
-  }
-  if (loading === false) {
-    console.log('Hrrray!!!');
-  }
+  // console.log(array);
+  // if (loading === true) {
+  //   console.log('Loading...');
+  // }
+  // if (loading === false) {
+  //   console.log('Hrrray!!!');
+  // }
   return (
     <View style={styles.container}>
       {loading === true && (

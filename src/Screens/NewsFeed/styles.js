@@ -5,8 +5,8 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 8,
-    marginTop: 8,
-    marginBottom: 8,
+    // marginTop: 8,
+    // marginBottom: 8,
   },
   footerContainer: {
     height: 50,
@@ -35,9 +35,9 @@ const styles = StyleSheet.create({
     color: '#000',
   },
   userContainer: {
-    backgroundColor: '#eaeaea',
+    backgroundColor: '#fff',
     flexDirection: 'row',
-    elevation: 5,
+    // elevation: 5,
   },
   userProfile: {
     width: 50,
@@ -70,8 +70,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     elevation: 0,
   },
-  comment: {
-    margin: 16,
+  // comment: {
+  //   margin: 16,
+  // },
+  progress: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  post: {
+    color: '#626262',
+    padding: 16,
   },
 });
 export default styles;

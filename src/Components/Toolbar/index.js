@@ -14,8 +14,12 @@ const Toolbar = props => {
           }}>
           <Image source={AppIcons.menu} style={styles.icon} />
         </Pressable>
-        {/* <Image source={AppIcons.mainLogo} style={styles.icon} /> */}
-        <Text style={styles.heading}>{props.title}</Text>
+        {props.isNewsFeed === true && (
+          <Image source={AppIcons.mainLogo} style={styles.icon} />
+        )}
+        {props.isNewsFeed === true || (
+          <Text style={styles.heading}>{props.title}</Text>
+        )}
         <Image style={styles.icon} />
       </View>
     </View>

@@ -4,6 +4,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#eaeaea',
   },
+  contain: {
+    flex: 1,
+  },
+  progress: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     marginTop: 30,
     paddingLeft: 16,

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useState} from 'react';
-import {Image, ScrollView, View} from 'react-native';
+import {Image, ScrollView, View, ActivityIndicator} from 'react-native';
 import {connect} from 'react-redux';
 import CustomButton from '../../Components/Button';
 import {bindActionCreators} from 'redux';
@@ -10,19 +10,31 @@ import {english} from '../../utils/Language';
 import {AppIcons} from '../../utils/Themes';
 import styles from './styles';
 import {isPassword, isUserName} from './Validation';
-const Login = ({loginData, userdata}) => {
+const Login = ({loginData, userdata, navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // const [isClicked, setClick] = useState(false);
+  const [status, setStatus] = useState(0);
+  const [load, setLoading] = useState(false);
   console.log('Login userData', userdata);
-  useEffect(() => {
-    // loginData(email, password);
-  }, []);
+  // useEffect(() => {
+  //   loginData(email, password);
+  //   setClick(false);
+  //   console.log('State refreshed-----', isClicked);
+  // }, [isClicked]);
+
   const username = data => {
     setEmail(data);
   };
+  // checking status
+  // console.log('status', userdata.userdata.status);
   const pass = data => {
     setPassword(data);
   };
+  // Check Click
+  // const checkClick = flag => {
+  //   setClick(flag);
+  // };
   function userNameValidate() {
     let isValid = isUserName(email.length);
     if (!isValid) {
@@ -42,42 +54,74 @@ const Login = ({loginData, userdata}) => {
       return false;
     }
   }
+  function getLoginData() {
+    loginData(email, password);
+    // setLoading(userdata.loading);
+    if (userdata.loading === false && userdata.userdata.status === 1) {
+      // setStatus(userdata.userdata.status);
+      // }
+      navigation.replace('NewsFeeds', {screen: 'NewsFeed'});
+    }
+    if (userdata.loading === false && userdata.userdata.status === 0) {
+      // setStatus(userdata.userdata.status);
+      // }
+      alert('Check email and password');
+    }
+  }
+  if (userdata.loading === true) {
+    console.log('Loading');
+  }
+  console.log('Status is', status);
   return (
-    <ScrollView style={styles.scrollContainer}>
-      <View style={styles.container}>
-        <View style={styles.imageContainer}>
-          <Image source={AppIcons.mainLogo} style={styles.mainlogo} />
+    <View style={styles.contain}>
+      {load === true && (
+        <View style={styles.progress}>
+          <ActivityIndicator size="large" color="#00ff00" />
         </View>
-        <InputText
-          placeholder={english.username}
-          title={english.username}
-          icon={AppIcons.user}
-          // successIcon={AppIcons.success}
-          onTextChange={username}
-          value={email}
-          onBlur={userNameValidate}
-        />
+      )}
+      {load === false && (
+        <View style={styles.contain}>
+          <ScrollView style={styles.scrollContainer}>
+            <View style={styles.container}>
+              <View style={styles.imageContainer}>
+                <Image source={AppIcons.mainLogo} style={styles.mainlogo} />
+              </View>
+              <InputText
+                placeholder={english.username}
+                title={english.username}
+                icon={AppIcons.user}
+                // successIcon={AppIcons.success}
+                onTextChange={username}
+                value={email}
+                onBlur={userNameValidate}
+              />
 
-        <InputText
-          placeholder={english.password}
-          title={english.password}
-          icon={AppIcons.password}
-          value={password}
-          onTextChange={pass}
-          onBlur={passwordValidate}
-        />
+              <InputText
+                placeholder={english.password}
+                title={english.password}
+                icon={AppIcons.password}
+                value={password}
+                onTextChange={pass}
+                onBlur={passwordValidate}
+              />
 
-        <View style={styles.buttonContainer}>
-          <CustomButton
-            title={english.login}
-            navigate="NewsFeeds"
-            screen="NewsFeed"
-            isLogin={true}
-            onPress={onSubmit}
-          />
+              <View style={styles.buttonContainer}>
+                <CustomButton
+                  title={english.login}
+                  navigate="NewsFeeds"
+                  screen="NewsFeed"
+                  isLogin={true}
+                  onPress={onSubmit}
+                  loginApi={getLoginData}
+                  // checkClick={checkClick}
+                  // status={userdata.userdata.status}
+                />
+              </View>
+            </View>
+          </ScrollView>
         </View>
-      </View>
-    </ScrollView>
+      )}
+    </View>
   );
 };
 

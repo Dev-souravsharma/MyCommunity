@@ -1,12 +1,25 @@
-import React, {useState} from 'react';
-import {Image, Pressable, Text, TextInput, View, FlatList} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {
+  Image,
+  Pressable,
+  Text,
+  TextInput,
+  View,
+  FlatList,
+  ActivityIndicator,
+} from 'react-native';
 import CustomModal from '../../Components/Modal';
 import Toolbar from '../../Components/Toolbar';
 import {english} from '../../utils/Language';
 import AppIcons from '../../utils/Themes/icons';
 import AppImages from '../../utils/Themes/images';
 import ImagePicker from 'react-native-image-crop-picker';
+
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
 import styles from './styles';
+import {getNewsFeed} from '../../redux/actions/action';
 const data = [
   {
     id: 1,
@@ -51,9 +64,25 @@ const data = [
     comments: 'Hey nice phone',
   },
 ];
-const NewsFeed = props => {
+const NewsFeed = ({navigation, newsFeedData, userdata}) => {
   const [visible, isVisible] = useState(false);
-  // console.log('Props Received', visible);
+  const [loading, setLoading] = useState(true);
+  // console.log('NewsFeed UI Received', userdata.userdata.payload);
+  let file = null;
+  let userImage = null;
+  let media_url = null;
+  let isImage = null;
+  let profile_url = null;
+  // console.log('Loading data', userdata.loading);
+  const load = userdata.loading;
+  useEffect(() => {
+    // console.log(props);
+    setLoading(load);
+    // setProfileData(userdata);
+  }, [load]);
+  useEffect(() => {
+    newsFeedData();
+  }, [newsFeedData]);
   function changeFlag(arr) {
     return isVisible(arr);
   }
@@ -86,97 +115,165 @@ const NewsFeed = props => {
         console.log(e);
       });
   };
+
+  // Loading Status
+  if (loading === true) {
+    console.log('Loading...');
+  }
+  if (loading === false) {
+    media_url = userdata.userdata.payload.media_url;
+    profile_url = userdata.userdata.payload.user_image;
+  }
   return (
     <View style={styles.container}>
-      {/* #A 20210526 SS - Header */}
-      <View>
-        <Toolbar navigation={props.navigation} title="NewsFeed" />
-      </View>
+      {loading === true && (
+        <View style={styles.progress}>
+          {loading && <ActivityIndicator size="large" color="#00ff00" />}
+        </View>
+      )}
+      {loading === false && (
+        <View style={styles.container}>
+          {/* #A 20210526 SS - Header */}
+          <View>
+            <Toolbar navigation={navigation} isNewsFeed={true} />
+          </View>
 
-      {/* #A 20210526 SS - Main */}
-      <FlatList
-        data={data}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <View style={styles.mainContainer}>
-            <View style={styles.userInfo}>
-              <View style={styles.userContainer}>
-                <View>
-                  <Image
-                    source={AppImages.userProfile}
-                    style={styles.userProfile}
-                  />
+          {/* #A 20210526 SS - Main */}
+          <FlatList
+            // data={data}
+            data={userdata.userdata.payload.listing}
+            keyExtractor={item => item.id}
+            renderItem={({item}) => {
+              if (item.file != null) {
+                file = item.file;
+              }
+              if (item.user_image === null) {
+                isImage = false;
+                // 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200';
+              } else {
+                isImage = true;
+                userImage = item.user_image;
+              }
+              // console.log('File', file);
+              // console.log('ThumbNail url', media_url + '' + file);
+              return (
+                <View style={styles.mainContainer}>
+                  <View style={styles.userInfo}>
+                    <View style={styles.userContainer}>
+                      {isImage && (
+                        <View>
+                          <Image
+                            source={{uri: `${profile_url}${userImage}`}}
+                            style={styles.userProfile}
+                          />
+                        </View>
+                      )}
+                      {!isImage && (
+                        <View>
+                          <Image
+                            source={{
+                              uri: 'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
+                            }}
+                            style={styles.userProfile}
+                          />
+                        </View>
+                      )}
+                      <View style={styles.userDetail}>
+                        <Text style={styles.title}>
+                          {item.first_name + ' ' + item.last_name}
+                        </Text>
+                        <Text style={styles.subTitle}>{item.created_on}</Text>
+                      </View>
+                    </View>
+                    {item.post !== '' && (
+                      <View style={styles.userDetail}>
+                        <Text style={styles.post}>{item.post}</Text>
+                      </View>
+                    )}
+                    {item.file !== null && (
+                      <View style={styles.imageContainer}>
+                        <Image
+                          source={{uri: `${media_url}${file}`}}
+                          style={styles.image}
+                        />
+                      </View>
+                    )}
+                    <View>
+                      {/* <View style={[styles.userContainer, styles.background]}>
+                        <View>
+                          <Image
+                            source={AppImages.userProfile}
+                            style={styles.userProfile}
+                          />
+                        </View>
+                        <View style={styles.userDetail}>
+                          <Text style={styles.title}>{item.username}</Text>
+                          <Text style={styles.subTitle}>{item.date}</Text>
+                        </View>
+                      </View> */}
+                      <View style={styles.comment}>
+                        <Text>{item.comments}</Text>
+                      </View>
+                    </View>
+                  </View>
                 </View>
-                <View style={styles.userDetail}>
-                  <Text style={styles.title}>{item.username}</Text>
-                  <Text style={styles.subTitle}>{item.date}</Text>
-                </View>
-              </View>
-              {item.image && (
-                <View style={styles.imageContainer}>
-                  <Image source={item.image} style={styles.image} />
-                </View>
-              )}
+              );
+            }}
+          />
+
+          {/* #A 20210526 SS - Footer */}
+          <View style={styles.footerContainer}>
+            <View style={styles.footer}>
               <View>
-                <View style={[styles.userContainer, styles.background]}>
-                  <View>
-                    <Image
-                      source={AppImages.userProfile}
-                      style={styles.userProfile}
-                    />
-                  </View>
-                  <View style={styles.userDetail}>
-                    <Text style={styles.title}>{item.username}</Text>
-                    <Text style={styles.subTitle}>{item.date}</Text>
-                  </View>
-                </View>
-                <View style={styles.comment}>
-                  <Text>{item.comments}</Text>
-                </View>
+                <Pressable
+                  onPress={() => {
+                    isVisible(true);
+                  }}>
+                  <Image style={styles.icon} source={AppIcons.add} />
+                </Pressable>
+              </View>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  placeholder={english.placeHolderWriteHere}
+                  style={styles.input}
+                  placeholderTextColor="#626262"
+                />
+              </View>
+
+              <View>
+                <Pressable
+                  onPress={() => {
+                    console.warn('Clicked');
+                  }}>
+                  <Image style={styles.icon} source={AppIcons.send} />
+                </Pressable>
               </View>
             </View>
           </View>
-        )}
-      />
-
-      {/* #A 20210526 SS - Footer */}
-      <View style={styles.footerContainer}>
-        <View style={styles.footer}>
-          <View>
-            <Pressable
-              onPress={() => {
-                isVisible(true);
-              }}>
-              <Image style={styles.icon} source={AppIcons.add} />
-            </Pressable>
-          </View>
-          <View style={styles.inputContainer}>
-            <TextInput
-              placeholder={english.placeHolderWriteHere}
-              style={styles.input}
-              placeholderTextColor="#626262"
-            />
-          </View>
-
-          <View>
-            <Pressable
-              onPress={() => {
-                console.warn('Clicked');
-              }}>
-              <Image style={styles.icon} source={AppIcons.send} />
-            </Pressable>
-          </View>
+          {/* Modal */}
+          <CustomModal
+            flag={visible}
+            change={changeFlag}
+            openCamera={openCamera}
+            openGallery={openGallery}
+          />
+          {/*  */}
         </View>
-      </View>
-      {/* Modal */}
-      <CustomModal
-        flag={visible}
-        change={changeFlag}
-        openCamera={openCamera}
-        openGallery={openGallery}
-      />
-      {/*  */}
+      )}
     </View>
   );
 };
-export default NewsFeed;
+const mapStateToProps = state => {
+  // console.log('Event State  is\n', state);
+  // console.log('Event State 2nd is\n', state.eventData.userdata);
+  return {
+    userdata: state.newsFeed,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    newsFeedData: bindActionCreators(getNewsFeed, dispatch),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(NewsFeed);
