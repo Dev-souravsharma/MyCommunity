@@ -4,11 +4,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  progress: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   carousalContainer: {
-    flex: 3,
+    // flex: 3,
+    height: 250,
   },
   eventContainer: {
-    flex: 5,
+    // flex: 5,
   },
   eventItems: {
     flexDirection: 'row',

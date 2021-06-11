@@ -32,12 +32,18 @@ const CustomButton = props => {
 
   function valid() {
     if (props.isProfile) {
-      return navigation.navigate(navigate, {screen: screen});
+      return navigation.navigate(navigate, {
+        screen: screen,
+        params: {eventData: props.profileData},
+      });
     }
     if (!props.onPress() && props.isLogin) {
       startActivity();
-    } else {
-      alert('Please enter username and password');
+    }
+    // Edit Profile
+    if (props.isEditProfile) {
+      props.onPress();
+      console.log('Edit profile clicked');
     }
   }
   return (

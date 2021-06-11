@@ -8,20 +8,20 @@ const INIT_STATE = {
   },
 };
 
-export default function editProfileReducer(state = INIT_STATE, action) {
+export default function notificationReducer(state = INIT_STATE, action) {
   switch (action.type) {
-    case actionTypes.EDIT_PROFILE_REQUEST:
+    case actionTypes.NOTIFICATION_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case actionTypes.EDIT_PROFILE_SUCCESS:
+    case actionTypes.NOTIFICATION_SUCCESS:
       return {
         loading: false,
         userdata: action.payload,
         error: '',
       };
-    case actionTypes.EDIT_PROFILE_FAILURE:
+    case actionTypes.NOTIFICATION_FAILURE:
       return {
         loading: false,
         userdata: action.payload,

@@ -108,6 +108,28 @@ export const editProfileError = error => {
   };
 };
 
+// Notification
+export const notificationRequest = () => {
+  return {
+    type: actionTypes.NOTIFICATION_REQUEST,
+  };
+};
+
+export const notificationSuccess = users => {
+  // console.log('User LoginSuccess', users);
+  return {
+    type: actionTypes.NOTIFICATION_SUCCESS,
+    payload: users,
+  };
+};
+
+export const notificationError = error => {
+  return {
+    type: actionTypes.NOTIFICATION_FAILURE,
+    payload: error,
+  };
+};
+
 // Login actionCreator
 export function login(email, password) {
   const data = {
@@ -200,34 +222,42 @@ export function getNewsFeed() {
 // Edit-Profile action creator
 // Login actionCreator
 export function getEditProfile(
-  firstName,
-  lastName,
+  fname,
+  lname,
   phone,
+  commID,
   address,
-  city,
-  communityId,
   state,
-  password,
-  baseImage,
-  email,
+  zip,
+  image,
 ) {
+  // firstName,
+  // lastName,
+  // phone,
+  // address,
+  // city,
+  // communityId,
+  // state,
+  // password,
+  // baseImage,
+  // email,
   const editProfileData = {
     address: address,
-    city: city,
-    communityId: communityId,
-    email: email,
-    firstName: firstName,
-    '&quot;is_allow_push_notification&quot': 1,
-    lastName: lastName,
+    city: '',
+    communityId: 268,
+    email: 'demo@yopmail.com',
+    firstName: fname,
+    is_allow_push_notification: 1,
+    lastName: lname,
     phone: phone,
     state: state,
     userId: 269,
-    userImage: baseImage,
-    zipcode: 112233456,
+    userImage: image,
+    zipcode: zip,
   };
   return dispatch => {
     dispatch(editProfileRequest());
-    RestClient.getEditProfile('login', editProfileData)
+    RestClient.getEditProfile('edituserprofile', editProfileData)
       .then(result => {
         // console.log('Action Creator Result', result);
         dispatch(editProfileSuccess(result));
@@ -235,6 +265,27 @@ export function getEditProfile(
       .catch(error => {
         // console.log(error);
         dispatch(editProfileError(error));
+      });
+  };
+}
+
+// Notification
+export function getNotification() {
+  const data = {
+    community_id: 268,
+    offset: 0,
+    userId: 269,
+  };
+  return dispatch => {
+    dispatch(notificationRequest());
+    RestClient.postRequest('homescreenlist', data)
+      .then(result => {
+        // console.log('Action Creator Result', result);
+        dispatch(notificationSuccess(result));
+      })
+      .catch(error => {
+        // console.log(error);
+        dispatch(notificationError(error));
       });
   };
 }

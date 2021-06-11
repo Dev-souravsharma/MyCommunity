@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Text, View, Image, Pressable, ScrollView} from 'react-native';
+import {
+  Text,
+  View,
+  Image,
+  Pressable,
+  ScrollView,
+  ToastAndroid,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import AppIcons from '../../utils/Themes/icons';
 import styles from './styles';
@@ -9,12 +16,25 @@ import CustomButton from '../../Components/Button';
 import {english} from '../../utils/Language';
 import CustomModal from '../../Components/Modal';
 import ImagePicker from 'react-native-image-crop-picker';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {getEditProfile} from '../../redux/actions/action';
 
 const EditProfile = props => {
+  console.log('GSHS<JDSFJSDHFJKDFHDSKJFHDSKJF', props.route.params);
+  let profileUser = props.route.params.eventData;
+  const [fname, setfname] = useState(profileUser.fstname);
+  const [lname, setlname] = useState(profileUser.lstname);
+  const [phone, setphone] = useState(profileUser.phone);
+  const [community, setCommunity] = useState(profileUser.community);
+  const [address, setAddress] = useState(profileUser.address);
+  const [state, setState] = useState(profileUser.state);
+  const [zipCode, setZipCode] = useState(profileUser.zipCodee);
   const [visible, isVisible] = useState(false);
   const [useImage, setImage] = useState(
     'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
   );
+  // let blob = null;
   const navigation = useNavigation();
   function changeFlag(arr) {
     return isVisible(arr);
@@ -27,27 +47,88 @@ const EditProfile = props => {
       includeBase64: true,
     })
       .then(image => {
-        // setImage(image.path);
-        console.log('Base64=>', image);
+        setImage(`${image.data}`);
+        console.log('Base64=>', image.data);
+        // blob = `${image.data}`;
       })
       .catch(e => {
         console.log(e);
       });
   };
+  console.log('Blob is', useImage);
   const openGallery = () => {
     ImagePicker.openPicker({
       width: 300,
       height: 400,
       cropping: true,
+      includeBase64: true,
     })
       .then(image => {
-        setImage(image.path);
+        setImage(`${image.data}`);
         // console.log(image);
       })
       .catch(e => {
         console.log(e);
       });
   };
+  const firstName = firstNamedata => {
+    setfname(firstNamedata);
+  };
+  const lastName = lastNamedata => {
+    setlname(lastNamedata);
+    console.log(lname);
+  };
+  const mobile = phonedata => {
+    setphone(phonedata);
+  };
+  const Community = communitydata => {
+    setCommunity(communitydata);
+  };
+  const Address = addressdata => {
+    setAddress(addressdata);
+  };
+  const State = statedata => {
+    setState(statedata);
+  };
+  const ZipCode = zipData => {
+    setZipCode(zipData);
+  };
+  function onProfileSubmit() {
+    // console.log('Main Edit Profile', fname, lname);
+    props.editProfile(
+      fname,
+      lname,
+      parseInt(phone, 10),
+      parseInt(community, 10),
+      address,
+      state,
+      zipCode,
+      useImage,
+    );
+  }
+  // console.log(
+  //   props.userdata.editProfile.loading === false &&
+  //     props.userdata.editProfile.userdata.status === 1,
+  // );
+  if (
+    props.userdata.editProfile.loading === false &&
+    props.userdata.editProfile.userdata.status === 1
+  ) {
+    ToastAndroid.showWithGravity(
+      'Successfully Updated',
+      ToastAndroid.SHORT,
+      ToastAndroid.BOTTOM,
+    );
+  } else if (
+    props.userdata.editProfile.loading === false &&
+    props.userdata.editProfile.userdata.status === 0
+  ) {
+    ToastAndroid.showWithGravity(
+      'Something went Wrong',
+      ToastAndroid.SHORT,
+      ToastAndroid.BOTTOM,
+    );
+  }
   return (
     <View style={styles.container}>
       <View style={styles.menuContainer}>
@@ -92,43 +173,67 @@ const EditProfile = props => {
           </View>
           {/*  */}
         </View>
-        <UserDetails title={english.username} subTitle="Sourav Sharma" />
         <UserDetails
-          title={english.email}
-          subTitle="Souravs8616106@gmail.com"
+          title={english.username}
+          subTitle={profileUser.fstname + ' ' + profileUser.lstname}
         />
+        <UserDetails title={english.email} subTitle={profileUser.email} />
         {/* #A 20210519 SS - TextInput */}
         <View style={styles.inputContainer}>
           <InputText
             placeholder={english.firstName}
             title={english.firstName}
+            onTextChange={firstName}
+            value={fname}
           />
-          <InputText placeholder={english.lastName} title={english.lastName} />
+          <InputText
+            placeholder={english.lastName}
+            title={english.lastName}
+            onTextChange={lastName}
+            value={lname}
+          />
           <InputText
             placeholder={english.contactNumber}
             title={english.contactNumber}
+            onTextChange={mobile}
+            value={phone}
           />
           <InputText
             placeholder={english.community}
             title={english.community}
+            onTextChange={Community}
+            value={community}
           />
           <InputText
             placeholder={english.address}
             title={english.streetAddress}
+            onTextChange={Address}
+            value={address}
           />
           <View style={styles.zipContainer}>
             <View style={styles.state}>
-              <InputText placeholder={english.state} title={english.state} />
+              <InputText
+                placeholder={english.state}
+                title={english.state}
+                onTextChange={State}
+                value={state}
+              />
             </View>
             <View style={styles.zipCode}>
               <InputText
                 placeholder={english.zipCode}
                 title={english.zipCode}
+                onTextChange={ZipCode}
+                value={zipCode}
               />
             </View>
           </View>
           <View style={styles.buttonContainer}>
-            <CustomButton title={english.submit} isEditProfile={true} />
+            <CustomButton
+              title={english.submit}
+              isEditProfile={true}
+              onPress={onProfileSubmit}
+            />
           </View>
         </View>
       </ScrollView>
@@ -148,4 +253,16 @@ const UserDetails = props => {
     </View>
   );
 };
-export default EditProfile;
+const mapStateToProps = state => {
+  console.log('Edit State is-->', state);
+  return {
+    userdata: state,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    editProfile: bindActionCreators(getEditProfile, dispatch),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile);

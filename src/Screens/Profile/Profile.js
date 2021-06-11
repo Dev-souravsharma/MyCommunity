@@ -24,6 +24,9 @@ const Profile = ({profileData, userdata}) => {
   // console.log(userdata.userdata.detail);
   // console.log(userdata.userdata);
   // console.log('Sourav', userdata);
+  const [userDefaultImage, setDefaultImage] = useState(
+    'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
+  );
   const load = userdata.loading;
   const id = 269;
   useEffect(() => {
@@ -40,8 +43,9 @@ const Profile = ({profileData, userdata}) => {
   //   console.log('Loading...');
   // }
   // if (loading === false) {
-  //   console.log('SOFJDSFH Hurray!!!');
+  //   // userdata
   // }
+
   return (
     <View style={styles.container}>
       {loading === true && (
@@ -55,7 +59,10 @@ const Profile = ({profileData, userdata}) => {
             <ImageBackground
               style={styles.imageContainer}
               source={AppImages.profileImage}>
-              <Image source={AppImages.userProfile} style={styles.user} />
+              <Image
+                source={{uri: userdata.userdata.detail.userImage}}
+                style={styles.user}
+              />
               <Text style={styles.userName}>
                 {userdata.userdata.detail.username}
               </Text>
@@ -90,6 +97,17 @@ const Profile = ({profileData, userdata}) => {
                 navigate="EditProfile"
                 screen="EditProfile"
                 isProfile={true}
+                profileData={{
+                  fstname: userdata.userdata.detail.first_name,
+                  lstname: userdata.userdata.detail.last_name,
+                  address: userdata.userdata.detail.address,
+                  email: userdata.userdata.detail.email,
+                  phone: userdata.userdata.detail.phone,
+                  community: userdata.userdata.detail.communityName,
+                  state: userdata.userdata.detail.state,
+                  zipCodee: userdata.userdata.detail.zipcode,
+                  profile: userdata.userdata.detail.userImage,
+                }}
               />
             </View>
           </View>
@@ -100,7 +118,7 @@ const Profile = ({profileData, userdata}) => {
 };
 
 const mapStateToProps = state => {
-  // console.log('Profile State  is\n', state.profileData);
+  console.log('Profile State  is\n', state.profileData);
   return {
     userdata: state.profileData,
   };

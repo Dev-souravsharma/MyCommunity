@@ -22,6 +22,7 @@ const InputText = props => {
           placeholderTextColor={'#616161'}
           onChangeText={onTextChanged}
           onBlur={props.onBlur}
+          value={props.value}
         />
         <Image source={successIcon} style={styles.success} />
       </View>

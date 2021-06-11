@@ -79,7 +79,7 @@ const ImageData = [
 ];
 const Events = ({eventData, navigation, userdata}) => {
   // #A 20210521 SS -Search Functionality
-  const [search, doSearch] = useState(' ');
+  const [search, doSearch] = useState('');
   const [loading, setLoading] = useState(true);
   console.log('Loading data', userdata.loading);
   const load = userdata.loading;
@@ -95,16 +95,22 @@ const Events = ({eventData, navigation, userdata}) => {
   // console.log('Event List is -->', eventList);
 
   // FIlter Function
-  function foundData(array) {
-    return array.event.includes(search);
-  }
-  const array = data.filter(foundData);
+
+  // const array = data.filter(foundData);
   // console.log(array);
   // if (loading === true) {
   //   console.log('Loading...');
   // }
   // if (loading === false) {
   //   console.log('Hrrray!!!');
+  // }
+  function foundData(arraydata) {
+    return arraydata.title.includes(search);
+  }
+  // if (loading === false) {
+  //   console.log('Event Loading ....False', userdata.userdata.eventsList);
+
+  //   let array = userdata.userdata.eventsList.filter(foundData);
   // }
   return (
     <View style={styles.container}>
@@ -139,7 +145,7 @@ const Events = ({eventData, navigation, userdata}) => {
           </View>
           <View style={styles.flatList}>
             <FlatList
-              data={userdata.userdata.eventsList}
+              data={userdata.userdata.eventsList.filter(foundData)}
               keyExtractor={item => item.eventId}
               renderItem={({item}) => {
                 return (
