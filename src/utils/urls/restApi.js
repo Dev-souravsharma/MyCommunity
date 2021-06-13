@@ -98,5 +98,38 @@ class RestClient {
       return Promise.reject(error);
     }
   }
+  // Post Survey List
+  static async postSurvey(endpoint, params) {
+    // Here I will receive endpoint if i have
+    let url = `${baseUrls}${endpoint}`;
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(params),
+      });
+      let jsonResponse = {};
+      jsonResponse = await response.json();
+      return Promise.resolve(jsonResponse);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  // Post QuickLinks
+  static async postQuickLinks(endpoint, params) {
+    // Here I will receive endpoint if I have
+    let url = `${baseUrls}${endpoint}`;
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: JSON.stringify(params),
+      });
+      let jsonResponse = {};
+      jsonResponse = await response.json();
+      return Promise.resolve(jsonResponse);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
 }
 export default RestClient;

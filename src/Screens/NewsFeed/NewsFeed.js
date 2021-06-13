@@ -20,50 +20,50 @@ import {bindActionCreators} from 'redux';
 
 import styles from './styles';
 import {getNewsFeed} from '../../redux/actions/action';
-const data = [
-  {
-    id: 1,
-    username: 'Demo User',
-    date: '5 days ago',
-    image: AppImages.userProfile,
-    comments: 'Hey nice phone',
-  },
-  {
-    id: 2,
-    username: 'Aemo User',
-    date: '6 days ago',
-    image: AppImages.splash,
-    comments: 'Hey nice photo',
-  },
-  {
-    id: 3,
-    username: 'Bemo User',
-    date: '7 days ago',
-    image: AppImages.userProfile,
-    comments: 'Hey nice phone',
-  },
-  {
-    id: 4,
-    username: 'Goemo User',
-    date: '8 days ago',
-    image: AppImages.userProfile,
-    comments: 'Hey nice phone',
-  },
-  {
-    id: 5,
-    username: 'Toemo User',
-    date: '9 days ago',
-    image: AppImages.userProfile,
-    comments: 'Hey nice phone',
-  },
-  {
-    id: 6,
-    username: 'Zemo User',
-    date: '15 days ago',
-    image: AppImages.userProfile,
-    comments: 'Hey nice phone',
-  },
-];
+// const data = [
+//   {
+//     id: 1,
+//     username: 'Demo User',
+//     date: '5 days ago',
+//     image: AppImages.userProfile,
+//     comments: 'Hey nice phone',
+//   },
+//   {
+//     id: 2,
+//     username: 'Aemo User',
+//     date: '6 days ago',
+//     image: AppImages.splash,
+//     comments: 'Hey nice photo',
+//   },
+//   {
+//     id: 3,
+//     username: 'Bemo User',
+//     date: '7 days ago',
+//     image: AppImages.userProfile,
+//     comments: 'Hey nice phone',
+//   },
+//   {
+//     id: 4,
+//     username: 'Goemo User',
+//     date: '8 days ago',
+//     image: AppImages.userProfile,
+//     comments: 'Hey nice phone',
+//   },
+//   {
+//     id: 5,
+//     username: 'Toemo User',
+//     date: '9 days ago',
+//     image: AppImages.userProfile,
+//     comments: 'Hey nice phone',
+//   },
+//   {
+//     id: 6,
+//     username: 'Zemo User',
+//     date: '15 days ago',
+//     image: AppImages.userProfile,
+//     comments: 'Hey nice phone',
+//   },
+// ];
 const NewsFeed = ({navigation, newsFeedData, userdata}) => {
   const [visible, isVisible] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -126,12 +126,12 @@ const NewsFeed = ({navigation, newsFeedData, userdata}) => {
   }
   return (
     <View style={styles.container}>
-      {loading === true && (
+      {userdata.loading === true && (
         <View style={styles.progress}>
           {loading && <ActivityIndicator size="large" color="#00ff00" />}
         </View>
       )}
-      {loading === false && (
+      {userdata.loading === false && (
         <View style={styles.container}>
           {/* #A 20210526 SS - Header */}
           <View>

@@ -6,6 +6,9 @@ const styles = StyleSheet.create({
     margin: 10,
     borderBottomWidth: 1,
   },
+  loadingContainer: {
+    flex: 1,
+  },
   titleContainer: {
     flex: 3,
     marginLeft: 6,
@@ -32,6 +35,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-end',
     padding: 10,
+  },
+  progress: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

@@ -36,5 +36,7 @@ const english = {
   constantCloseModal: 'Close',
 
   constantNotification: 'Notification',
+
+  constantQuickLinks: 'QuickLinks',
 };
 export default english;

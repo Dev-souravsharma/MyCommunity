@@ -4,6 +4,7 @@ import eventData from './eventData';
 import newsFeed from './newsFeed';
 import editProfile from './editProfile';
 import notification from './notification';
+import surveyList from './surveyList';
 import {combineReducers} from 'redux';
 
 const rootReducer = combineReducers({
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   newsFeed,
   editProfile,
   notification,
+  surveyList,
 });
 
 export default rootReducer;

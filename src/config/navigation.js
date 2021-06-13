@@ -19,6 +19,7 @@ const StackSurvey = createStackNavigator();
 const StackSurveyDescription = createStackNavigator();
 const StackJoinSurvey = createStackNavigator();
 const StackNotification = createStackNavigator();
+const StackQuickLinks = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 // #A 20210516 SS - Screens
@@ -109,6 +110,16 @@ function Notification() {
     </StackNotification.Navigator>
   );
 }
+function QuickLinks() {
+  return (
+    <StackQuickLinks.Navigator headerMode="none">
+      <StackQuickLinks.Screen
+        name="QuickLinks"
+        component={AppScreen.QuickLinks}
+      />
+    </StackQuickLinks.Navigator>
+  );
+}
 // #A 20210516 SS - Main Stack Navigation
 function MainStackNavigation() {
   return (
@@ -179,6 +190,15 @@ function MainDrawerNavigation() {
         options={{
           drawerIcon: ({focused}) => (
             <Image source={AppIcons.notification} style={styles.icon} />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name={english.constantQuickLinks}
+        component={QuickLinks}
+        options={{
+          drawerIcon: ({focused}) => (
+            <Image source={AppIcons.quickLinks} style={styles.icon} />
           ),
         }}
       />

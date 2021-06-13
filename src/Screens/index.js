@@ -9,6 +9,7 @@ import Survey from './Survey';
 import SurveyDescription from './SurveyDescription';
 import JoinSurvey from './JoinSurvey';
 import Notification from './Notification';
+import QuickLinks from './QuickLinks';
 export {
   Splash,
   Login,
@@ -21,4 +22,5 @@ export {
   SurveyDescription,
   JoinSurvey,
   Notification,
+  QuickLinks,
 };

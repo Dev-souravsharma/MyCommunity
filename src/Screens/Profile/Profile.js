@@ -48,12 +48,12 @@ const Profile = ({profileData, userdata}) => {
 
   return (
     <View style={styles.container}>
-      {loading === true && (
+      {userdata.loading === true && (
         <View style={styles.progress}>
           {loading && <ActivityIndicator size="large" color="#00ff00" />}
         </View>
       )}
-      {loading === false && (
+      {userdata.loading === false && (
         <ScrollView>
           <View style={styles.container}>
             <ImageBackground

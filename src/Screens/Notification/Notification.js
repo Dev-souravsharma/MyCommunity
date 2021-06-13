@@ -11,7 +11,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Carousal from '../../Components/Carousal';
 import Toolbar from '../../Components/Toolbar';
-import {getNotification, loginError} from '../../redux/actions/action';
+import {getNotification} from '../../redux/actions/action';
 import {AppIcons, AppImages} from '../../utils/Themes';
 import styles from './styles';
 
@@ -20,34 +20,34 @@ const ImageData = [
   {id: 2, image: AppImages.userProfile},
   {id: 3, image: AppImages.userProfile},
 ];
-const data = {
-  event: [
-    {
-      date: '10 May 2021,08:00PM',
-      eventName: 'TestEvent',
-      place: 'chandigarh',
-      lastDate: 'Monday,May 12 2021 8:00PM',
-    },
-    {
-      date: '10 May 2021,08:00PM',
-      eventName: 'TestEvent',
-      place: 'chandigarh',
-      lastDate: 'Monday,May 12 2021 8:00PM',
-    },
-  ],
-  survey: [
-    {
-      date: '10 May 2021,08:00PM',
-      surveyName: 'TestEvent',
-      title: 'Test survey feature',
-    },
-    {
-      date: '10 May 2021,08:00PM',
-      surveyName: 'TestEvent',
-      title: 'Test survey feature',
-    },
-  ],
-};
+// const data = {
+//   event: [
+//     {
+//       date: '10 May 2021,08:00PM',
+//       eventName: 'TestEvent',
+//       place: 'chandigarh',
+//       lastDate: 'Monday,May 12 2021 8:00PM',
+//     },
+//     {
+//       date: '10 May 2021,08:00PM',
+//       eventName: 'TestEvent',
+//       place: 'chandigarh',
+//       lastDate: 'Monday,May 12 2021 8:00PM',
+//     },
+//   ],
+//   survey: [
+//     {
+//       date: '10 May 2021,08:00PM',
+//       surveyName: 'TestEvent',
+//       title: 'Test survey feature',
+//     },
+//     {
+//       date: '10 May 2021,08:00PM',
+//       surveyName: 'TestEvent',
+//       title: 'Test survey feature',
+//     },
+//   ],
+// };
 const Notification = ({navigation, userdata, notificationData}) => {
   useEffect(() => {
     notificationData();

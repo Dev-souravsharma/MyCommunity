@@ -130,6 +130,30 @@ export const notificationError = error => {
   };
 };
 
+// SURVEY LIST
+export const surveyListRequest = () => {
+  return {
+    type: actionTypes.SURVEY_LIST_REQUEST,
+  };
+};
+
+export const surveyListSuccess = users => {
+  console.log('User LoginSuccess', users);
+  return {
+    type: actionTypes.SURVEY_LIST_SUCCESS,
+    payload: users,
+  };
+};
+
+export const surveyListError = error => {
+  return {
+    type: actionTypes.SURVEY_LIST_FAILURE,
+    payload: error,
+  };
+};
+
+// ----------ACTION CREATOR----------------------
+
 // Login actionCreator
 export function login(email, password) {
   const data = {
@@ -196,7 +220,7 @@ export function getEvent() {
   };
 }
 
-// EVENT action creator
+// NewsFeed action creator
 export function getNewsFeed() {
   const newsFeedData = {
     authToken: 'v1Rtu@lMan@G3r',
@@ -220,7 +244,6 @@ export function getNewsFeed() {
 }
 
 // Edit-Profile action creator
-// Login actionCreator
 export function getEditProfile(
   fname,
   lname,
@@ -231,16 +254,6 @@ export function getEditProfile(
   zip,
   image,
 ) {
-  // firstName,
-  // lastName,
-  // phone,
-  // address,
-  // city,
-  // communityId,
-  // state,
-  // password,
-  // baseImage,
-  // email,
   const editProfileData = {
     address: address,
     city: '',
@@ -286,6 +299,29 @@ export function getNotification() {
       .catch(error => {
         // console.log(error);
         dispatch(notificationError(error));
+      });
+  };
+}
+
+// Survey List action creator
+export function getSurveyList() {
+  const surveyList = {
+    authToken: 'v1Rtu@lMan@G3r',
+    authUser: 'virtualManager',
+    community_id: 268,
+    limit: '',
+    offset: '',
+    user_id: 269,
+  };
+  return dispatch => {
+    dispatch(surveyListRequest());
+    RestClient.postSurvey('survey-listing', surveyList)
+      .then(result => {
+        // console.log('ACTION NewsFeed DATA', result);
+        dispatch(surveyListSuccess(result));
+      })
+      .catch(error => {
+        dispatch(surveyListError(error));
       });
   };
 }

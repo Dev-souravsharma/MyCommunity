@@ -1,11 +1,12 @@
 import React from 'react';
-import {View, Text, Pressable, Image} from 'react-native';
+import {View, Text, Pressable} from 'react-native';
 import Menu from '../../Components/Menu';
 import {english} from '../../utils/Language';
 // import {AppIcons} from '../../utils/Themes';
 import styles from './styles';
 const SurveyDescription = props => {
-  const {title, subtitle, startDate, endDate, status} = props.route.params.data;
+  const {name, description, start_time, end_time, is_attempted} =
+    props.route.params.data;
   return (
     <View style={styles.container}>
       {/* #A 20210526 SS - Menu Container Created */}
@@ -27,7 +28,7 @@ const SurveyDescription = props => {
       </View> */}
       <Menu
         background="#FFA000"
-        title={title}
+        title={name}
         goBack={() => {
           props.navigation.goBack();
         }}
@@ -36,25 +37,25 @@ const SurveyDescription = props => {
       {/* #A 20210526 SS - Info Container Created */}
       <View style={styles.infoContainer}>
         <Text style={styles.infoDescription}>Description:</Text>
-        <Text style={styles.description}>{subtitle}</Text>
+        <Text style={styles.description}>{description}</Text>
         <View style={styles.dateContainer}>
           <Text style={styles.dateText}>Start Date: </Text>
-          <Text style={styles.date}>{startDate}</Text>
+          <Text style={styles.date}>{start_time}</Text>
         </View>
         <View style={styles.dateContainer}>
           <Text style={styles.dateText}>End Date: </Text>
-          <Text style={styles.date}>{endDate}</Text>
+          <Text style={styles.date}>{end_time}</Text>
         </View>
       </View>
 
       {/* #A 20210526 SS - Footer Container Created */}
       <View style={styles.surveyButtonContainer}>
         <SurveyButton
-          status={status}
+          status={is_attempted}
           onPress={() => {
             props.navigation.navigate('JoinSurvey', {
               screen: 'JoinSurvey',
-              params: {title: title},
+              params: {title: name},
             });
           }}
         />
@@ -84,7 +85,7 @@ function AttemptedSurvey() {
 }
 function SurveyButton(props) {
   console.log(props.status);
-  if (props.status === 'true') {
+  if (props.status === '1') {
     return <AttemptedSurvey />;
   } else {
     return <AttemptSurvey onPress={props.onPress} />;
