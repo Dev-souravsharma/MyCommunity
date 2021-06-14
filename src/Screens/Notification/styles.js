@@ -12,9 +12,12 @@ const styles = StyleSheet.create({
   carousalContainer: {
     // flex: 3,
     height: 250,
+    marginBottom: 16,
   },
   eventContainer: {
     // flex: 5,
+    marginLeft: 8,
+    marginRight: 8,
   },
   eventItems: {
     flexDirection: 'row',

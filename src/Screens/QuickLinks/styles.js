@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   linkContainer: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#626262',
@@ -27,6 +28,11 @@ const styles = StyleSheet.create({
     height: 20,
   },
   forwardIconContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  progress: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

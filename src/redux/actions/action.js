@@ -152,6 +152,49 @@ export const surveyListError = error => {
   };
 };
 
+// Quick Links
+export const quickLinksRequest = () => {
+  return {
+    type: actionTypes.QUICK_LINK_REQUEST,
+  };
+};
+
+export const quickLinksSuccess = users => {
+  // console.log('User LoginSuccess', users);
+  return {
+    type: actionTypes.QUICK_LINK_SUCCESS,
+    payload: users,
+  };
+};
+
+export const quickLinksError = error => {
+  return {
+    type: actionTypes.QUICK_LINK_FAILURE,
+    payload: error,
+  };
+};
+
+// Logout
+export const logOutRequest = () => {
+  return {
+    type: actionTypes.LOGOUT_REQUEST,
+  };
+};
+
+export const logOutSuccess = users => {
+  // console.log('User LoginSuccess', users);
+  return {
+    type: actionTypes.LOGOUT_SUCCESS,
+    payload: users,
+  };
+};
+
+export const logOutError = error => {
+  return {
+    type: actionTypes.LOGOUT_FAILURE,
+    payload: error,
+  };
+};
 // ----------ACTION CREATOR----------------------
 
 // Login actionCreator
@@ -322,6 +365,42 @@ export function getSurveyList() {
       })
       .catch(error => {
         dispatch(surveyListError(error));
+      });
+  };
+}
+
+// Quick Links Action Creator
+export function getQuickLinks() {
+  const quickLinks = {
+    communityId: 268,
+  };
+  return dispatch => {
+    dispatch(quickLinksRequest());
+    RestClient.postQuickLinks('getmedialist', quickLinks)
+      .then(result => {
+        // console.log('ACTION NewsFeed DATA', result);
+        dispatch(quickLinksSuccess(result));
+      })
+      .catch(error => {
+        dispatch(quickLinksError(error));
+      });
+  };
+}
+
+// LOGOUT action creator
+export function getLogout() {
+  const logoutData = {
+    'deviceType ': 'iphone',
+    user_id: 269,
+  };
+  return dispatch => {
+    dispatch(logOutRequest());
+    RestClient.getEvents('logout', logoutData)
+      .then(result => {
+        dispatch(logOutSuccess(result));
+      })
+      .catch(error => {
+        dispatch(logOutError(error));
       });
   };
 }

@@ -65,7 +65,8 @@ const Login = ({loginData, userdata, navigation}) => {
     if (userdata.loading === false && userdata.userdata.status === 0) {
       // setStatus(userdata.userdata.status);
       // }
-      alert('Check email and password');
+      // alert('Check email and password');
+      console.log('Check username and Password');
     }
   }
   if (userdata.loading === true) {
@@ -74,12 +75,12 @@ const Login = ({loginData, userdata, navigation}) => {
   console.log('Status is', status);
   return (
     <View style={styles.contain}>
-      {load === true && (
+      {userdata.loading === true && (
         <View style={styles.progress}>
           <ActivityIndicator size="large" color="#00ff00" />
         </View>
       )}
-      {load === false && (
+      {userdata.loading === false && (
         <View style={styles.contain}>
           <ScrollView style={styles.scrollContainer}>
             <View style={styles.container}>
@@ -111,10 +112,9 @@ const Login = ({loginData, userdata, navigation}) => {
                   navigate="NewsFeeds"
                   screen="NewsFeed"
                   isLogin={true}
+                  // loginStatus={userdata.userdata.status}
                   onPress={onSubmit}
                   loginApi={getLoginData}
-                  // checkClick={checkClick}
-                  // status={userdata.userdata.status}
                 />
               </View>
             </View>

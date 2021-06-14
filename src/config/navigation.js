@@ -131,6 +131,7 @@ function MainStackNavigation() {
       <Stack.Screen name="EventDescription" component={EventDescription} />
       <Stack.Screen name="SurveyDescription" component={SurveyDescription} />
       <Stack.Screen name="JoinSurvey" component={JoinSurvey} />
+      <Stack.Screen name="WebView" component={AppScreen.MyWebComponent} />
     </Stack.Navigator>
   );
 }

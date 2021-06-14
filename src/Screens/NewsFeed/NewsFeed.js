@@ -66,7 +66,7 @@ import {getNewsFeed} from '../../redux/actions/action';
 // ];
 const NewsFeed = ({navigation, newsFeedData, userdata}) => {
   const [visible, isVisible] = useState(false);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   // console.log('NewsFeed UI Received', userdata.userdata.payload);
   let file = null;
   let userImage = null;
@@ -74,12 +74,12 @@ const NewsFeed = ({navigation, newsFeedData, userdata}) => {
   let isImage = null;
   let profile_url = null;
   // console.log('Loading data', userdata.loading);
-  const load = userdata.loading;
-  useEffect(() => {
-    // console.log(props);
-    setLoading(load);
-    // setProfileData(userdata);
-  }, [load]);
+  // const load = userdata.loading;
+  // useEffect(() => {
+  //   // console.log(props);
+  //   setLoading(load);
+  //   // setProfileData(userdata);
+  // }, [load]);
   useEffect(() => {
     newsFeedData();
   }, [newsFeedData]);
@@ -117,10 +117,10 @@ const NewsFeed = ({navigation, newsFeedData, userdata}) => {
   };
 
   // Loading Status
-  if (loading === true) {
+  if (userdata.loading === true) {
     console.log('Loading...');
   }
-  if (loading === false) {
+  if (userdata.loading === false) {
     media_url = userdata.userdata.payload.media_url;
     profile_url = userdata.userdata.payload.user_image;
   }
@@ -128,7 +128,7 @@ const NewsFeed = ({navigation, newsFeedData, userdata}) => {
     <View style={styles.container}>
       {userdata.loading === true && (
         <View style={styles.progress}>
-          {loading && <ActivityIndicator size="large" color="#00ff00" />}
+          {<ActivityIndicator size="large" color="#00ff00" />}
         </View>
       )}
       {userdata.loading === false && (

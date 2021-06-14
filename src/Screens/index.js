@@ -10,6 +10,7 @@ import SurveyDescription from './SurveyDescription';
 import JoinSurvey from './JoinSurvey';
 import Notification from './Notification';
 import QuickLinks from './QuickLinks';
+import MyWebComponent from '../Components/WebView';
 export {
   Splash,
   Login,
@@ -23,4 +24,5 @@ export {
   JoinSurvey,
   Notification,
   QuickLinks,
+  MyWebComponent,
 };

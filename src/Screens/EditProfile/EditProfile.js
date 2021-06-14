@@ -31,10 +31,8 @@ const EditProfile = props => {
   const [state, setState] = useState(profileUser.state);
   const [zipCode, setZipCode] = useState(profileUser.zipCodee);
   const [visible, isVisible] = useState(false);
-  const [useImage, setImage] = useState(
-    'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
-  );
-  // let blob = null;
+  const [useImage, setImage] = useState(profileUser.profile);
+  const [base64Data, setBase64] = useState('');
   const navigation = useNavigation();
   function changeFlag(arr) {
     return isVisible(arr);
@@ -47,9 +45,12 @@ const EditProfile = props => {
       includeBase64: true,
     })
       .then(image => {
-        setImage(`${image.data}`);
+        setBase64(`${image.data}`);
+        // setImage(`${image.data}`);
+        setImage(image.path);
         console.log('Base64=>', image.data);
         // blob = `${image.data}`;
+        isVisible(false);
       })
       .catch(e => {
         console.log(e);
@@ -64,8 +65,14 @@ const EditProfile = props => {
       includeBase64: true,
     })
       .then(image => {
-        setImage(`${image.data}`);
+        // setImage(`${image.data}`);
         // console.log(image);
+        setBase64(`${image.data}`);
+        // setImage(`${image.data}`);
+        setImage(image.path);
+        console.log('Base64=>', image.data);
+        // blob = `${image.data}`;
+        isVisible(false);
       })
       .catch(e => {
         console.log(e);
@@ -103,7 +110,7 @@ const EditProfile = props => {
       address,
       state,
       zipCode,
-      useImage,
+      base64Data,
     );
   }
   // console.log(

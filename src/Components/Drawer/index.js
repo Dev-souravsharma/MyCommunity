@@ -9,6 +9,9 @@ import {
 } from '@react-navigation/drawer';
 import {AppIcons, AppImages} from '../../utils/Themes';
 import styles from './styles';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {getLogout} from '../../redux/actions/action';
 const CustomDrawerContent = props => {
   return (
     <View style={styles.root}>
@@ -34,6 +37,7 @@ const CustomDrawerContent = props => {
             return <Image style={styles.logoutIcon} source={AppIcons.logout} />;
           }}
           onPress={() => {
+            // props.logout();
             (async value => {
               try {
                 await AsyncStorage.setItem('isAuth', 'false');
@@ -51,4 +55,21 @@ const CustomDrawerContent = props => {
     </View>
   );
 };
-export default CustomDrawerContent;
+
+const mapStateToProps = state => {
+  console.log('Event State  is\n', state.logout);
+  // console.log('Event State 2nd is\n', state.eventData.userdata);
+  return {
+    userdata: state.logout,
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: bindActionCreators(getLogout, dispatch),
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(CustomDrawerContent);
