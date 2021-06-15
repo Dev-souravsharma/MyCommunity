@@ -11,7 +11,8 @@ const CustomButton = props => {
   const navigation = useNavigation();
   const storeData = async value => {
     try {
-      await AsyncStorage.setItem('isAuth', 'true');
+      console.log('Login Status', props.loginStatus);
+      await AsyncStorage.setItem('isAuth', `${props.loginStatus}`);
     } catch (e) {
       // saving error
       console.log(e);

@@ -7,19 +7,20 @@ import {
   View,
   FlatList,
   ActivityIndicator,
+  Alert,
+  ToastAndroid,
 } from 'react-native';
 import CustomModal from '../../Components/Modal';
 import Toolbar from '../../Components/Toolbar';
 import {english} from '../../utils/Language';
 import AppIcons from '../../utils/Themes/icons';
-import AppImages from '../../utils/Themes/images';
 import ImagePicker from 'react-native-image-crop-picker';
 
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
 import styles from './styles';
-import {getNewsFeed} from '../../redux/actions/action';
+import {getNewsFeed, getPost} from '../../redux/actions/action';
 // const data = [
 //   {
 //     id: 1,
@@ -64,16 +65,18 @@ import {getNewsFeed} from '../../redux/actions/action';
 //     comments: 'Hey nice phone',
 //   },
 // ];
-const NewsFeed = ({navigation, newsFeedData, userdata}) => {
+const NewsFeed = ({navigation, newsFeedData, userdata, postData}) => {
   const [visible, isVisible] = useState(false);
-  // const [loading, setLoading] = useState(true);
+  const [postTxt, setPostTxt] = useState('');
+  const [imageUrl, setImage] = useState('');
+  const [showImage, setImageBool] = useState(false);
   // console.log('NewsFeed UI Received', userdata.userdata.payload);
   let file = null;
   let userImage = null;
   let media_url = null;
   let isImage = null;
   let profile_url = null;
-  // console.log('Loading data', userdata.loading);
+  // console.log('image path', imageUrl);
   // const load = userdata.loading;
   // useEffect(() => {
   //   // console.log(props);
@@ -94,11 +97,15 @@ const NewsFeed = ({navigation, newsFeedData, userdata}) => {
       cropping: true,
     })
       .then(image => {
-        // setImage(image.path);
-        console.log(image);
+        setImage(image.path);
+        if (imageUrl === '') {
+          setImageBool(false);
+        } else {
+          setImageBool(true);
+        }
       })
       .catch(e => {
-        console.log(e);
+        // console.log(e);
       });
   };
   const openGallery = () => {
@@ -108,17 +115,16 @@ const NewsFeed = ({navigation, newsFeedData, userdata}) => {
       cropping: true,
     })
       .then(image => {
-        // setImage(image.path);
-        console.log(image);
+        setImage(image.path);
       })
       .catch(e => {
-        console.log(e);
+        // console.log(e);
       });
   };
 
   // Loading Status
   if (userdata.loading === true) {
-    console.log('Loading...');
+    // console.log('Loading...');
   }
   if (userdata.loading === false) {
     media_url = userdata.userdata.payload.media_url;
@@ -237,13 +243,31 @@ const NewsFeed = ({navigation, newsFeedData, userdata}) => {
                   placeholder={english.placeHolderWriteHere}
                   style={styles.input}
                   placeholderTextColor="#626262"
+                  onChangeText={item => {
+                    setPostTxt(item);
+                  }}
                 />
               </View>
 
               <View>
                 <Pressable
                   onPress={() => {
-                    console.warn('Clicked');
+                    if (imageUrl === '' && postTxt === '') {
+                      ToastAndroid.showWithGravity(
+                        'Post is Empty',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.BOTTOM,
+                      );
+                    } else {
+                      ToastAndroid.showWithGravity(
+                        'please wait...',
+                        ToastAndroid.SHORT,
+                        ToastAndroid.BOTTOM,
+                      );
+                      postData(postTxt, imageUrl);
+                    }
+
+                    setImage('');
                   }}>
                   <Image style={styles.icon} source={AppIcons.send} />
                 </Pressable>
@@ -256,6 +280,7 @@ const NewsFeed = ({navigation, newsFeedData, userdata}) => {
             change={changeFlag}
             openCamera={openCamera}
             openGallery={openGallery}
+            getProfile={showImage}
           />
           {/*  */}
         </View>
@@ -265,7 +290,7 @@ const NewsFeed = ({navigation, newsFeedData, userdata}) => {
 };
 const mapStateToProps = state => {
   // console.log('Event State  is\n', state);
-  // console.log('Event State 2nd is\n', state.eventData.userdata);
+  console.log('Stateis====>', state.post);
   return {
     userdata: state.newsFeed,
   };
@@ -274,6 +299,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     newsFeedData: bindActionCreators(getNewsFeed, dispatch),
+    postData: bindActionCreators(getPost, dispatch),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(NewsFeed);

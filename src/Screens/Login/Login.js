@@ -22,7 +22,9 @@ const Login = ({loginData, userdata, navigation}) => {
   //   setClick(false);
   //   console.log('State refreshed-----', isClicked);
   // }, [isClicked]);
-
+  useEffect(() => {
+    loginData();
+  }, [loginData]);
   const username = data => {
     setEmail(data);
   };
@@ -112,7 +114,7 @@ const Login = ({loginData, userdata, navigation}) => {
                   navigate="NewsFeeds"
                   screen="NewsFeed"
                   isLogin={true}
-                  // loginStatus={userdata.userdata.status}
+                  loginStatus={userdata.userdata.status}
                   onPress={onSubmit}
                   loginApi={getLoginData}
                 />

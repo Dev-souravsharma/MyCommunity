@@ -195,6 +195,28 @@ export const logOutError = error => {
     payload: error,
   };
 };
+
+// POST
+export const postRequest = () => {
+  return {
+    type: actionTypes.POST_REQUEST,
+  };
+};
+
+export const postSuccess = users => {
+  // console.log('User LoginSuccess', users);
+  return {
+    type: actionTypes.POST_SUCCESS,
+    payload: users,
+  };
+};
+
+export const postError = error => {
+  return {
+    type: actionTypes.POST_FAILURE,
+    payload: error,
+  };
+};
 // ----------ACTION CREATOR----------------------
 
 // Login actionCreator
@@ -401,6 +423,39 @@ export function getLogout() {
       })
       .catch(error => {
         dispatch(logOutError(error));
+      });
+  };
+}
+
+// Post actionCreator
+export function getPost(postText, url) {
+  if (url === '') {
+    url = undefined;
+  }
+  const formData = new FormData();
+  formData.append('authToken', 'v1Rtu@lMan@G3r');
+  formData.append('authUser', 'virtualManager');
+  formData.append('community_id', 268);
+  formData.append('device_type', 2);
+  formData.append('is_video', 0);
+  formData.append('post', postText);
+  formData.append('user_id', 269);
+  formData.append('file', {
+    uri: url,
+    type: 'image/*',
+    name: 'photo.jpg',
+  });
+  console.log('form data', formData);
+  return dispatch => {
+    dispatch(postRequest());
+    RestClient.postPost('add_news_feed', formData)
+      .then(result => {
+        dispatch(postSuccess(result));
+        dispatch(getNewsFeed());
+      })
+      .catch(error => {
+        dispatch(postError(error));
+        dispatch(getNewsFeed());
       });
   };
 }

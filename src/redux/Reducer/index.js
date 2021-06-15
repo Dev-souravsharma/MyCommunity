@@ -7,6 +7,7 @@ import notification from './notification';
 import surveyList from './surveyList';
 import quickLinks from './quickLinks';
 import logout from './logout';
+import post from './post';
 import {combineReducers} from 'redux';
 
 const rootReducer = combineReducers({
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   surveyList,
   quickLinks,
   logout,
+  post,
 });
 
 export default rootReducer;

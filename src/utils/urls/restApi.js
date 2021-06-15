@@ -148,5 +148,25 @@ class RestClient {
       return Promise.reject(error);
     }
   }
+  // Post Logout
+  static async postPost(endpoint, params) {
+    // Here I will receive endpoint if I have
+    let url = `${baseUrls}${endpoint}`;
+    let headers = {
+      'Content-Type': 'multipart/form-data',
+    };
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: headers,
+        body: params,
+      });
+      let jsonResponse = {};
+      jsonResponse = await response.json();
+      return Promise.resolve(jsonResponse);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
 }
 export default RestClient;

@@ -37,15 +37,22 @@ const CustomDrawerContent = props => {
             return <Image style={styles.logoutIcon} source={AppIcons.logout} />;
           }}
           onPress={() => {
-            // props.logout();
-            (async value => {
-              try {
-                await AsyncStorage.setItem('isAuth', 'false');
-              } catch (e) {
-                // saving error
-              }
-            })();
-            props.navigation.replace('Login');
+            props.logout();
+            console.log('Logout user', props.userdata.userdata.status);
+            if (
+              props.userdata.loading === false &&
+              props.userdata.userdata.status === 1
+            ) {
+              (async value => {
+                try {
+                  await AsyncStorage.setItem('isAuth', '0');
+                } catch (e) {
+                  // saving error
+                }
+              })();
+
+              props.navigation.replace('Login');
+            }
           }}
         />
       </DrawerContentScrollView>
