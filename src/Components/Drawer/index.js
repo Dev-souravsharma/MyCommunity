@@ -38,11 +38,10 @@ const CustomDrawerContent = props => {
           }}
           onPress={() => {
             props.logout();
-            console.log('Logout user', props.userdata.userdata.status);
             if (
-              props.userdata.loading === false &&
-              props.userdata.userdata &&
-              props.userdata.userdata.status === 1
+              props.userdata.logout.loading === false &&
+              props.userdata.logout.userdata &&
+              props.userdata.logout.userdata.status === 1
             ) {
               (async value => {
                 try {
@@ -51,7 +50,6 @@ const CustomDrawerContent = props => {
                   // saving error
                 }
               })();
-
               props.navigation.replace('Login');
             }
           }}
@@ -65,10 +63,10 @@ const CustomDrawerContent = props => {
 };
 
 const mapStateToProps = state => {
-  console.log('Event State  is\n', state.logout);
+  console.log('Event State  is\n', state.profileData);
   // console.log('Event State 2nd is\n', state.eventData.userdata);
   return {
-    userdata: state.logout,
+    userdata: state,
   };
 };
 

@@ -222,11 +222,12 @@ const NewsFeed = ({navigation, newsFeedData, userdata, postData}) => {
               );
             }}
           />
+
           {/* User Selected Photo */}
           {imageUrl !== '' && imageUrl !== undefined && (
             <View style={styles.selectdImageContainer}>
               <Image
-                style={styles.userProfile}
+                style={styles.userSelectedProfile}
                 source={{
                   uri: imageUrl,
                 }}

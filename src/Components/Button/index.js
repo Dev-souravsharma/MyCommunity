@@ -1,7 +1,7 @@
 import React from 'react';
 import {Pressable, View, Text} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles';
 const CustomButton = props => {
   // #A 20210514 SS - Destructuring Values
@@ -9,20 +9,23 @@ const CustomButton = props => {
 
   // #A 20210514 SS - navigation instance
   const navigation = useNavigation();
-  const storeData = async value => {
-    try {
-      console.log('Login Status', props.loginStatus);
-      await AsyncStorage.setItem('isAuth', `${props.loginStatus}`);
-    } catch (e) {
-      // saving error
-      console.log(e);
-    }
-  };
+  // const storeData = async value => {
+  //   try {
+  //     console.log('Login Status', props.loginStatus);
+  //     await AsyncStorage.setItem('isAuth', `${props.loginStatus}`);
+  //   } catch (e) {
+  //     // saving error
+  //     console.log(e);
+  //   }
+  // };
 
   function startActivity() {
     if (props.isLogin) {
-      storeData();
+      // storeData();
       props.loginApi();
+      // if (props.loginStatus === 1) {
+      //   navigation.replace('NewsFeeds', {screen: 'NewsFeed'});
+      // }
       console.log('Login Button Clicked');
       // props.checkClick(true);
       // if (props.status === 1) {

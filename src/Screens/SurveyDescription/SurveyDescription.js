@@ -1,10 +1,89 @@
 import React from 'react';
-import {View, Text, Pressable} from 'react-native';
+import {
+  View,
+  Text,
+  Pressable,
+  PermissionsAndroid,
+  Platform,
+  Alert,
+  ToastAndroid,
+} from 'react-native';
+import RNFetchBlob from 'rn-fetch-blob';
 import Menu from '../../Components/Menu';
 import {english} from '../../utils/Language';
 // import {AppIcons} from '../../utils/Themes';
 import styles from './styles';
 const SurveyDescription = props => {
+  // * Checking Permission
+  const {config, fs} = RNFetchBlob;
+  const checkingPermission = async () => {
+    console.log('Checking Permission Function called');
+    if (Platform.OS === 'ios') {
+      downloadPdf();
+    } else {
+      try {
+        PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+          {
+            title: 'Storage Permission',
+            message: 'Required Storage Permission',
+          },
+        ).then(granted => {
+          if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+            //Once user grant the permission start downloading
+            console.log('Storage Permission Granted.');
+            ToastAndroid.showWithGravity(
+              'Downloading...',
+              ToastAndroid.LONG,
+              ToastAndroid.BOTTOM,
+            );
+            downloadPdf();
+          } else {
+            //If permission denied then show alert 'Storage Permission Not Granted'
+            Alert.alert('storage_permission not Granted');
+          }
+        });
+      } catch (err) {
+        //To handle permission related issue
+        console.log('error', err);
+      }
+    }
+  };
+  // Todo download pdf
+  const downloadPdf = () => {
+    let date = new Date();
+    let pdf_url = 'https://vmadminpanel.com/admin/generate-pdf/21/269';
+    let PictureDir = fs.dirs.PictureDir;
+    let options = {
+      fileCache: true,
+      addAndroidDownloads: {
+        //Related to the Android only
+        useDownloadManager: true,
+        notification: true,
+        path:
+          PictureDir +
+          '/Survey_result' +
+          Math.floor(date.getTime() + date.getSeconds() / 2) +
+          '.pdf',
+        description: 'Result file',
+      },
+    };
+    config(options)
+      .fetch('Post', pdf_url)
+      .then(res => {
+        //Showing Toast after successful downloading
+        console.log('res -> ', JSON.stringify(res));
+        ToastAndroid.showWithGravity(
+          'Result downloaded',
+          ToastAndroid.LONG,
+          ToastAndroid.BOTTOM,
+        );
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   const {name, description, start_time, end_time, is_attempted} =
     props.route.params.data;
   return (
@@ -53,6 +132,7 @@ const SurveyDescription = props => {
         <SurveyButton
           status={is_attempted}
           propsData={props}
+          download={checkingPermission}
           onPress={() => {
             props.navigation.navigate('WebView', {
               link: 'https://vmadminpanel.com/web-view-survey/21/269',
@@ -64,7 +144,7 @@ const SurveyDescription = props => {
   );
 };
 
-// #A 20210526 SS - Handling Survey Button View
+// ! #A 20210526 SS - Handling Survey Button View
 function AttemptSurvey(props) {
   return (
     <View style={styles.attemptSurvey}>
@@ -80,9 +160,8 @@ function AttemptedSurvey(props) {
   return (
     <Pressable
       onPress={() => {
-        props.nav.navigation.navigate('WebView', {
-          link: 'https://vmadminpanel.com/admin/generate-pdf/21/269',
-        });
+        // Todo Add Checkpermission button
+        props.downloadPdfFile();
       }}>
       <View style={styles.surveyAttempted}>
         <Text style={styles.surveyText}>{english.attemptedSurvey}</Text>
@@ -93,7 +172,9 @@ function AttemptedSurvey(props) {
 function SurveyButton(props) {
   console.log(props.status);
   if (props.status === '1') {
-    return <AttemptedSurvey nav={props.propsData} />;
+    return (
+      <AttemptedSurvey nav={props.propsData} downloadPdfFile={props.download} />
+    );
   } else {
     return <AttemptSurvey onPress={props.onPress} />;
   }

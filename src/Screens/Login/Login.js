@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useState} from 'react';
-import {Image, ScrollView, View, ActivityIndicator} from 'react-native';
+import {Image, ScrollView, View, ActivityIndicator, Alert} from 'react-native';
 import {connect} from 'react-redux';
 import CustomButton from '../../Components/Button';
 import {bindActionCreators} from 'redux';
@@ -10,12 +10,13 @@ import {english} from '../../utils/Language';
 import {AppIcons} from '../../utils/Themes';
 import styles from './styles';
 import {isPassword, isUserName} from './Validation';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Login = ({loginData, userdata, navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   // const [isClicked, setClick] = useState(false);
-  const [status, setStatus] = useState(0);
-  const [load, setLoading] = useState(false);
+  // const [status, setStatus] = useState(0);
+  // const [load, setLoading] = useState(false);
   console.log('Login userData', userdata);
   // useEffect(() => {
   //   loginData(email, password);
@@ -40,7 +41,7 @@ const Login = ({loginData, userdata, navigation}) => {
   function userNameValidate() {
     let isValid = isUserName(email.length);
     if (!isValid) {
-      alert('Name length should be 4');
+      Alert.alert('Name length should be 4');
     }
   }
   function passwordValidate() {
@@ -59,22 +60,33 @@ const Login = ({loginData, userdata, navigation}) => {
   function getLoginData() {
     loginData(email, password);
     // setLoading(userdata.loading);
-    if (userdata.loading === false && userdata.userdata.status === 1) {
-      // setStatus(userdata.userdata.status);
-      // }
-      navigation.replace('NewsFeeds', {screen: 'NewsFeed'});
-    }
-    if (userdata.loading === false && userdata.userdata.status === 0) {
-      // setStatus(userdata.userdata.status);
-      // }
-      // alert('Check email and password');
-      console.log('Check username and Password');
-    }
+  }
+  if (userdata.userdata && userdata.userdata.status === 1) {
+    console.log('Main status', userdata.userdata.status);
+    const storeData = async value => {
+      try {
+        console.log('Login Status', userdata.userdata.status);
+        await AsyncStorage.setItem('isAuth', `${userdata.userdata.status}`);
+      } catch (e) {
+        // saving error
+        console.log(e);
+      }
+    };
+    storeData();
+    navigation.replace('NewsFeeds', {
+      screen: 'NewsFeed',
+    });
+  }
+  if (userdata.loading === false && userdata.userdata.status === 0) {
+    // setStatus(userdata.userdata.status);
+    // }
+    // alert('Check email and password');
+    console.log('Check username and Password');
   }
   if (userdata.loading === true) {
     console.log('Loading');
   }
-  console.log('Status is', status);
+  // console.log('Status is', status);
   return (
     <View style={styles.contain}>
       {userdata.loading === true && (
@@ -114,7 +126,7 @@ const Login = ({loginData, userdata, navigation}) => {
                   navigate="NewsFeeds"
                   screen="NewsFeed"
                   isLogin={true}
-                  loginStatus={userdata.userdata.status}
+                  // loginStatus={userdata.userdata.status}
                   onPress={onSubmit}
                   loginApi={getLoginData}
                 />

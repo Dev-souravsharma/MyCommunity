@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Image, View} from 'react-native';
 import {AppImages} from '../../utils/Themes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
