@@ -7,7 +7,6 @@ import {
   View,
   FlatList,
   ActivityIndicator,
-  Alert,
   ToastAndroid,
 } from 'react-native';
 import CustomModal from '../../Components/Modal';
@@ -69,8 +68,8 @@ const NewsFeed = ({navigation, newsFeedData, userdata, postData}) => {
   const [visible, isVisible] = useState(false);
   const [postTxt, setPostTxt] = useState('');
   const [imageUrl, setImage] = useState('');
-  const [showImage, setImageBool] = useState(false);
   // console.log('NewsFeed UI Received', userdata.userdata.payload);
+  console.log('Image Url is=>', imageUrl);
   let file = null;
   let userImage = null;
   let media_url = null;
@@ -97,12 +96,8 @@ const NewsFeed = ({navigation, newsFeedData, userdata, postData}) => {
       cropping: true,
     })
       .then(image => {
+        isVisible(false);
         setImage(image.path);
-        if (imageUrl === '') {
-          setImageBool(false);
-        } else {
-          setImageBool(true);
-        }
       })
       .catch(e => {
         // console.log(e);
@@ -115,6 +110,7 @@ const NewsFeed = ({navigation, newsFeedData, userdata, postData}) => {
       cropping: true,
     })
       .then(image => {
+        isVisible(false);
         setImage(image.path);
       })
       .catch(e => {
@@ -226,7 +222,25 @@ const NewsFeed = ({navigation, newsFeedData, userdata, postData}) => {
               );
             }}
           />
-
+          {/* User Selected Photo */}
+          {imageUrl !== '' && imageUrl !== undefined && (
+            <View style={styles.selectdImageContainer}>
+              <Image
+                style={styles.userProfile}
+                source={{
+                  uri: imageUrl,
+                }}
+              />
+              <Pressable
+                onPress={() => {
+                  setImage(actualImage => {
+                    actualImage = '';
+                  });
+                }}>
+                <Image source={AppIcons.remove} style={styles.removeIcon} />
+              </Pressable>
+            </View>
+          )}
           {/* #A 20210526 SS - Footer */}
           <View style={styles.footerContainer}>
             <View style={styles.footer}>
@@ -266,8 +280,9 @@ const NewsFeed = ({navigation, newsFeedData, userdata, postData}) => {
                       );
                       postData(postTxt, imageUrl);
                     }
-
-                    setImage('');
+                    setImage(actualImage => {
+                      actualImage = '';
+                    });
                   }}>
                   <Image style={styles.icon} source={AppIcons.send} />
                 </Pressable>
@@ -280,7 +295,6 @@ const NewsFeed = ({navigation, newsFeedData, userdata, postData}) => {
             change={changeFlag}
             openCamera={openCamera}
             openGallery={openGallery}
-            getProfile={showImage}
           />
           {/*  */}
         </View>

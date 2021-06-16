@@ -24,5 +24,6 @@ const AppIcons = {
   forward: require('../../assets/Icons/forward.png'),
   send: require('../../assets/Icons/send.png'),
   add: require('../../assets/Icons/add.png'),
+  remove: require('../../assets/Icons/remove.png'),
 };
 export default AppIcons;

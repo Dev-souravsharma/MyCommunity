@@ -45,6 +45,15 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     margin: 8,
   },
+  removeIcon: {
+    width: 30,
+    height: 30,
+    justifyContent: 'flex-end',
+  },
+  selectdImageContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   userInfo: {
     backgroundColor: '#fff',
     elevation: 5,

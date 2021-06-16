@@ -52,10 +52,10 @@ const SurveyDescription = props => {
       <View style={styles.surveyButtonContainer}>
         <SurveyButton
           status={is_attempted}
+          propsData={props}
           onPress={() => {
-            props.navigation.navigate('JoinSurvey', {
-              screen: 'JoinSurvey',
-              params: {title: name},
+            props.navigation.navigate('WebView', {
+              link: 'https://vmadminpanel.com/web-view-survey/21/269',
             });
           }}
         />
@@ -76,17 +76,24 @@ function AttemptSurvey(props) {
     </View>
   );
 }
-function AttemptedSurvey() {
+function AttemptedSurvey(props) {
   return (
-    <View style={styles.surveyAttempted}>
-      <Text style={styles.surveyText}>{english.attemptedSurvey}</Text>
-    </View>
+    <Pressable
+      onPress={() => {
+        props.nav.navigation.navigate('WebView', {
+          link: 'https://vmadminpanel.com/admin/generate-pdf/21/269',
+        });
+      }}>
+      <View style={styles.surveyAttempted}>
+        <Text style={styles.surveyText}>{english.attemptedSurvey}</Text>
+      </View>
+    </Pressable>
   );
 }
 function SurveyButton(props) {
   console.log(props.status);
   if (props.status === '1') {
-    return <AttemptedSurvey />;
+    return <AttemptedSurvey nav={props.propsData} />;
   } else {
     return <AttemptSurvey onPress={props.onPress} />;
   }

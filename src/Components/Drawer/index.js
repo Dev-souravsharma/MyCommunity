@@ -41,6 +41,7 @@ const CustomDrawerContent = props => {
             console.log('Logout user', props.userdata.userdata.status);
             if (
               props.userdata.loading === false &&
+              props.userdata.userdata &&
               props.userdata.userdata.status === 1
             ) {
               (async value => {
