@@ -21,7 +21,7 @@ import {bindActionCreators} from 'redux';
 import {getEditProfile} from '../../redux/actions/action';
 
 const EditProfile = props => {
-  console.log('GSHS<JDSFJSDHFJKDFHDSKJFHDSKJF', props.route.params);
+  // console.log('GSHS<JDSFJSDHFJKDFHDSKJFHDSKJF', props.route.params);
   let profileUser = props.route.params.eventData;
   const [fname, setfname] = useState(profileUser.fstname);
   const [lname, setlname] = useState(profileUser.lstname);

@@ -22,10 +22,10 @@ const styles = StyleSheet.create({
     color: '#eaeaea',
   },
   avtar: {
-    resizeMode: 'contain',
-    width: 90,
-    height: 90,
-    borderRadius: 100,
+    // resizeMode: 'contain',
+    width: 70,
+    height: 70,
+    borderRadius: 200,
   },
   dashboard: {
     margin: 16,

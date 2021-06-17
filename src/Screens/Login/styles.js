@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
   },
   progress: {
     flex: 1,
+    marginTop: 8,
     justifyContent: 'center',
     alignItems: 'center',
   },

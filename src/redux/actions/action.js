@@ -220,7 +220,7 @@ export const postError = error => {
 // ----------ACTION CREATOR----------------------
 
 // Login actionCreator
-export function login(email, password) {
+export function login(email, password, nav, AsyncStorage) {
   const data = {
     deviceType: 'iphone',
     // Password is demo
@@ -234,8 +234,19 @@ export function login(email, password) {
     dispatch(loginRequest());
     RestClient.postRequest('login', data)
       .then(result => {
-        // console.log('Action Creator Result', result);
+        console.log('Action Creator Result', result);
+        // console.log('Login Processing...');
         dispatch(loginSuccess(result));
+        // console.log('After Login Processing...');
+        dispatch(
+          navigateToHome(
+            result.status,
+            nav,
+            AsyncStorage,
+            result.firstName + ' ' + result.lastName,
+            result.profilePic,
+          ),
+        );
       })
       .catch(error => {
         // console.log(error);
@@ -458,4 +469,35 @@ export function getPost(postText, url) {
         dispatch(getNewsFeed());
       });
   };
+}
+
+// LOGOUT action creator
+export function navigateToHome(status, nav, AsyncStorage, name, profilePic) {
+  if (status === 1) {
+    const storeData = async (value, profile) => {
+      try {
+        await AsyncStorage.setItem('isAuth', `${status}`);
+        await AsyncStorage.setItem('isName', value);
+        await AsyncStorage.setItem('isProfile', profilePic);
+        // await AsyncStorage.setItem('username',);
+      } catch (e) {
+        // saving error
+        console.log(e);
+      }
+    };
+    storeData(name, profilePic);
+    // const storeName = async value => {
+    //   try {
+    //     await AsyncStorage.setItem('isAuth', value);
+    //     // await AsyncStorage.setItem('username',);
+    //   } catch (e) {
+    //     // saving error
+    //     console.log(e);
+    //   }
+    // };
+    // storeData();
+    nav.replace('NewsFeeds', {
+      screen: 'NewsFeed',
+    });
+  }
 }

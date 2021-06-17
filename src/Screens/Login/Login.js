@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useState} from 'react';
 import {Image, ScrollView, View, ActivityIndicator, Alert} from 'react-native';
 import {connect} from 'react-redux';
@@ -23,9 +23,9 @@ const Login = ({loginData, userdata, navigation}) => {
   //   setClick(false);
   //   console.log('State refreshed-----', isClicked);
   // }, [isClicked]);
-  useEffect(() => {
-    loginData();
-  }, [loginData]);
+  // useEffect(() => {
+  //   loginData();
+  // }, [loginData]);
   const username = data => {
     setEmail(data);
   };
@@ -58,24 +58,8 @@ const Login = ({loginData, userdata, navigation}) => {
     }
   }
   function getLoginData() {
-    loginData(email, password);
+    loginData(email, password, navigation, AsyncStorage);
     // setLoading(userdata.loading);
-  }
-  if (userdata.userdata && userdata.userdata.status === 1) {
-    console.log('Main status', userdata.userdata.status);
-    const storeData = async value => {
-      try {
-        console.log('Login Status', userdata.userdata.status);
-        await AsyncStorage.setItem('isAuth', `${userdata.userdata.status}`);
-      } catch (e) {
-        // saving error
-        console.log(e);
-      }
-    };
-    storeData();
-    navigation.replace('NewsFeeds', {
-      screen: 'NewsFeed',
-    });
   }
   if (userdata.loading === false && userdata.userdata.status === 0) {
     // setStatus(userdata.userdata.status);
@@ -89,12 +73,7 @@ const Login = ({loginData, userdata, navigation}) => {
   // console.log('Status is', status);
   return (
     <View style={styles.contain}>
-      {userdata.loading === true && (
-        <View style={styles.progress}>
-          <ActivityIndicator size="large" color="#00ff00" />
-        </View>
-      )}
-      {userdata.loading === false && (
+      {
         <View style={styles.contain}>
           <ScrollView style={styles.scrollContainer}>
             <View style={styles.container}>
@@ -110,7 +89,6 @@ const Login = ({loginData, userdata, navigation}) => {
                 value={email}
                 onBlur={userNameValidate}
               />
-
               <InputText
                 placeholder={english.password}
                 title={english.password}
@@ -130,11 +108,16 @@ const Login = ({loginData, userdata, navigation}) => {
                   onPress={onSubmit}
                   loginApi={getLoginData}
                 />
+                {userdata.loading === true && (
+                  <View style={styles.progress}>
+                    <ActivityIndicator size="large" color="#00ff00" />
+                  </View>
+                )}
               </View>
             </View>
           </ScrollView>
         </View>
-      )}
+      }
     </View>
   );
 };
