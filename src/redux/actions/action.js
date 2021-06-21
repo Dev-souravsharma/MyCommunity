@@ -329,6 +329,8 @@ export function getEditProfile(
   state,
   zip,
   image,
+  ToastAndroid,
+  navigation,
 ) {
   const editProfileData = {
     address: address,
@@ -348,8 +350,16 @@ export function getEditProfile(
     dispatch(editProfileRequest());
     RestClient.getEditProfile('edituserprofile', editProfileData)
       .then(result => {
-        // console.log('Action Creator Result', result);
+        console.log('Action Creator Result', result);
         dispatch(editProfileSuccess(result));
+        // navigation.navigate('Profile');
+        if (result.status === 1) {
+          ToastAndroid.showWithGravity(
+            'Successfully Updated',
+            ToastAndroid.SHORT,
+            ToastAndroid.BOTTOM,
+          );
+        }
       })
       .catch(error => {
         // console.log(error);

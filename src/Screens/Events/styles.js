@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   imageCarousal: {
-    flex: 3,
+    height: 200,
   },
   imageContainer: {
     // height: '100%',

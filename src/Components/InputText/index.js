@@ -3,7 +3,7 @@ import {View, Text, TextInput, Image} from 'react-native';
 import styles from './styles';
 const InputText = props => {
   // #A 20210513 SS - Destructuring values
-  const {placeholder, title, icon, successIcon} = props;
+  const {placeholder, title, icon, successIcon, isPasswordInput} = props;
 
   //   #A 20210515 SS - Handling text Change
   const onTextChanged = data => {
@@ -22,6 +22,7 @@ const InputText = props => {
           placeholderTextColor={'#616161'}
           onChangeText={onTextChanged}
           onBlur={props.onBlur}
+          secureTextEntry={isPasswordInput}
           value={props.value}
         />
         <Image source={successIcon} style={styles.success} />

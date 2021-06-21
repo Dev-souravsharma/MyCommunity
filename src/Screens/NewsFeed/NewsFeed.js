@@ -75,13 +75,6 @@ const NewsFeed = ({navigation, newsFeedData, userdata, postData}) => {
   let media_url = null;
   let isImage = null;
   let profile_url = null;
-  // console.log('image path', imageUrl);
-  // const load = userdata.loading;
-  // useEffect(() => {
-  //   // console.log(props);
-  //   setLoading(load);
-  //   // setProfileData(userdata);
-  // }, [load]);
   useEffect(() => {
     newsFeedData();
   }, [newsFeedData]);

@@ -1,8 +1,8 @@
 import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 12,
-    marginTop: 12,
+    marginBottom: 4,
+    marginTop: 4,
   },
   title: {
     color: '#616161',

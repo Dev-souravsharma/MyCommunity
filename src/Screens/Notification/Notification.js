@@ -52,7 +52,7 @@ const Notification = ({navigation, userdata, notificationData}) => {
   useEffect(() => {
     notificationData();
   }, [notificationData]);
-  console.log('Notification=>', userdata.userdata);
+  // console.log('Notification=>', userdata.userdata.resultList);
   return (
     <View style={styles.container}>
       {userdata.loading === true && (
@@ -80,7 +80,10 @@ const Notification = ({navigation, userdata, notificationData}) => {
                     <View>
                       <Pressable
                         onPress={() => {
-                          navigation.navigate('Events');
+                          navigation.navigate('EventDescription', {
+                            screen: 'EventDescription',
+                            params: {eventData: item},
+                          });
                         }}>
                         <View style={styles.eventItems}>
                           <View style={styles.iconFlex}>
@@ -106,7 +109,10 @@ const Notification = ({navigation, userdata, notificationData}) => {
                     <View>
                       <Pressable
                         onPress={() => {
-                          navigation.navigate('Survey');
+                          navigation.navigate('SurveyDescription', {
+                            screen: 'SurveyDescription',
+                            params: {data: item},
+                          });
                         }}>
                         <View style={styles.eventItems}>
                           <View style={styles.iconFlex}>

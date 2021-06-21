@@ -16,6 +16,9 @@ import styles from './styles';
 const SurveyDescription = props => {
   // * Checking Permission
   const {config, fs} = RNFetchBlob;
+
+  // const android = RNFetchBlob.android;
+
   const checkingPermission = async () => {
     console.log('Checking Permission Function called');
     if (Platform.OS === 'ios') {
@@ -54,17 +57,23 @@ const SurveyDescription = props => {
     let date = new Date();
     let pdf_url = 'https://vmadminpanel.com/admin/generate-pdf/21/269';
     let PictureDir = fs.dirs.PictureDir;
+    let path =
+      PictureDir +
+      '/Survey_result' +
+      Math.floor(date.getTime() + date.getSeconds() / 2) +
+      '.pdf';
     let options = {
       fileCache: true,
       addAndroidDownloads: {
         //Related to the Android only
         useDownloadManager: true,
         notification: true,
-        path:
-          PictureDir +
-          '/Survey_result' +
-          Math.floor(date.getTime() + date.getSeconds() / 2) +
-          '.pdf',
+        // mime: `${path}/pdf`,
+        path: path,
+        // PictureDir +
+        // '/Survey_result' +
+        // Math.floor(date.getTime() + date.getSeconds() / 2) +
+        // '.pdf',
         description: 'Result file',
       },
     };
@@ -78,13 +87,14 @@ const SurveyDescription = props => {
           ToastAndroid.LONG,
           ToastAndroid.BOTTOM,
         );
+        // android.actionViewIntent(res.path(), `${path}/pdf`);
       })
       .catch(error => {
         console.log(error);
       });
   };
 
-  const {name, description, start_time, end_time, is_attempted} =
+  const {name, description, start_time, end_time, is_attempted, date_created} =
     props.route.params.data;
   return (
     <View style={styles.container}>
@@ -119,7 +129,7 @@ const SurveyDescription = props => {
         <Text style={styles.description}>{description}</Text>
         <View style={styles.dateContainer}>
           <Text style={styles.dateText}>Start Date: </Text>
-          <Text style={styles.date}>{start_time}</Text>
+          <Text style={styles.date}>{start_time || date_created}</Text>
         </View>
         <View style={styles.dateContainer}>
           <Text style={styles.dateText}>End Date: </Text>

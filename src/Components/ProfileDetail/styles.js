@@ -3,7 +3,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     // backgroundColor: '#eaeaea',
-    padding: 8,
+    padding: 4,
     marginRight: 16,
     // elevation: 8,
   },

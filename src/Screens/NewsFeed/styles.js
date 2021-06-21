@@ -94,8 +94,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   post: {
-    color: '#626262',
-    padding: 16,
+    color: '#000',
+    paddingLeft: 16,
+    paddingBottom: 8,
   },
 });
 export default styles;

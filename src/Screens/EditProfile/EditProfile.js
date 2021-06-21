@@ -48,7 +48,7 @@ const EditProfile = props => {
         setBase64(`${image.data}`);
         // setImage(`${image.data}`);
         setImage(image.path);
-        console.log('Base64=>', image.data);
+        // console.log('Base64=>', image.data);
         // blob = `${image.data}`;
         isVisible(false);
       })
@@ -56,7 +56,7 @@ const EditProfile = props => {
         console.log(e);
       });
   };
-  console.log('Blob is', useImage);
+  // console.log('Blob is', useImage);
   const openGallery = () => {
     ImagePicker.openPicker({
       width: 300,
@@ -70,7 +70,7 @@ const EditProfile = props => {
         setBase64(`${image.data}`);
         // setImage(`${image.data}`);
         setImage(image.path);
-        console.log('Base64=>', image.data);
+        // console.log('Base64=>', image.data);
         // blob = `${image.data}`;
         isVisible(false);
       })
@@ -83,7 +83,7 @@ const EditProfile = props => {
   };
   const lastName = lastNamedata => {
     setlname(lastNamedata);
-    console.log(lname);
+    // console.log(lname);
   };
   const mobile = phonedata => {
     setphone(phonedata);
@@ -101,7 +101,6 @@ const EditProfile = props => {
     setZipCode(zipData);
   };
   function onProfileSubmit() {
-    // console.log('Main Edit Profile', fname, lname);
     props.editProfile(
       fname,
       lname,
@@ -111,21 +110,21 @@ const EditProfile = props => {
       state,
       zipCode,
       base64Data,
+      ToastAndroid,
+      props.navigation,
     );
   }
-  // console.log(
-  //   props.userdata.editProfile.loading === false &&
-  //     props.userdata.editProfile.userdata.status === 1,
-  // );
   if (
+    props.userdata &&
+    props.userdata.editProfile &&
     props.userdata.editProfile.loading === false &&
     props.userdata.editProfile.userdata.status === 1
   ) {
-    ToastAndroid.showWithGravity(
-      'Successfully Updated',
-      ToastAndroid.SHORT,
-      ToastAndroid.BOTTOM,
-    );
+    // ToastAndroid.showWithGravity(
+    //   'Successfully Updated',
+    //   ToastAndroid.SHORT,
+    //   ToastAndroid.BOTTOM,
+    // );
   } else if (
     props.userdata.editProfile.loading === false &&
     props.userdata.editProfile.userdata.status === 0
@@ -261,7 +260,7 @@ const UserDetails = props => {
   );
 };
 const mapStateToProps = state => {
-  console.log('Edit State is-->', state);
+  // console.log('Edit State is-->', state);
   return {
     userdata: state,
   };

@@ -22,6 +22,12 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
   },
+  mainIcon: {
+    marginLeft: 12,
+    marginRight: 12,
+    width: 30,
+    height: 30,
+  },
   heading: {
     fontSize: 20,
     color: '#000',

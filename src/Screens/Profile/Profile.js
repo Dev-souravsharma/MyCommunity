@@ -24,9 +24,9 @@ const Profile = ({profileData, userdata}) => {
   // console.log(userdata.userdata.detail);
   // console.log(userdata.userdata);
   // console.log('Sourav', userdata);
-  const [userDefaultImage, setDefaultImage] = useState(
-    'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
-  );
+  // const [userDefaultImage, setDefaultImage] = useState(
+  //   'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
+  // );
   const load = userdata.loading;
   const id = 269;
   useEffect(() => {

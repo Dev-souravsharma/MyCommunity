@@ -94,6 +94,7 @@ const Login = ({loginData, userdata, navigation}) => {
                 title={english.password}
                 icon={AppIcons.password}
                 value={password}
+                isPasswordInput={true}
                 onTextChange={pass}
                 onBlur={passwordValidate}
               />

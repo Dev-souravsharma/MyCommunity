@@ -16,7 +16,7 @@ const CustomDrawerContent = props => {
   const [userProfileImage, setProfileImage] = useState(
     'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
   );
-  const [userProfileName, setUserProfileName] = useState('');
+  const [userProfileName, setUserProfileName] = useState('demo');
   // useEffect(() => {
   //   getData();
   // }, []);
