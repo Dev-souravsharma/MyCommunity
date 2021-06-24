@@ -11,6 +11,7 @@ import JoinSurvey from './JoinSurvey';
 import Notification from './Notification';
 import QuickLinks from './QuickLinks';
 import MyWebComponent from '../Components/WebView';
+import GMap from '../Components/GMap';
 export {
   Splash,
   Login,
@@ -25,4 +26,5 @@ export {
   Notification,
   QuickLinks,
   MyWebComponent,
+  GMap,
 };

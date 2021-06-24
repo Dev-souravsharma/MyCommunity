@@ -25,5 +25,6 @@ const AppIcons = {
   send: require('../../assets/Icons/send.png'),
   add: require('../../assets/Icons/add.png'),
   remove: require('../../assets/Icons/remove.png'),
+  marker: require('../../assets/Icons/maplocation.png'),
 };
 export default AppIcons;

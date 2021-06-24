@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: 16,
     marginRight: 16,
-    marginTop: 16,
+    marginTop: 8,
+    marginBottom: 8,
   },
   eventDetailPosition: {
     flex: 1,
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
   },
   mapText: {
     color: '#FFA000',
-    fontSize: 16,
+    // fontSize: 16,
   },
   venue: {
     fontSize: 16,

@@ -17,6 +17,7 @@ import {english} from '../../utils/Language';
 import {getProfile} from '../../redux/actions/action';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Profile = ({profileData, userdata}) => {
   const navigation = useNavigation();
   const [loading, setLoading] = useState(true);
@@ -27,6 +28,25 @@ const Profile = ({profileData, userdata}) => {
   // const [userDefaultImage, setDefaultImage] = useState(
   //   'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=200',
   // );
+  console.log(userdata.userdata);
+  const onclick = () => {
+    let letuserdata = {
+      fstname: userdata.userdata.detail.first_name,
+      lstname: userdata.userdata.detail.last_name,
+      address: userdata.userdata.detail.address,
+      email: userdata.userdata.detail.email,
+      phone: userdata.userdata.detail.phone,
+      community: userdata.userdata.detail.communityName,
+      state: userdata.userdata.detail.state,
+      zipCodee: userdata.userdata.detail.zipcode,
+      profile: userdata.userdata.detail.userImage,
+    };
+    console.log('Profile Data Test', letuserdata);
+    navigation.navigate('EditProfile', {
+      screen: 'EditProfile',
+      params: {eventData: letuserdata},
+    });
+  };
   const load = userdata.loading;
   const id = 269;
   useEffect(() => {
@@ -45,6 +65,21 @@ const Profile = ({profileData, userdata}) => {
   // if (loading === false) {
   //   // userdata
   // }
+  const storeData = async profile => {
+    try {
+      await AsyncStorage.setItem('isProfile', profile);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  if (
+    userdata.loading === false &&
+    userdata.userdata &&
+    userdata.userdata.detail &&
+    userdata.userdata.detail.userImage
+  ) {
+    storeData(userdata.userdata.detail.userImage);
+  }
 
   return (
     <View style={styles.container}>
@@ -78,6 +113,7 @@ const Profile = ({profileData, userdata}) => {
               icon={AppIcons.location}
               detail={userdata.userdata.detail.address}
               map="View on Map"
+              navigation={navigation}
             />
             <ProfileDetail
               icon={AppIcons.email}
@@ -97,6 +133,7 @@ const Profile = ({profileData, userdata}) => {
                 navigate="EditProfile"
                 screen="EditProfile"
                 isProfile={true}
+                onPress={onclick}
                 profileData={{
                   fstname: userdata.userdata.detail.first_name,
                   lstname: userdata.userdata.detail.last_name,

@@ -17,7 +17,7 @@ const SurveyDescription = props => {
   // * Checking Permission
   const {config, fs} = RNFetchBlob;
 
-  // const android = RNFetchBlob.android;
+  const android = RNFetchBlob.android;
 
   const checkingPermission = async () => {
     console.log('Checking Permission Function called');
@@ -57,19 +57,17 @@ const SurveyDescription = props => {
     let date = new Date();
     let pdf_url = 'https://vmadminpanel.com/admin/generate-pdf/21/269';
     let PictureDir = fs.dirs.PictureDir;
-    let path =
-      PictureDir +
-      '/Survey_result' +
-      Math.floor(date.getTime() + date.getSeconds() / 2) +
-      '.pdf';
     let options = {
       fileCache: true,
       addAndroidDownloads: {
-        //Related to the Android only
         useDownloadManager: true,
         notification: true,
         // mime: `${path}/pdf`,
-        path: path,
+        path:
+          PictureDir +
+          '/Survey_result' +
+          Math.floor(date.getTime() + date.getSeconds() / 2) +
+          '.pdf',
         // PictureDir +
         // '/Survey_result' +
         // Math.floor(date.getTime() + date.getSeconds() / 2) +
@@ -87,15 +85,22 @@ const SurveyDescription = props => {
           ToastAndroid.LONG,
           ToastAndroid.BOTTOM,
         );
-        // android.actionViewIntent(res.path(), `${path}/pdf`);
+        android.actionViewIntent(res.data, 'application/pdf');
       })
       .catch(error => {
         console.log(error);
       });
   };
 
-  const {name, description, start_time, end_time, is_attempted, date_created} =
-    props.route.params.data;
+  const {
+    name,
+    description,
+    start_time,
+    end_time,
+    is_attempted,
+    date_created,
+    title,
+  } = props.route.params.data;
   return (
     <View style={styles.container}>
       {/* #A 20210526 SS - Menu Container Created */}
@@ -117,7 +122,7 @@ const SurveyDescription = props => {
       </View> */}
       <Menu
         background="#FFA000"
-        title={name}
+        title={name || title}
         goBack={() => {
           props.navigation.goBack();
         }}

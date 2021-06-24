@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
     color: '#000',
     paddingLeft: 16,
     paddingBottom: 8,
+    paddingTop: 4,
   },
 });
 export default styles;

@@ -5,7 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import styles from './styles';
 const CustomButton = props => {
   // #A 20210514 SS - Destructuring Values
-  const {title, navigate, screen} = props;
+  let {title, navigate, screen, onPress} = props;
 
   // #A 20210514 SS - navigation instance
   const navigation = useNavigation();
@@ -46,7 +46,7 @@ const CustomButton = props => {
     }
     // Edit Profile
     if (props.isEditProfile) {
-      props.onPress();
+      // onPress
       console.log('Edit profile clicked');
     }
   }
@@ -55,7 +55,7 @@ const CustomButton = props => {
       <Pressable
         android_ripple={{borderless: false, color: '#0F0'}}
         style={styles.button}
-        onPress={valid}>
+        onPress={onPress}>
         <Text style={styles.title}>{title}</Text>
       </Pressable>
     </View>

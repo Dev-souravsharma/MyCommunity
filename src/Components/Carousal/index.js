@@ -1,19 +1,21 @@
 import React from 'react';
-import {View, Image, FlatList} from 'react-native';
-import styles from './styles';
+import {View} from 'react-native';
+// import styles from './styles';
+import {SliderBox} from 'react-native-image-slider-box';
+// import {AppImages} from '../../utils/Themes';
 const Carousal = props => {
-  // console.log(props.data);
+  let images = [
+    'https://source.unsplash.com/1024x768/?nature',
+    'https://source.unsplash.com/1024x768/?water',
+    'https://source.unsplash.com/1024x768/?tree', // Network image
+  ];
   return (
     <View>
-      <FlatList
-        data={props.data}
-        horizontal={true}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => (
-          <View style={styles.imageContainer}>
-            <Image source={item.image} style={styles.image} />
-          </View>
-        )}
+      <SliderBox
+        images={images}
+        sliderBoxHeight={400}
+        // onCurrentImagePressed={index => console.warn(`image ${index} pressed`)}
+        // parentWidth={this.state.width}
       />
     </View>
   );

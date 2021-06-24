@@ -206,9 +206,9 @@ const NewsFeed = ({navigation, newsFeedData, userdata, postData}) => {
                           <Text style={styles.subTitle}>{item.date}</Text>
                         </View>
                       </View> */}
-                      <View style={styles.comment}>
+                      {/* <View style={styles.comment}>
                         <Text>{item.comments}</Text>
-                      </View>
+                      </View> */}
                     </View>
                   </View>
                 </View>

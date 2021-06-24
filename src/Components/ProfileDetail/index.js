@@ -9,7 +9,10 @@ const ProfileDetail = props => {
       </View>
       <View style={styles.detail}>
         <Text style={styles.title}>{props.detail}</Text>
-        <Pressable>
+        <Pressable
+          onPress={() => {
+            props.navigation.navigate('GMap');
+          }}>
           <Text style={styles.map}>{props.map}</Text>
         </Pressable>
       </View>

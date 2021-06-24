@@ -220,7 +220,7 @@ export const postError = error => {
 // ----------ACTION CREATOR----------------------
 
 // Login actionCreator
-export function login(email, password, nav, AsyncStorage) {
+export function login(email, password, nav, AsyncStorage, ToastAndroid) {
   const data = {
     deviceType: 'iphone',
     // Password is demo
@@ -234,19 +234,29 @@ export function login(email, password, nav, AsyncStorage) {
     dispatch(loginRequest());
     RestClient.postRequest('login', data)
       .then(result => {
-        console.log('Action Creator Result', result);
+        console.log('Action Creator Result====>', result);
         // console.log('Login Processing...');
         dispatch(loginSuccess(result));
+        if (result.status === 0) {
+          ToastAndroid.showWithGravity(
+            'Check Username and Password',
+            ToastAndroid.SHORT,
+            ToastAndroid.BOTTOM,
+          );
+        }
         // console.log('After Login Processing...');
-        dispatch(
-          navigateToHome(
-            result.status,
-            nav,
-            AsyncStorage,
-            result.firstName + ' ' + result.lastName,
-            result.profilePic,
-          ),
-        );
+        if (result.status === 1) {
+          dispatch(
+            navigateToHome(
+              result.status,
+              nav,
+              AsyncStorage,
+              result.firstName + ' ' + result.lastName,
+              result.profilePic,
+              result.userId,
+            ),
+          );
+        }
       })
       .catch(error => {
         // console.log(error);
@@ -262,7 +272,7 @@ export function getProfile(id) {
   };
   return dispatch => {
     dispatch(profileRequest());
-    RestClient.getProfile('getuserprofile', profileData)
+    RestClient.postRequest('getuserprofile', profileData)
       .then(result => {
         // console.log(
         //   '------------------------------',
@@ -285,7 +295,7 @@ export function getEvent() {
   };
   return dispatch => {
     dispatch(eventRequest());
-    RestClient.getEvents('geteventslist', eventData)
+    RestClient.postRequest('geteventslist', eventData)
       .then(result => {
         console.log('ACTION GETEVENT', result);
         dispatch(eventSuccess(result));
@@ -308,7 +318,7 @@ export function getNewsFeed() {
   };
   return dispatch => {
     dispatch(newsFeedRequest());
-    RestClient.getNewsFeed('news_feed_listing', newsFeedData)
+    RestClient.postRequest('news_feed_listing', newsFeedData)
       .then(result => {
         console.log('ACTION NewsFeed DATA', result);
         dispatch(newsFeedSuccess(result));
@@ -348,7 +358,7 @@ export function getEditProfile(
   };
   return dispatch => {
     dispatch(editProfileRequest());
-    RestClient.getEditProfile('edituserprofile', editProfileData)
+    RestClient.GetEditProfile('edituserprofile', editProfileData)
       .then(result => {
         console.log('Action Creator Result', result);
         dispatch(editProfileSuccess(result));
@@ -360,10 +370,13 @@ export function getEditProfile(
             ToastAndroid.BOTTOM,
           );
         }
+        dispatch(getProfile(269));
+        dispatch(getNewsFeed());
       })
       .catch(error => {
         // console.log(error);
         dispatch(editProfileError(error));
+        dispatch(getProfile(269));
       });
   };
 }
@@ -401,7 +414,7 @@ export function getSurveyList() {
   };
   return dispatch => {
     dispatch(surveyListRequest());
-    RestClient.postSurvey('survey-listing', surveyList)
+    RestClient.postRequest('survey-listing', surveyList)
       .then(result => {
         // console.log('ACTION NewsFeed DATA', result);
         dispatch(surveyListSuccess(result));
@@ -419,7 +432,7 @@ export function getQuickLinks() {
   };
   return dispatch => {
     dispatch(quickLinksRequest());
-    RestClient.postQuickLinks('getmedialist', quickLinks)
+    RestClient.postRequest('getmedialist', quickLinks)
       .then(result => {
         // console.log('ACTION NewsFeed DATA', result);
         dispatch(quickLinksSuccess(result));
@@ -438,7 +451,7 @@ export function getLogout() {
   };
   return dispatch => {
     dispatch(logOutRequest());
-    RestClient.getEvents('logout', logoutData)
+    RestClient.postRequest('logout', logoutData)
       .then(result => {
         dispatch(logOutSuccess(result));
       })
@@ -482,30 +495,26 @@ export function getPost(postText, url) {
 }
 
 // LOGOUT action creator
-export function navigateToHome(status, nav, AsyncStorage, name, profilePic) {
+export function navigateToHome(
+  status,
+  nav,
+  AsyncStorage,
+  name,
+  profilePic,
+  userId,
+) {
   if (status === 1) {
-    const storeData = async (value, profile) => {
+    const storeData = async (value, profile, user_Id) => {
       try {
         await AsyncStorage.setItem('isAuth', `${status}`);
         await AsyncStorage.setItem('isName', value);
-        await AsyncStorage.setItem('isProfile', profilePic);
-        // await AsyncStorage.setItem('username',);
+        await AsyncStorage.setItem('isProfile', profile);
+        await AsyncStorage.setItem('isuserId', user_Id);
       } catch (e) {
-        // saving error
         console.log(e);
       }
     };
-    storeData(name, profilePic);
-    // const storeName = async value => {
-    //   try {
-    //     await AsyncStorage.setItem('isAuth', value);
-    //     // await AsyncStorage.setItem('username',);
-    //   } catch (e) {
-    //     // saving error
-    //     console.log(e);
-    //   }
-    // };
-    // storeData();
+    storeData(name, profilePic, userId);
     nav.replace('NewsFeeds', {
       screen: 'NewsFeed',
     });

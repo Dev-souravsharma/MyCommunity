@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
   image: {
     height: '100%',
-    width: 400,
+    width: 380,
     resizeMode: 'stretch',
   },
 });

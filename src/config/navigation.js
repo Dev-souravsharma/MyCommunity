@@ -132,6 +132,7 @@ function MainStackNavigation() {
       <Stack.Screen name="SurveyDescription" component={SurveyDescription} />
       <Stack.Screen name="JoinSurvey" component={JoinSurvey} />
       <Stack.Screen name="WebView" component={AppScreen.MyWebComponent} />
+      <Stack.Screen name="GMap" component={AppScreen.GMap} />
     </Stack.Navigator>
   );
 }
@@ -223,5 +224,6 @@ const styles = StyleSheet.create({
   icon: {
     width: 30,
     height: 30,
+    resizeMode: 'center',
   },
 });

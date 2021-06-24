@@ -21,7 +21,7 @@ import {bindActionCreators} from 'redux';
 import {getEditProfile} from '../../redux/actions/action';
 
 const EditProfile = props => {
-  // console.log('GSHS<JDSFJSDHFJKDFHDSKJFHDSKJF', props.route.params);
+  console.log('GSHS<JDSFJSDHFJKDFHDSKJFHDSKJF', props);
   let profileUser = props.route.params.eventData;
   const [fname, setfname] = useState(profileUser.fstname);
   const [lname, setlname] = useState(profileUser.lstname);
@@ -100,7 +100,8 @@ const EditProfile = props => {
   const ZipCode = zipData => {
     setZipCode(zipData);
   };
-  function onProfileSubmit() {
+  const onProfileSubmit = () => {
+    console.log('Edit Profile');
     props.editProfile(
       fname,
       lname,
@@ -113,28 +114,30 @@ const EditProfile = props => {
       ToastAndroid,
       props.navigation,
     );
-  }
-  if (
-    props.userdata &&
-    props.userdata.editProfile &&
-    props.userdata.editProfile.loading === false &&
-    props.userdata.editProfile.userdata.status === 1
-  ) {
-    // ToastAndroid.showWithGravity(
-    //   'Successfully Updated',
-    //   ToastAndroid.SHORT,
-    //   ToastAndroid.BOTTOM,
-    // );
-  } else if (
-    props.userdata.editProfile.loading === false &&
-    props.userdata.editProfile.userdata.status === 0
-  ) {
-    ToastAndroid.showWithGravity(
-      'Something went Wrong',
-      ToastAndroid.SHORT,
-      ToastAndroid.BOTTOM,
-    );
-  }
+    // if (
+    //   props.userdata &&
+    //   props.userdata.editProfile &&
+    //   props.userdata.editProfile.loading === false &&
+    //   props.userdata.editProfile.userdata.status === 1
+    // ) {
+    //   // ToastAndroid.showWithGravity(
+    //   //   'Successfully Updated',
+    //   //   ToastAndroid.SHORT,
+    //   //   ToastAndroid.BOTTOM,
+    //   // );
+    // } else if (
+    //   props.userdata.editProfile.loading === false &&
+    //   props.userdata.editProfile.userdata.status === 0
+    // ) {
+    //   ToastAndroid.showWithGravity(
+    //     'Something went Wrong',
+    //     ToastAndroid.SHORT,
+    //     ToastAndroid.BOTTOM,
+    //   );
+    // }
+    navigation.navigate('Profile');
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.menuContainer}>

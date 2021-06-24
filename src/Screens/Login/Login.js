@@ -1,6 +1,13 @@
 import React from 'react';
 import {useState} from 'react';
-import {Image, ScrollView, View, ActivityIndicator, Alert} from 'react-native';
+import {
+  Image,
+  ScrollView,
+  View,
+  ActivityIndicator,
+  Alert,
+  ToastAndroid,
+} from 'react-native';
 import {connect} from 'react-redux';
 import CustomButton from '../../Components/Button';
 import {bindActionCreators} from 'redux';
@@ -38,38 +45,39 @@ const Login = ({loginData, userdata, navigation}) => {
   // const checkClick = flag => {
   //   setClick(flag);
   // };
-  function userNameValidate() {
-    let isValid = isUserName(email.length);
-    if (!isValid) {
-      Alert.alert('Name length should be 4');
-    }
-  }
-  function passwordValidate() {
-    let isValid = isPassword(password.length);
-    if (!isValid) {
-      // alert('Password length should be 4');
-    }
-  }
+  // function userNameValidate() {
+  //   let isValid = isUserName(email.length);
+  //   if (!isValid) {
+  //     Alert.alert('Name length should be 4');
+  //   }
+  // }
+  // function passwordValidate() {
+  //   let isValid = isPassword(password.length);
+  //   if (!isValid) {
+  //     // alert('Password length should be 4');
+  //   }
+  // }
   function onSubmit() {
-    if (email.length < 4 && password.length < 4) {
-      return true;
+    console.log('Username', username);
+    if (email === '' && password === '') {
+      ToastAndroid.showWithGravity(
+        'Name and Password is Empty',
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM,
+      );
     } else {
-      return false;
+      loginData(email, password, navigation, AsyncStorage, ToastAndroid);
     }
   }
-  function getLoginData() {
-    loginData(email, password, navigation, AsyncStorage);
-    // setLoading(userdata.loading);
-  }
-  if (userdata.loading === false && userdata.userdata.status === 0) {
-    // setStatus(userdata.userdata.status);
-    // }
-    // alert('Check email and password');
-    console.log('Check username and Password');
-  }
-  if (userdata.loading === true) {
-    console.log('Loading');
-  }
+  // if (userdata.loading === false && userdata.userdata.status === 0) {
+  //   // setStatus(userdata.userdata.status);
+  //   // }
+  //   // alert('Check email and password');
+  //   console.log('Check username and Password');
+  // }
+  // if (userdata.loading === true) {
+  //   console.log('Loading');
+  // }
   // console.log('Status is', status);
   return (
     <View style={styles.contain}>
@@ -87,7 +95,7 @@ const Login = ({loginData, userdata, navigation}) => {
                 // successIcon={AppIcons.success}
                 onTextChange={username}
                 value={email}
-                onBlur={userNameValidate}
+                // onBlur={userNameValidate}
               />
               <InputText
                 placeholder={english.password}
@@ -96,7 +104,7 @@ const Login = ({loginData, userdata, navigation}) => {
                 value={password}
                 isPasswordInput={true}
                 onTextChange={pass}
-                onBlur={passwordValidate}
+                // onBlur={passwordValidate}
               />
 
               <View style={styles.buttonContainer}>
@@ -107,7 +115,7 @@ const Login = ({loginData, userdata, navigation}) => {
                   isLogin={true}
                   // loginStatus={userdata.userdata.status}
                   onPress={onSubmit}
-                  loginApi={getLoginData}
+                  // loginApi={getLoginData}
                 />
                 {userdata.loading === true && (
                   <View style={styles.progress}>

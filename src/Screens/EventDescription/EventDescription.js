@@ -35,7 +35,12 @@ const EventDescription = props => {
             <Image style={styles.backIcon} source={AppIcons.back} />
           </Pressable>
         </View>
-        <EventDetail title={venue} icon={AppIcons.location} />
+        <EventDetail
+          title={venue}
+          icon={AppIcons.location}
+          map={true}
+          navigation={props.navigation}
+        />
         <EventDetail
           title={eventDesc === '' && 'Description not avaliable'}
           icon={AppIcons.document}
@@ -52,6 +57,14 @@ const EventDetail = props => {
       </View>
       <View style={styles.venueContainer}>
         <Text style={styles.venue}>{props.title}</Text>
+        {props.map && (
+          <Pressable
+            onPress={() => {
+              props.navigation.navigate('GMap');
+            }}>
+            <Text style={styles.mapText}>View on Map</Text>
+          </Pressable>
+        )}
       </View>
     </View>
   );
