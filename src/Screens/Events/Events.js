@@ -114,36 +114,36 @@ const Events = ({eventData, navigation, userdata}) => {
   // }
   return (
     <View style={styles.container}>
-      {loading === true && (
-        <View style={styles.progress}>
-          {loading && <ActivityIndicator size="large" color="#00ff00" />}
-        </View>
-      )}
-      {loading === false && (
-        <View style={styles.container}>
-          <Toolbar navigation={navigation} title={english.events} />
-          {/* #A 20210521 SS - Search View */}
-          <View style={styles.searchContainer}>
-            <View style={styles.search}>
-              <View style={styles.searchIconPosition}>
-                <Image source={AppIcons.search} style={styles.searchIcon} />
-              </View>
-              <View style={styles.searchInput}>
-                <TextInput
-                  placeholder={english.placeHolderFilterSearch}
-                  placeholderTextColor="#626262"
-                  style={styles.textInput}
-                  onChangeText={x => {
-                    doSearch(x);
-                  }}
-                />
-              </View>
+      <View style={styles.container}>
+        <Toolbar navigation={navigation} title={english.events} />
+        {/* #A 20210521 SS - Search View */}
+        <View style={styles.searchContainer}>
+          <View style={styles.search}>
+            <View style={styles.searchIconPosition}>
+              <Image source={AppIcons.search} style={styles.searchIcon} />
+            </View>
+            <View style={styles.searchInput}>
+              <TextInput
+                placeholder={english.placeHolderFilterSearch}
+                placeholderTextColor="#626262"
+                style={styles.textInput}
+                onChangeText={x => {
+                  doSearch(x);
+                }}
+              />
             </View>
           </View>
-          <View style={styles.imageCarousal}>
-            <Carousal data={ImageData} />
+        </View>
+        <View style={styles.imageCarousal}>
+          <Carousal data={ImageData} />
+        </View>
+        {loading === true && (
+          <View style={styles.progress}>
+            {loading && <ActivityIndicator size="large" color="#00ff00" />}
           </View>
-          <View style={styles.flatList}>
+        )}
+        <View style={styles.flatList}>
+          {loading === false && (
             <FlatList
               data={userdata.userdata.eventsList.filter(foundData)}
               keyExtractor={item => item.eventId}
@@ -165,9 +165,9 @@ const Events = ({eventData, navigation, userdata}) => {
                 );
               }}
             />
-          </View>
+          )}
         </View>
-      )}
+      </View>
     </View>
   );
 };

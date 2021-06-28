@@ -55,19 +55,19 @@ const Notification = ({navigation, userdata, notificationData}) => {
   // console.log('Notification=>', userdata.userdata.resultList);
   return (
     <View style={styles.container}>
-      {userdata.loading === true && (
-        <View style={styles.progress}>
-          {<ActivityIndicator size="large" color="#00ff00" />}
+      <View style={styles.container}>
+        <View>
+          <Toolbar navigation={navigation} title="Notification" />
         </View>
-      )}
-      {userdata.loading === false && (
-        <View style={styles.container}>
-          <View>
-            <Toolbar navigation={navigation} title="Notification" />
+        <View style={styles.carousalContainer}>
+          <Carousal data={ImageData} />
+        </View>
+        {userdata.loading === true && (
+          <View style={styles.progress}>
+            {<ActivityIndicator size="large" color="#00ff00" />}
           </View>
-          <View style={styles.carousalContainer}>
-            <Carousal data={ImageData} />
-          </View>
+        )}
+        {userdata.loading === false && (
           <FlatList
             data={userdata.userdata.resultList}
             keyExtractor={item => item.eventId}
@@ -136,8 +136,8 @@ const Notification = ({navigation, userdata, notificationData}) => {
               );
             }}
           />
-        </View>
-      )}
+        )}
+      </View>
     </View>
   );
 };

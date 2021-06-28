@@ -5,7 +5,6 @@ import {
   ScrollView,
   View,
   ActivityIndicator,
-  Alert,
   ToastAndroid,
 } from 'react-native';
 import {connect} from 'react-redux';
@@ -16,7 +15,7 @@ import {login} from '../../redux/actions/action';
 import {english} from '../../utils/Language';
 import {AppIcons} from '../../utils/Themes';
 import styles from './styles';
-import {isPassword, isUserName} from './Validation';
+// import {isPassword, isUserName} from './Validation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const Login = ({loginData, userdata, navigation}) => {
   const [email, setEmail] = useState('');

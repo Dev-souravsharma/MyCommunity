@@ -4,7 +4,6 @@ import {
   View,
   Image,
   Pressable,
-  Alert,
   FlatList,
   ActivityIndicator,
 } from 'react-native';
@@ -14,9 +13,9 @@ import Toolbar from '../../Components/Toolbar';
 import {getQuickLinks} from '../../redux/actions/action';
 import {english} from '../../utils/Language';
 import {AppIcons} from '../../utils/Themes';
-import {WebView} from 'react-native-webview';
+// import {WebView} from 'react-native-webview';
 import styles from './styles';
-import MyWebComponent from '../../Components/WebView';
+// import MyWebComponent from '../../Components/WebView';
 const QuickLinks = ({navigation, quickLinks, userdata}) => {
   useEffect(() => {
     quickLinks();
@@ -25,13 +24,15 @@ const QuickLinks = ({navigation, quickLinks, userdata}) => {
   return (
     <View style={styles.container}>
       <Toolbar title={english.constantQuickLinks} navigation={navigation} />
-      {userdata.loading === true && (
-        <View style={styles.progress}>
-          {<ActivityIndicator size="large" color="#00ff00" />}
-        </View>
-      )}
-      {userdata.loading === false && (
-        <View style={styles.container}>
+
+      <View style={styles.container}>
+        {userdata.loading === true && (
+          <View style={styles.progress}>
+            {<ActivityIndicator size="large" color="#00ff00" />}
+          </View>
+        )}
+
+        {userdata.loading === false && (
           <FlatList
             data={userdata.userdata.list}
             keyExtractor={item => item.feedId}
@@ -58,8 +59,8 @@ const QuickLinks = ({navigation, quickLinks, userdata}) => {
               );
             }}
           />
-        </View>
-      )}
+        )}
+      </View>
     </View>
   );
 };

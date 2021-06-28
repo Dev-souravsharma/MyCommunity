@@ -55,14 +55,14 @@ const Survey = ({surveyListData, navigation, userdata}) => {
   }, [surveyListData]);
   return (
     <View style={styles.loadingContainer}>
-      {userdata.loading === true && (
-        <View style={styles.progress}>
-          {<ActivityIndicator size="large" color="#00ff00" />}
-        </View>
-      )}
-      {userdata.loading === false && (
-        <View>
-          <Toolbar navigation={navigation} title={english.survey} />
+      <View style={styles.contain}>
+        <Toolbar navigation={navigation} title={english.survey} />
+        {userdata.loading === true && (
+          <View style={styles.progress}>
+            {<ActivityIndicator size="large" color="#00ff00" />}
+          </View>
+        )}
+        {userdata.loading === false && (
           <FlatList
             data={userdata.userdata.payload}
             keyExtractor={item => item.id}
@@ -88,8 +88,8 @@ const Survey = ({surveyListData, navigation, userdata}) => {
               </View>
             )}
           />
-        </View>
-      )}
+        )}
+      </View>
     </View>
   );
 };

@@ -9,6 +9,9 @@ const styles = StyleSheet.create({
   loadingContainer: {
     flex: 1,
   },
+  contain: {
+    flex: 1,
+  },
   titleContainer: {
     flex: 3,
     marginLeft: 6,

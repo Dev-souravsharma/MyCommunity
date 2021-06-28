@@ -65,9 +65,10 @@ const Profile = ({profileData, userdata}) => {
   // if (loading === false) {
   //   // userdata
   // }
-  const storeData = async profile => {
+  const storeData = async (profile, name) => {
     try {
       await AsyncStorage.setItem('isProfile', profile);
+      await AsyncStorage.setItem('isName', name);
     } catch (e) {
       console.log(e);
     }
@@ -78,7 +79,12 @@ const Profile = ({profileData, userdata}) => {
     userdata.userdata.detail &&
     userdata.userdata.detail.userImage
   ) {
-    storeData(userdata.userdata.detail.userImage);
+    storeData(
+      userdata.userdata.detail.userImage,
+      userdata.userdata.detail.first_name +
+        ' ' +
+        userdata.userdata.detail.last_name,
+    );
   }
 
   return (
@@ -99,7 +105,9 @@ const Profile = ({profileData, userdata}) => {
                 style={styles.user}
               />
               <Text style={styles.userName}>
-                {userdata.userdata.detail.username}
+                {userdata.userdata.detail.first_name +
+                  ' ' +
+                  userdata.userdata.detail.last_name}
               </Text>
             </ImageBackground>
             <Pressable

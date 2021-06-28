@@ -121,19 +121,18 @@ const NewsFeed = ({navigation, newsFeedData, userdata, postData}) => {
   }
   return (
     <View style={styles.container}>
-      {userdata.loading === true && (
-        <View style={styles.progress}>
-          {<ActivityIndicator size="large" color="#00ff00" />}
+      <View style={styles.container}>
+        {/* #A 20210526 SS - Header */}
+        <View>
+          <Toolbar navigation={navigation} isNewsFeed={true} />
         </View>
-      )}
-      {userdata.loading === false && (
-        <View style={styles.container}>
-          {/* #A 20210526 SS - Header */}
-          <View>
-            <Toolbar navigation={navigation} isNewsFeed={true} />
+        {userdata.loading === true && (
+          <View style={styles.progress}>
+            {<ActivityIndicator size="large" color="#00ff00" />}
           </View>
-
-          {/* #A 20210526 SS - Main */}
+        )}
+        {/* #A 20210526 SS - Main */}
+        {userdata.loading === false && (
           <FlatList
             // data={data}
             data={userdata.userdata.payload.listing}
@@ -215,84 +214,83 @@ const NewsFeed = ({navigation, newsFeedData, userdata, postData}) => {
               );
             }}
           />
-
-          {/* User Selected Photo */}
-          {imageUrl !== '' && imageUrl !== undefined && (
-            <View style={styles.selectdImageContainer}>
-              <Image
-                style={styles.userSelectedProfile}
-                source={{
-                  uri: imageUrl,
-                }}
-              />
+        )}
+        {/* User Selected Photo */}
+        {imageUrl !== '' && imageUrl !== undefined && (
+          <View style={styles.selectdImageContainer}>
+            <Image
+              style={styles.userSelectedProfile}
+              source={{
+                uri: imageUrl,
+              }}
+            />
+            <Pressable
+              onPress={() => {
+                setImage(actualImage => {
+                  actualImage = '';
+                });
+              }}>
+              <Image source={AppIcons.remove} style={styles.removeIcon} />
+            </Pressable>
+          </View>
+        )}
+        {/* #A 20210526 SS - Footer */}
+        <View style={styles.footerContainer}>
+          <View style={styles.footer}>
+            <View>
               <Pressable
                 onPress={() => {
+                  isVisible(true);
+                }}>
+                <Image style={styles.icon} source={AppIcons.add} />
+              </Pressable>
+            </View>
+            <View style={styles.inputContainer}>
+              <TextInput
+                placeholder={english.placeHolderWriteHere}
+                style={styles.input}
+                placeholderTextColor="#626262"
+                onChangeText={item => {
+                  setPostTxt(item);
+                }}
+              />
+            </View>
+
+            <View>
+              <Pressable
+                onPress={() => {
+                  if (imageUrl === '' && postTxt === '') {
+                    ToastAndroid.showWithGravity(
+                      'Post is Empty',
+                      ToastAndroid.SHORT,
+                      ToastAndroid.BOTTOM,
+                    );
+                  } else {
+                    ToastAndroid.showWithGravity(
+                      'please wait...',
+                      ToastAndroid.SHORT,
+                      ToastAndroid.BOTTOM,
+                    );
+                    postData(postTxt, imageUrl);
+                  }
                   setImage(actualImage => {
                     actualImage = '';
                   });
                 }}>
-                <Image source={AppIcons.remove} style={styles.removeIcon} />
+                <Image style={styles.icon} source={AppIcons.send} />
               </Pressable>
             </View>
-          )}
-          {/* #A 20210526 SS - Footer */}
-          <View style={styles.footerContainer}>
-            <View style={styles.footer}>
-              <View>
-                <Pressable
-                  onPress={() => {
-                    isVisible(true);
-                  }}>
-                  <Image style={styles.icon} source={AppIcons.add} />
-                </Pressable>
-              </View>
-              <View style={styles.inputContainer}>
-                <TextInput
-                  placeholder={english.placeHolderWriteHere}
-                  style={styles.input}
-                  placeholderTextColor="#626262"
-                  onChangeText={item => {
-                    setPostTxt(item);
-                  }}
-                />
-              </View>
-
-              <View>
-                <Pressable
-                  onPress={() => {
-                    if (imageUrl === '' && postTxt === '') {
-                      ToastAndroid.showWithGravity(
-                        'Post is Empty',
-                        ToastAndroid.SHORT,
-                        ToastAndroid.BOTTOM,
-                      );
-                    } else {
-                      ToastAndroid.showWithGravity(
-                        'please wait...',
-                        ToastAndroid.SHORT,
-                        ToastAndroid.BOTTOM,
-                      );
-                      postData(postTxt, imageUrl);
-                    }
-                    setImage(actualImage => {
-                      actualImage = '';
-                    });
-                  }}>
-                  <Image style={styles.icon} source={AppIcons.send} />
-                </Pressable>
-              </View>
-            </View>
           </View>
-          {/* Modal */}
-          <CustomModal
-            flag={visible}
-            change={changeFlag}
-            openCamera={openCamera}
-            openGallery={openGallery}
-          />
-          {/*  */}
         </View>
-      )}
+        {/* Modal */}
+        <CustomModal
+          flag={visible}
+          change={changeFlag}
+          openCamera={openCamera}
+          openGallery={openGallery}
+        />
+        {/*  */}
+      </View>
     </View>
   );
 };
