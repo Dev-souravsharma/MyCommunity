@@ -2,6 +2,7 @@ import React from 'react';
 import {Image, Pressable, View, Text} from 'react-native';
 import styles from './styles';
 import AppIcons from '../../utils/Themes/icons';
+import {DrawerActions} from '@react-navigation/native';
 
 const Toolbar = props => {
   // console.log('Toolbar', navigation);
@@ -10,7 +11,7 @@ const Toolbar = props => {
       <View style={styles.toolbar}>
         <Pressable
           onPress={() => {
-            props.navigation.openDrawer();
+            props.navigation.dispatch(DrawerActions.toggleDrawer());
           }}>
           <Image source={AppIcons.menu} style={styles.icon} />
         </Pressable>

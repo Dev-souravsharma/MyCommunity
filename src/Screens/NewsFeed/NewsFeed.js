@@ -8,13 +8,14 @@ import {
   FlatList,
   ActivityIndicator,
   ToastAndroid,
+  Alert,
 } from 'react-native';
 import CustomModal from '../../Components/Modal';
 import Toolbar from '../../Components/Toolbar';
 import {english} from '../../utils/Language';
 import AppIcons from '../../utils/Themes/icons';
 import ImagePicker from 'react-native-image-crop-picker';
-
+import messaging from '@react-native-firebase/messaging';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -69,6 +70,48 @@ const NewsFeed = ({navigation, newsFeedData, userdata, postData}) => {
   const [postTxt, setPostTxt] = useState('');
   const [imageUrl, setImage] = useState('');
   // console.log('NewsFeed UI Received', userdata.userdata.payload);
+  useEffect(() => {
+    // Get the device token
+    messaging()
+      .getToken()
+      .then(token => {
+        console.log('Token is', token);
+        // return saveTokenToDatabase(token);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    // messaging().onNotificationOpenedApp(remoteMessage => {
+    //   console.log(
+    //     'Notification caused app to open from background state:',
+    //     remoteMessage.notification,
+    //   );
+    //   console.log('My DATA', remoteMessage.data);
+    //   navigation.navigate(remoteMessage.data.screen);
+    // });
+    // messaging()
+    //   .getInitialNotification()
+    //   .then(remoteMessage => {
+    //     if (remoteMessage) {
+    //       console.log(
+    //         'Notification caused app to open from quit state:',
+    //         remoteMessage.notification,
+    //       );
+    //       navigation.navigate(remoteMessage.data.screen);
+    //       // setInitialRoute('Notification'); // e.g. "Settings"
+    //     }
+    //   });
+    const unsubscribe = messaging().onMessage(async remoteMessage => {
+      console.log(remoteMessage.notification.body);
+      Alert.alert(
+        remoteMessage.notification.title,
+        remoteMessage.notification.body,
+      );
+    });
+
+    return unsubscribe;
+  });
   console.log('Image Url is=>', imageUrl);
   let file = null;
   let userImage = null;

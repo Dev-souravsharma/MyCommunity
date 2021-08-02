@@ -75,5 +75,11 @@ const styles = StyleSheet.create({
     marginRight: 16,
     flex: 3,
   },
+  addToCalender: {
+    width: '60%',
+    marginTop: 8,
+    marginBottom: 16,
+    alignSelf: 'center',
+  },
 });
 export default styles;

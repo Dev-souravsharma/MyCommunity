@@ -20,42 +20,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Login = ({loginData, userdata, navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [isClicked, setClick] = useState(false);
-  // const [status, setStatus] = useState(0);
-  // const [load, setLoading] = useState(false);
-  console.log('Login userData', userdata);
-  // useEffect(() => {
-  //   loginData(email, password);
-  //   setClick(false);
-  //   console.log('State refreshed-----', isClicked);
-  // }, [isClicked]);
-  // useEffect(() => {
-  //   loginData();
-  // }, [loginData]);
   const username = data => {
     setEmail(data);
   };
-  // checking status
-  // console.log('status', userdata.userdata.status);
+
   const pass = data => {
     setPassword(data);
   };
-  // Check Click
-  // const checkClick = flag => {
-  //   setClick(flag);
-  // };
-  // function userNameValidate() {
-  //   let isValid = isUserName(email.length);
-  //   if (!isValid) {
-  //     Alert.alert('Name length should be 4');
-  //   }
-  // }
-  // function passwordValidate() {
-  //   let isValid = isPassword(password.length);
-  //   if (!isValid) {
-  //     // alert('Password length should be 4');
-  //   }
-  // }
+
   function onSubmit() {
     console.log('Username', username);
     if (email === '' && password === '') {
@@ -68,16 +40,7 @@ const Login = ({loginData, userdata, navigation}) => {
       loginData(email, password, navigation, AsyncStorage, ToastAndroid);
     }
   }
-  // if (userdata.loading === false && userdata.userdata.status === 0) {
-  //   // setStatus(userdata.userdata.status);
-  //   // }
-  //   // alert('Check email and password');
-  //   console.log('Check username and Password');
-  // }
-  // if (userdata.loading === true) {
-  //   console.log('Loading');
-  // }
-  // console.log('Status is', status);
+
   return (
     <View style={styles.contain}>
       {
@@ -91,10 +54,8 @@ const Login = ({loginData, userdata, navigation}) => {
                 placeholder={english.username}
                 title={english.username}
                 icon={AppIcons.user}
-                // successIcon={AppIcons.success}
                 onTextChange={username}
                 value={email}
-                // onBlur={userNameValidate}
               />
               <InputText
                 placeholder={english.password}
@@ -103,7 +64,6 @@ const Login = ({loginData, userdata, navigation}) => {
                 value={password}
                 isPasswordInput={true}
                 onTextChange={pass}
-                // onBlur={passwordValidate}
               />
 
               <View style={styles.buttonContainer}>

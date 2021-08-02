@@ -13,12 +13,22 @@ const Splash = props => {
   (async () => {
     try {
       const value = await AsyncStorage.getItem('isAuth');
-      console.log(value);
-      if (value !== null && value === '1') {
+      const notifyValue = await AsyncStorage.getItem('isNoti');
+      console.log(value, notifyValue, global.thisisForValue);
+      if (value !== null && value === '1' && global.thisisForValue === null) {
         // value previously stored
         // setAuth(true);
         setTimeout(function () {
+          console.log('Shubh');
           props.navigation.replace('NewsFeeds');
+        }, 3000);
+      } else if (
+        value !== null &&
+        value === '1' &&
+        global.thisisForValue === 1
+      ) {
+        setTimeout(function () {
+          props.navigation.replace('Notification');
         }, 3000);
       } else {
         setTimeout(function () {

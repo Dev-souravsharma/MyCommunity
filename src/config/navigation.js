@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import * as AppScreen from '../Screens';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -7,6 +7,8 @@ import CustomDrawerContent from '../Components/Drawer';
 import {StyleSheet, Image} from 'react-native';
 import {AppIcons} from '../utils/Themes';
 import {english} from '../utils/Language';
+import messaging from '@react-native-firebase/messaging';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Stack = createStackNavigator();
 const StackLogin = createStackNavigator();
@@ -23,6 +25,25 @@ const StackQuickLinks = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
 // #A 20210516 SS - Screens
+global.thisisForValue = null;
+let valueForChecking = null;
+const navigationRef = React.createRef();
+
+function navigate(name, params) {
+  navigationRef.current && navigationRef.current.navigate(name, params);
+}
+
+(async () => {
+  try {
+    const valueForCheckingLoginState = await AsyncStorage.getItem('isAuth');
+    // const notifyValue = await AsyncStorage.getItem('isNoti');
+    console.log('ValueForChecking', valueForCheckingLoginState);
+    valueForChecking = valueForCheckingLoginState;
+  } catch (e) {
+    // error reading value
+  }
+})();
+
 function LoginScreen() {
   return (
     <StackLogin.Navigator headerMode="none">
@@ -121,7 +142,9 @@ function QuickLinks() {
   );
 }
 // #A 20210516 SS - Main Stack Navigation
-function MainStackNavigation() {
+function MainStackNavigation(props) {
+  console.log('Sourav', props);
+
   return (
     <Stack.Navigator headerMode="none">
       <Stack.Screen name="Splash" component={AppScreen.Splash} />
@@ -133,6 +156,7 @@ function MainStackNavigation() {
       <Stack.Screen name="JoinSurvey" component={JoinSurvey} />
       <Stack.Screen name="WebView" component={AppScreen.MyWebComponent} />
       <Stack.Screen name="GMap" component={AppScreen.GMap} />
+      <Stack.Screen name="Notification" component={Notification} />
     </Stack.Navigator>
   );
 }
@@ -208,9 +232,43 @@ function MainDrawerNavigation() {
   );
 }
 
-export default function Navigation() {
+export default function Navigation(navigation) {
+  // const [initialRoute, setInitialRoute] = useState('Splash');
+  useEffect(() => {
+    // Assume a message-notification contains a "type" property in the data payload of the screen to open
+
+    messaging().onNotificationOpenedApp(remoteMessage => {
+      console.log(
+        'Notification caused app to open from background state:',
+        remoteMessage.notification,
+      );
+      console.log(valueForChecking);
+      if (valueForChecking === '1') {
+        navigate('Notification');
+      } else {
+        navigate('Login');
+      }
+    });
+
+    // Check whether an initial notification is available
+    messaging()
+      .getInitialNotification()
+      .then(remoteMessage => {
+        if (remoteMessage) {
+          console.log(
+            'Notification caused app to open from quit state:',
+            remoteMessage.notification,
+          );
+          // setInitialRoute(remoteMessage.data.screen); // e.g. "Settings"
+          // navigate('Notification');
+          // console.log('Sourav');
+          global.thisisForValue = 1;
+        }
+        // setLoading(false);
+      });
+  }, []);
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <MainStackNavigation />
     </NavigationContainer>
   );

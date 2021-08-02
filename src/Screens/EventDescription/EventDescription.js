@@ -7,11 +7,26 @@ import {
   View,
   Pressable,
 } from 'react-native';
+import CustomButton from '../../Components/Button';
 import {AppIcons, AppImages} from '../../utils/Themes';
 import styles from './styles';
+import * as AddCalendarEvent from 'react-native-add-calendar-event';
 const EventDescription = props => {
   const {event_date, title, venue, eventDesc} = props.route.params.eventData;
   // console.log('Receiving Params', date);
+  function setUTCFormat(dateData) {
+    let array = dateData.split(' ');
+    let [date, time] = array;
+    let finalDate = date + 'T' + time + '.000Z';
+    return finalDate;
+  }
+  let startDate = setUTCFormat(event_date);
+  const eventConfig = {
+    title: 'TestEvent',
+    startDate: startDate,
+    location: 'chandigarh',
+    // and other options
+  };
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -45,6 +60,28 @@ const EventDescription = props => {
           title={eventDesc === '' && 'Description not avaliable'}
           icon={AppIcons.document}
         />
+        <View style={styles.addToCalender}>
+          <CustomButton
+            title="ADD TO CALENDER"
+            onPress={() => {
+              AddCalendarEvent.presentEventCreatingDialog(eventConfig)
+                .then(
+                  (
+                    eventInfo = {
+                      calendarItemIdentifier: '',
+                      eventIdentifier: '',
+                    },
+                  ) => {
+                    console.warn(JSON.stringify(eventInfo));
+                  },
+                )
+
+                .catch(error => {
+                  console.warn(error);
+                });
+            }}
+          />
+        </View>
       </ScrollView>
     </View>
   );

@@ -1,5 +1,5 @@
 apply plugin: "com.android.application"
-
+apply plugin: 'com.google.gms.google-services' // <- Add this line
 import com.android.build.OutputFile
 
 /**
@@ -185,6 +185,11 @@ android {
 }
 
 dependencies {
+     
+    implementation 'com.google.firebase:firebase-analytics:17.3.0' 
+
+    implementation project(':react-native-push-notification')
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
